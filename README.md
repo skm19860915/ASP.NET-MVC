@@ -1,2 +1,7 @@
-# ASP.NET-MVC
-asp.net mvc, c#, mssql, linq to sql, javascript, jquery, html5, css3, google map api, smartystreet, usercontent mangement
+# components
+- c# backend, asp.net mvc, file management
+- fron end development & design
+- ajax communication
+- smartystreet plugins, googlemap api, js framework
+- interface to consume webapi
+- url redirect, dynamic sitemap file, ga script
