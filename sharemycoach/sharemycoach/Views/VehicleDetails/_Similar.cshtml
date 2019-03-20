@@ -1,0 +1,70 @@
+﻿<!--Similar Vehicles View-->
+@section AdditionalMeta
+{
+    <meta name="keywords" content="rv, rental, fleet, rent, motorhome, trailer, toy hauler, ">
+    <meta name="description" content="View our RV rental fleet and select the perfect RV for your next trip. Share My Coach has a huge selection of luxury Class A motorhomes available in southern California.">
+}
+@{
+    var list = ViewBag.SimilarFeaturesInLocation;
+}
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<link href="~/Content/css/location.css" rel="stylesheet" />
+<div class="row">
+    <div class="row pre-header" style="text-align:center;">
+        <hr style="border:1px solid grey; margin-top:-10px;" /><br />
+        <h3 style="color:red; font-style:italic;">That vehicle is no longer in our fleet<br />Please select a similar vehicles from that same location</h3><br /><br />
+        @foreach (var item in list)
+        {
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 vehicle-info">
+                <div class="primary-vehicle-div">
+                    <a href='@Url.Action("Index", "VehicleDetail", new { id = item.WebUniqueId })' class="tile-img">
+                        @if (item.FeaturedVehicle == true)
+                        {
+                            <div><div class="ribbon"><div class="featured-txt">Featured</div></div><img src="data:image/jpg;base64, @item.Photo" class="vehicle-img" /></div>
+                        }
+                        else
+                        {
+                            <div><img src="data:image/jpg;base64, @item.Photo" class="vehicle-img" /></div>
+                        }
+                        @if (string.IsNullOrEmpty(item.Name))
+                        {
+                            <h5 class="vehicle-license">---</h5>
+                        }
+                        else
+                        {
+                            if (item.InsurancePolicy == null)
+                            {
+                                <h5 class="vehicle-license">@item.Name</h5>
+                            }
+                            else
+                            {
+                                <h5 class="vehicle-license">@item.Name<span>&nbsp;&#10033;</span></h5>
+                            }
+                        }
+                        @if (string.IsNullOrEmpty(item.WebRegionalName))
+                        {
+                            <h6 class="vehicle-location">---</h6>
+                        }
+                        else
+                        {
+                            <h6 class="vehicle-location">@item.WebRegionalName</h6>
+                        }
+                        @if (string.IsNullOrEmpty(item.Price))
+                        {
+                            <p class="vehicle-price">---</p>
+                        }
+                        else
+                        {
+                            <p class="vehicle-price">@item.Price</p>
+                        }
+                    </a>
+                </div>
+                <br />
+            </div>
+        }
+    </div>
+
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>

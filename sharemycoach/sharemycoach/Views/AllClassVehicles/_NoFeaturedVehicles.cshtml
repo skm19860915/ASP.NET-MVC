@@ -1,0 +1,39 @@
+﻿<!--Learn More View-->
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<div class="row">
+    <div class="row pre-header" style="padding-top:0px;">
+        <hr class="top-separate-line" />
+        <h2 style="color:black; padding-left:45px;">OOPS</h2>
+        <br />
+        <div class="row">
+            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+            <div class="col-md-10 col-sm-10 col-xs-10">
+                <div class="row">
+                    <h4 style="text-align: justify; color:black; font-weight:normal;">Sorry there are currently no vehicles configured for this location.<br />
+                    <br /> check back soon.<br /><br />Soon either Ricky or Tom give us content.</h4><br /><br /><br /><br /><br /><br />
+                </div>
+            </div>
+            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+        </div>
+    </div>
+    <div class="row pre-header" style="padding-bottom:0px; padding-top:0px;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <img src="~/Content/images/ShowMeHow.png" class="img-responsive" />
+                <div class="carousel-caption">
+                    <a class="btn btn-default show-me-how" href='@Url.Action("Index", "ShowMeHow")'>Show Me How</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>
+<script>
+    $(document).ready(function () {
+        sessionStorage.setItem("CurrentLocationSequenceId", '0');
+        sessionStorage.setItem("CurrentLocationOid", '0');
+    });
+</script>
+

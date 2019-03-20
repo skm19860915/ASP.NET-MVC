@@ -1,0 +1,71 @@
+﻿<!--vehicles for sale View-->
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<link href="~/Content/css/location.css" rel="stylesheet" />
+<link href="~/Content/css/listview.css" rel="stylesheet" />
+<div class="row">
+    <div class="row pre-header" style="padding-top:0px;">
+        <hr class="top-separate-line" />
+        <div class="row">
+            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+            <div class="col-md-10 col-sm-10 col-xs-10">
+                <div class="row" style="padding-top:0px;">
+                    <div class="col-md-3" style="text-align:center;">
+                        <br />
+                        <img src="http://www.sharemycoach.com/userdata/content/images/DateRv.jpg" style="width:150px; height:150px;" />
+                    </div>
+                    <div class="col-md-9">
+                        <h3 style="color:black; padding-left:30px; padding-right:30px;">RV Consignment<br />Used RV's For Sale in Southern California</h3>
+                        <br />
+                        <p style="color:black; padding-left:30px; padding-right:30px;">
+                            SMC has late model rental RVs FOR SALE at a discounted prices. These RV's are currently in our rental fleet and are in excellent condition.
+                            We keep them in tip top shape. Some of our current RV owners have requested for their vehicles to be in the rental fleet and available for
+                            sale to the public.
+                            <br><br>
+                            <strong>
+                                <font color="red">
+                                    Date an RV before You Marry it
+                                </font>
+                            </strong>
+                            is a great idea. We have over 200 RV's at our locations in California and Arizona for you to
+                            rent and then buy.
+                        </p>
+                    </div>
+                    <br />
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="row" style="text-align:center;">
+                            <h3 style="color:#000000;">All Vehicles For Sale</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-7"></div>
+                    <div class="col-md-2">
+                        <div class="row" style="margin:0 auto; align-content:center; text-align:center; padding-top:15px;">
+                            <button class="btn" type="button" onclick="ViewPrimaryVehicleList()"><span class="glyphicon glyphicon-th-list" style="color:black;"></span></button>
+                            <button class="btn" type="button" onclick="ViewSecondaryVehicleList()">
+                                <span class="glyphicon glyphicon-menu-hamburger" style="color:black;"></span>
+                                <span class="glyphicon glyphicon-menu-hamburger" style="color:black;"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+            <div class="col-md-10 col-sm-10 col-xs-10">
+                <div id="primary-vehicle-list"></div>
+            </div>
+            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div id="secondary-vehicle-list"></div>
+            </div>
+        </div>
+    </div>
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>

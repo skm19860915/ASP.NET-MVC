@@ -1,0 +1,140 @@
+﻿<!--Optional Equipment Specific View-->
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<div class="row">
+    <div class="row pre-header" style="padding-top:0px; height:600px;">
+        <hr class="top-separate-line" />
+        <div id="optional-equipment-header"></div>
+        <div id="optional-equipment-body"></div>
+        <div id="optional-equipment-footer"></div>
+    </div>
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var search_location_id = @ViewBag.SearchLocationSequenceId;
+        if(search_location_id > 0){
+            LoadOptionalEquipmentPage(search_location_id);
+        }
+        else{
+            var sequence_id = sessionStorage.getItem("CurrentLocationSequenceId");
+            LoadOptionalEquipmentPage(sequence_id);
+        }
+    });
+
+    function LoadOptionalEquipmentPage(id)
+    {
+        var webapi_path = '@System.Configuration.ConfigurationManager.AppSettings["RMXWebService"]';
+        var dirs = '@ViewBag.DirNames';
+        var dir_arr = dirs.split(',');
+        var is_found = false;
+        for (var i = 0; i < dir_arr.length; i++) {
+            if (id == dir_arr[i]) {
+                is_found = true;
+                break;
+            }
+        }
+        if (is_found) 
+        {
+            $("#optional-equipment-header").load('../UserContent/' + id + '/Optional_Equipment/Header.html', function (response, status, xhr) {
+                if (status == "error") {
+                    console.log("Not found Header.html....");
+                }
+            });
+            $("#optional-equipment-body").load("../UserContent/" + id + "/Optional_Equipment/Optional_Equipment.html", function(response, status, xhr)
+            {
+                if(status == "success")
+                {
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: webapi_path + "optionalequipment/" + id + "?token=AIzaSyAJSErr4vFLsOoylqQYkfQLKM26lnsHLXY",
+                        success: function(data)
+                        {
+                            jsonValue = jQuery.parseJSON(JSON.stringify(data));
+                            getOptionalEquipments(jsonValue);
+                        },
+                        error: function(error){ console.log(error.responseText); }
+                    });
+                }
+                if(status == "error"){ console.log("optional equipment file loading error......"); }
+            });
+            $("#optional-equipment-footer").load("../UserContent/" + id + "/Optional_Equipment/Footer.html", function(response, status, xhr)
+            {
+                if(status == "error"){ console.log("footer file loading error......"); }
+            });
+        }
+        else
+        {
+            $("#optional-equipment-header").load('../UserContent/Common/Optional_Equipment/Header.html', function(response, status, xhr)
+            {
+                if(status == "success")
+                {
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: webapi_path + "location" + "?token=AIzaSyAJSErr4vFLsOoylqQYkfQLKM26lnsHLXY",
+                        success: function(data){
+                            jsonValue = jQuery.parseJSON(JSON.stringify(data));
+                            getLocationList(jsonValue);
+                        },
+                        error: function(error){ console.log(error.responseText); }
+                    });
+                }
+                if(status == "error"){ console.log("header file loading error......"); }
+            });
+        }
+    }
+
+    function getOptionalEquipments(obj) {
+        //console.log(obj);
+        var content = '';
+        if (obj.length > 0) {
+            for (var i = 0; i < obj.length; i += 2) {
+                if (i % 4 == 0) {
+                    if (obj[i + 1] == null) {
+                        content += '<tr bgcolor="pink"><td>' + obj[i].Name + '</td><td>' + obj[i].WebPrice + '</td><td><br></td><td><br></td></tr>';
+                    }
+                    else {
+                        content += '<tr bgcolor="pink"><td>' + obj[i].Name + '</td><td>' + obj[i].WebPrice + '</td><td>' + obj[i + 1].Name + '</td><td>' + obj[i + 1].WebPrice + '</td></tr>';
+                    }
+                }
+                else {
+                    if (obj[i + 1] == null) {
+                        content += '<tr bgcolor="#ffffff"><td>' + obj[i].Name + '</td><td>' + obj[i].WebPrice + '</td><td><br></td><td><br></td></tr>';
+                    }
+                    else {
+                        content += '<tr bgcolor="#ffffff"><td>' + obj[i].Name + '</td><td>' + obj[i].WebPrice + '</td><td>' + obj[i + 1].Name + '</td><td>' + obj[i + 1].WebPrice + '</td></tr>';
+                    }
+                }
+            }
+            var header = '';
+            if (content) {
+                document.getElementById('optional-equipment-list').innerHTML = '<table cols="4" cellspacing="0" cellpadding="3" style="width:100%; border:1px solid grey;">'
+                    + '<tr><td colspan="4" style="background-color:red; color:white; text-align:center;"><b>Optional Equipment</b></td></tr><tbody>' + content + '</tbody></table>';
+            }
+        }
+        else {
+            document.getElementById('optional-equipment-list').innerHTML = '<h3 style="color:red; text-align:center;">Coming Soon</h3>';
+        }
+    }
+
+    function getLocationList(obj)
+    {
+        //console.log(obj);
+        var website = '@System.Configuration.ConfigurationManager.AppSettings["WebSite"]';
+        var list = '';
+        if(obj.length > 0){
+            for(var i = 0; i < obj.length; i++){
+                list += '<li><a class="nolineA" href="' + website + 'OptionalEquipment?location=' + obj[i].State + '-' + obj[i].City + '">' + obj[i].City + ', ' + obj[i].State + '</a></li>';
+            }
+        }
+        else{
+            list = '<h3 style="color:red;">Not Found Location Informations !</h3>';
+        }
+
+        document.getElementById('location-list').innerHTML = list;
+    }
+</script>

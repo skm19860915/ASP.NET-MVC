@@ -1,0 +1,426 @@
+﻿<!--Contact Us View-->
+@using CaptchaMvc.HtmlHelpers;
+@using System.Text.RegularExpressions
+@section AdditionalMeta
+{
+    <meta name="keywords" content="contact, info, share my coach, rv rentals, motorhome, trailer, camper, toy hauler, rental">
+    <meta name="description" content="Contact us here at Share My Coach and we will get back to you as soon as possible.">
+}
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<link href="~/Content/css/contact.css" rel="stylesheet" />
+<div class="row">
+    <div class="row pre-header visible-xs">
+        <div class="col-xs-12 mobile-title">
+            <span style="color:black;">Contact</span>
+        </div>
+    </div>
+    <div class="row pre-header" id="no-location-div" style="display:none;">
+        <hr class="top-separate-line" style="margin-top:-10px;" />
+        @foreach(var info in ViewBag.AllLocationInfos)
+        {
+            <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    @if (info.WebPrimaryBuildingPhoto != null)
+                    {
+                        <img src="data:image/jpg;base64, @Convert.ToBase64String(info.WebPrimaryBuildingPhoto)" class="img-responsive" />
+                    }
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <br />
+                    <h4 style="color:black;">@info.WebRegionalName</h4>
+                    ShareMyCoach, @info.Address @info.City @info.State @info.Zip
+                    <br />
+                    TEL : <a href='tel:@Regex.Replace(1 + info.PrimaryPhone, "[^0-9]+", string.Empty)'>@info.PrimaryPhone</a>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    @if (info.WebMapPhoto != null)
+                    {
+                        <a href="https://www.google.com/maps/dir//@info.Address+@info.City+@info.State+@info.Zip/&#64;@info.Longitude,@info.Latitude,@info.WebMapZoomLevel" target="_blank">
+                            <img src="data:image/jpg;base64, @Convert.ToBase64String(info.WebMapPhoto)" class="img-responsive" />
+                        </a>
+                    }
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            </div>
+            <br />
+        }
+    </div>
+    <div class="row pre-header" id="location-div" style="display:none;">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "ContactForm" }))
+            {
+            <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                <div class="col-lg-6 col-md-6 col-sm-8 col-xs-5"><h2 style="color:#000000;">Contact</h2></div>
+                <div class="col-lg-4 col-md-4 col-sm-2 col-xs-5">
+                    <a href='@Url.Action("Index", "Home")'>
+                        <h4 style="float:right; color:black; padding-top:15px;"><span class="glyphicon glyphicon-arrow-left" style="color:black;"></span>&nbsp;Back</h4>
+                    </a>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            </div>
+                <div class="row" style="text-align:center;">
+                    <hr style="border:1px solid grey; margin-left:50px; margin-right:50px; margin-bottom:20px;" />
+                    <h3 style="color:black;">Location Map</h3><br />
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="map" style="height:400px;background:yellow"></div>
+                    </div>
+                    <br />
+                </div>
+                <div class="row" style="text-align:center;">
+                    <hr style="border:1px solid grey; margin-left:50px; margin-right:50px; margin-bottom:20px;" />
+                    <h3 style="color:black;">Contact Information</h3><br />
+                </div>
+                <div class="row">
+                    <div class="visible-xs">
+                        <div style="text-align:center; padding-left:30px; padding-right:30px;">
+                            <br />
+                            <div><h4 style="color:black;">Thank you for your interest in ShareMyCoach.com</h4></div>
+                            <div><h4 style="color:black;">ALWAYS CALL FOR APPOINTMENT</h4></div>
+                            <br />
+                            <div id="small_location_info_div">
+                            </div>
+                            <br />
+                            <span style="color:black; font-weight:normal;">For additional information and help or to reserve your RV please contact us.</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-12">
+                        <div style="padding-left:30px; padding-right:30px;">
+                            <div>
+                                <span style="color:black;">Contact Form</span>
+                                <br />
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="custom-lbl" for="Name">Name</label>
+                                        @if (ViewBag.ErrMessage != null)
+                                        {
+                                            <input type="text" class="form-control form-custom" id="contact_name" name="contact_name" value="@ViewBag.ContactName" />
+                                        }
+                                        else
+                                        {
+                                            <input type="text" class="form-control form-custom" id="contact_name" name="contact_name" />
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="custom-lbl" for="E-Mail Address">E-Mail Address</label>
+                                        @if (ViewBag.ErrMessage != null)
+                                        {
+                                            <input type="text" class="form-control form-custom" id="contact_email" name="contact_email" value="@ViewBag.ContactEmail" />
+                                        }
+                                        else
+                                        {
+                                            <input type="text" class="form-control form-custom" id="contact_email" name="contact_email" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="custom-lbl" for="Phone">Phone</label>
+                                        @if (ViewBag.ErrMessage != null)
+                                        {
+                                            <input type="text" class="form-control form-custom" id="contact_phone" name="contact_phone" value="@ViewBag.ContactPhone" />
+                                        }
+                                        else
+                                        {
+                                            <input type="text" class="form-control form-custom" id="contact_phone" name="contact_phone" />
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="custom-lbl" for="Subject">Subject</label>
+                                        @if (ViewBag.ErrMessage != null)
+                                        {
+                                            <input type="text" class="form-control form-custom" id="contact_subject" name="contact_subject" value="@ViewBag.ContactSubject" />
+                                        }
+                                        else
+                                        {
+                                            <input type="text" class="form-control form-custom" id="contact_subject" name="contact_subject" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div>
+                                @if (ViewBag.ErrMessage != null)
+                                {
+                                    <textarea class="form-control" rows="8" id="contact_comment" name="contact_comment">@ViewBag.ContactComment</textarea>
+                                }
+                                else
+                                {
+                                    <textarea class="form-control" rows="8" id="contact_comment" name="contact_comment"></textarea>
+                                }
+                            </div>
+                            <div>
+                                @Html.Captcha(5)
+                            </div>
+                            <small style="color:#a94442;" class="help-block" id="invalid-small">@ViewBag.ErrMessage </small>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 hidden-xs">
+                        <div style="text-align:center; padding-left:30px; padding-right:30px;">
+                            <br />
+                            <div><h4 style="color:black;">Thank you for your interest in ShareMyCoach.com</h4></div>
+                            <div><h4 style="color:black;">ALWAYS CALL FOR APPOINTMENT</h4></div>
+                            <br />
+                            <div id="location_info_div">
+                            </div>
+                            <br />
+                            <span style="color:black; font-weight:normal;">For additional information and help or to reserve your RV please contact us.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="text-align:center;">
+                        <div id="hidden_data_div">
+                        </div>
+                        <button type="submit" class="btn btn-success btn-submit" id="contact-btn">Submit</button>
+                    </div>
+                </div>
+        }
+    </div>
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&key=AIzaSyAJSErr4vFLsOoylqQYkfQLKM26lnsHLXY"></script>
+<script>
+    $(document).ready(function () {
+        $('#contact-btn').click(function(e){
+            var captcha_value = $('#CaptchaInputText').val();
+            var contact_name = $('#contact_name').val();
+            var contact_email = $('#contact_email').val();
+            var contact_phone = $('#contact_phone').val();
+            var contact_subject = $('#contact_subject').val();
+            
+            if(contact_name && contact_email && contact_phone && contact_subject && !captcha_value){
+                document.getElementById('invalid-small').innerHTML = "Please input captcha !";
+                e.preventDefault();
+            }
+        });
+
+        generateLocationInformations();
+    });
+
+    var map;
+    var jArray = new Array();
+    var options = '';
+    var search_location_id = '@ViewBag.SearchLocationOid';
+
+    function generateLocationInformations()
+    {
+        var arr = @Html.Raw(Json.Encode(ViewBag.ContactInfos));
+
+        for(var i = 0; i < arr.length; i++){
+            jArray[i] = arr[i];
+        }
+        // when google search of this page
+        if(search_location_id)
+        {
+            $('#location-div').css('display', 'block');
+            $('#no_location-div').css('display', 'none');
+            document.getElementById('hidden_data_div').innerHTML = '<input type="hidden" value="' + sessionStorage.getItem("CurrentLocationOid") + '" name="location" />';
+
+            // generate html with location data
+            for (var i = 0; i < jArray.length; i++) {
+                if(jArray[i].LocationOid == search_location_id){
+                    generateNewLocationInformations(jArray[i].PrimaryPhone, jArray[i].OrganizationName, jArray[i].Address, jArray[i].City, jArray[i].State, jArray[i].Zip);
+                }
+            }
+        }
+        else
+        {
+            if (sessionStorage.getItem("CurrentLocationOid") === undefined || sessionStorage.getItem("CurrentLocationOid") == null || sessionStorage.getItem("CurrentLocationOid") == "undefined")
+            {
+                $('#location-div').css('display', 'none');
+                $('#no-location-div').css('display', 'block');
+            }
+            else
+            {
+                $('#location-div').css('display', 'block');
+                $('#no-location-div').css('display', 'none');
+                // generate html with location data
+                var session_oid = sessionStorage.getItem("CurrentLocationOid");
+                document.getElementById('hidden_data_div').innerHTML = '<input type="hidden" value="' + sessionStorage.getItem("CurrentLocationOid") + '" name="location" />';
+
+                for (var i = 0; i < jArray.length; i++) {
+                    if(jArray[i].LocationOid == session_oid){
+                        generateNewLocationInformations(jArray[i].PrimaryPhone, jArray[i].OrganizationName, jArray[i].Address, jArray[i].City, jArray[i].State, jArray[i].Zip);
+                    }
+                }
+            }
+        }
+    }
+
+    function initialize(condition)
+    {
+        // when google search of this page
+        if(search_location_id)
+        {
+            var sess_lat, sess_lng, sess_city, sess_address, sess_state;
+            for (var i = 0; i < jArray.length; i++) {
+                if(jArray[i].LocationOid == search_location_id){
+                    sess_lat = jArray[i].Latitude;
+                    sess_lng = jArray[i].Longitude;
+                    sess_address = jArray[i].Address;
+                    sess_city = jArray[i].City;
+                    sess_state = jArray[i].State;
+                }
+            }
+            var myoptions = {
+                zoom: 12,
+                center: new google.maps.LatLng(sess_lat, sess_lng),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+
+            map = new google.maps.Map(document.getElementById("map"), myoptions);
+
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(sess_lat, sess_lng),
+                map: map,
+                title: sess_address + ' ' + sess_city + ' ' + sess_state
+            });
+        }
+        else
+        {
+            if (sessionStorage.getItem("CurrentLocationOid") === undefined || sessionStorage.getItem("CurrentLocationOid") == null || sessionStorage.getItem("CurrentLocationOid") == "undefined")
+            {
+                var myoptions = {
+                    zoom: 12,
+                    center: new google.maps.LatLng(0, 0),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+
+                map = new google.maps.Map(document.getElementById("map"), myoptions);
+
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(0, 0),
+                    map: map,
+                    title: ''
+                });
+            }
+            else
+            {
+                var session_oid = sessionStorage.getItem("CurrentLocationOid");
+                var sess_lat, sess_lng, sess_city, sess_address, sess_state;
+                for (var i = 0; i < jArray.length; i++) {
+                    if(jArray[i].LocationOid == session_oid){
+                        sess_lat = jArray[i].Latitude;
+                        sess_lng = jArray[i].Longitude;
+                        sess_address = jArray[i].Address;
+                        sess_city = jArray[i].City;
+                        sess_state = jArray[i].State;
+                    }
+                }
+                var myoptions = {
+                    zoom: 12,
+                    center: new google.maps.LatLng(sess_lat, sess_lng),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+
+                map = new google.maps.Map(document.getElementById("map"), myoptions);
+
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(sess_lat, sess_lng),
+                    map: map,
+                    title: sess_address + ' ' + sess_city + ' ' + sess_state
+                });
+            }
+        }
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    function generateNewLocationInformations(newPrimaryPhone, newOrganizationName, newAddress, newCity, newState, newZip)
+    {
+        document.getElementById('location_info_div').innerHTML = '<a href="tel:' + 1 + newPrimaryPhone.match(/[\d\.]+/g) + '">' + newPrimaryPhone + '</a><br /><br /><label>' + newOrganizationName + '</label><br /><label>' +
+            newAddress + '</label><br /><label>' + newCity + ' ' + newState + ' ' + newZip + '</label>';
+        document.getElementById('small_location_info_div').innerHTML = '<a href="tel:' + 1 + newPrimaryPhone.match(/[\d\.]+/g) + '">' + newPrimaryPhone + '</a><br /><br /><label>' + newOrganizationName + '</label><br /><label>' +
+            newAddress + '</label><br /><label>' + newCity + ' ' + newState + ' ' + newZip + '</label>';
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#ContactForm').bootstrapValidator({
+              fields: {
+                contact_name: {
+                    validators: {
+                        stringLength: {
+                            min: 2,
+                        },
+                        notEmpty: {
+                            message: 'Please enter your name'
+                        }
+                    }
+                },
+                contact_email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please enter your email address'
+                        },
+                        emailAddress: {
+                            message: 'Please supply a valid email address'
+                        },
+                    }
+                },
+                contact_phone: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please enter your phone number'
+                        },
+                        stringLength: {
+                            min: 10,
+                        },
+                    }
+                },
+                contact_subject: {
+                    validators: {
+                        stringLength: {
+                            min: 2,
+                        },
+                        notEmpty: {
+                            message: 'Please enter subject name'
+                        }
+                    }
+                },
+                select_location: {
+                    validators: {
+                        callback: {
+                            message: 'Please select your location',
+                            callback: function (value, validator, $field) {
+                                return value != false;
+                            }
+                        }
+                    }
+                },
+            }
+        })
+            .on('success.form.bv', function(e) {
+                $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#ContactForm').data('bootstrapValidator').resetForm();
+
+                // Prevent form submission
+                e.preventDefault();
+
+                // Get the form instance
+                var $form = $(e.target);
+
+                // Get the BootstrapValidator instance
+                var bv = $form.data('bootstrapValidator');
+
+                // Use Ajax to submit form data
+                $.post($form.attr('action'), $form.serialize(), function(result) {
+                }, 'json');
+            });
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>

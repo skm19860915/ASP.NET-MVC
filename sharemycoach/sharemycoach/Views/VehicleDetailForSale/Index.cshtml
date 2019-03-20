@@ -1,0 +1,208 @@
+﻿<!--Vehicle Detail For Sale View-->
+@section AdditionalMeta
+{
+    <meta name="keywords" content="36FT Pace Arrow 1240, Motorcoach Rentals, Luxury Diesel Rentals, Rv 1 slides, Coach 1 slides, Privately Owned Rental, Rv ">
+    <meta name="description" content="When you drive this coach you will experience the road in no other way before. Come to Stanton on Beach Blvd, and rent this Rv today!">
+}
+@{ 
+    var info = ViewBag.Info;
+    var medias = info.MediaList;
+    var amenities = info.AmenityList;
+    var sleeps = Convert.ToInt32(info.Children ?? 0) + Convert.ToInt32(info.Adolescents ?? 0) + Convert.ToInt32(info.Adults ?? 0);
+}
+<link href="~/Content/css/detail.css" rel="stylesheet" />
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<link href="~/Scripts/gallery/amazingslider-1.css" rel="stylesheet" />
+<div class="row">
+    <div class="row pre-header visible-xs">
+        <div class="col-xs-12 mobile-title">
+            <span style="color:black;">R.V. Details</span>
+        </div>
+    </div>
+    <p hidden>@info.QuickFindKeyWord</p>
+    <!--START mobile device-->
+    <div class="row visible-xs" style="background-color:white;">
+        <div class="col-xs-8"></div>
+        <div class="col-xs-3">
+            <a href='@Url.Action("Index", "Home")'>
+                <h4 style="float:right; color:black; padding-top:15px;"><span class="glyphicon glyphicon-arrow-left" style="color:black;"></span>&nbsp;Back</h4>
+            </a>
+        </div>
+        <div class="col-xs-1"></div>
+    </div>
+    <!-- END mobile device-->
+    <div class="row pre-header">
+        <hr style="border:1px solid grey; margin-bottom:20px; margin-top:-10px;" />
+        <!--START Vehicle Image Slider-->
+        <div class="col-lg-6 col-md-6">
+            <h3 style="color:#000000; padding-top:15px; text-align:center;">@info.NameOnWeb @(info.SalePrice != null && info.SalePrice > 0 ? string.Format(" - {0:C}", info.SalePrice) : string.Empty)</h3>
+            <br />
+            <div id="amazingslider-wrapper-3" style="display:block;position:relative;max-width:900px;margin:0px auto 98px;">
+                <div id="amazingslider-3" style="display:block;position:relative;margin:0 auto;">
+                    <ul class="amazingslider-slides" style="display:none;">
+                        @if (!string.IsNullOrEmpty(info.YouTubeID))
+                        {
+                            <li>
+                                <img src="http://img.youtube.com/vi/@info.YouTubeID/0.jpg" />
+                                <video preload="none" src="http://www.youtube.com/v/@info.YouTubeID"></video>
+                            </li>
+                        }
+                        @if (medias != null && medias.Count > 0)
+                        {
+                            foreach (var item in medias)
+                            {
+                                <li>
+                                    <img src="data:image/jpg;base64, @Convert.ToBase64String(item.Photo)" />
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <ul class="amazingslider-thumbnails" style="display:none;">
+                        @if (!string.IsNullOrEmpty(info.YouTubeID))
+                        {
+                            <li><img src="http://img.youtube.com/vi/@info.YouTubeID/0.jpg" /></li>
+                        }
+                        @if (medias != null && medias.Count > 0)
+                        {
+                            foreach (var item in medias)
+                            {
+                                <li>
+                                    <img src="data:image/jpg;base64, @Convert.ToBase64String(item.Photo)" />
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--END Vehicle Image Slider-->
+        <!--START Vehicle Information Section-->
+        <div class="col-lg-6 col-md-6">
+            <section>
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-8" style="padding-left:45px;">
+                        <div style="padding-bottom:10px;">
+                            <h3 style="color:black;">Sale Information</h3>
+                        </div>
+                        <div>
+                            <span class="detail-info-span">TEL :</span><a href="#">@info.PrimaryPhone</a>
+                            <br />
+                            <span class="detail-info-span">Email :</span><span class="value-span">@info.PrimaryEmail</span>
+                            <br />
+                            <span class="detail-info-span">Description :</span><br /><span class="value-span">@info.ForSaleDesc</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs">
+                        <a href='@Url.Action("Index", "Home")'>
+                            <h4 style="text-align:center; color:black;"><span class="glyphicon glyphicon-arrow-left" style="color:black;"></span>&nbsp;Back</h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="row" style="padding-left:30px; padding-right:30px;">
+                    <h3 style="text-align: center; color:black;">Amenities</h3>
+                    <div class="col-lg-12">
+                        <ul class="check-items">
+                            @if (amenities != null && amenities.Count > 0)
+                            {
+                                foreach (var amenity in amenities)
+                                {
+                                    <li class="items"><span class="glyphicon glyphicon-ok"></span>@amenity.AmenityName</li>
+                                }
+                            }
+                            else
+                            {
+                                <li class="items" style="font-weight:bold; font-style:italic; color:red; font-size:12px;">None</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <br />
+        </div>
+        <!--End Vehicle Information Section-->
+        <hr style="border:1px solid grey; margin-left:20px; margin-right:20px; margin-bottom:0px;" />
+    </div>
+    <div class="row pre-header">
+        <div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:50px;">
+            <h3 style="color:black; margin-top:6px;">Vehicle Information</h3>
+            <div style="padding-left:40px;">
+                <h3 style="padding-bottom:10px; color:black;">Stats</h3>
+                <span class="detail-info-span">Vehicle Type :</span><span class="value-span">@info.ClassName</span>
+                <br />
+                <span class="detail-info-span">Towing Allowed :</span><span class="value-span">@(info.NoTowing == true ? "Yes" : "No")</span>
+                <br />
+                <span class="detail-info-span">Seat Belts :</span><span class="value-span">@(info.Belts ?? 0)</span>
+                <br />
+                <span class="detail-info-span">Length :</span><span class="value-span">@(info.Length ?? 0)</span>
+                <br />
+                <span class="detail-info-span">Pets Allowed :</span><span class="value-span">@(info.NoDogs == true ? "Yes" : "No")</span>
+                <br />
+                <span class="detail-info-span">Engine :</span>
+                @{
+                    var type = info.FuelType;
+                    if (type == 0 || type == null)
+                    {
+                        <span class="value-span">UnKnown</span>
+                    }
+                    else if (type == 1)
+                    {
+                        <span class="value-span">Gas</span>
+                    }
+                    else if (type == 2)
+                    {
+                        <span class="value-span">Diesel</span>
+                    }
+                    else if (type == 3)
+                    {
+                        <span class="value-span">N/A</span>
+                    }
+                }
+                <br />
+                <span class="detail-info-span">Model :</span><span class="value-span">@info.Model</span>
+                <br />
+                <span class="detail-info-span">Smoking Allowed :</span><span class="value-span">@(info.SmokingAllowed == true ? "Yes" : "No")</span>
+                <br />
+                <span class="detail-info-span">Manufacturer :</span><span class="value-span">@info.Make</span>
+                <br />
+                <span class="detail-info-span">Year :</span><span class="value-span">@info.Year</span>
+                <br />
+                <span class="detail-info-span">Children Allowed :</span><span class="value-span">@(info.Children != null && info.Children > 0 ? "Yes" : "No")</span>
+                <br />
+                <span class="detail-info-span">Sleeps :</span><span class="value-span">@sleeps</span>
+                @{
+
+                    var childrens = info.Children ?? 0;
+                    for (var i = 0; i < sleeps - childrens; i++)
+                    {
+                        <i class="fa fa-male fa-lg" aria-hidden="true"></i>
+                    }
+                    for (var i = 0; i < childrens; i++)
+                    {
+                        <i class="fa fa-male fa-male" aria-hidden="true"></i>
+                    }
+                }
+                <br />
+                <br />
+                <br />
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6"><h3 style="padding-bottom:10px; padding-left:65px; color:black;">Details</h3></div>
+            </div>
+            <div class="row" style="color:black; padding-left:80px; padding-right:80px;">
+                @info.WebDescription
+                <br />
+                <br />
+                @info.OtherCostsDesc
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>
+<script src="~/Scripts/gallery/amazingslider.js"></script>
+<script src="~/Scripts/gallery/initslider-2.js"></script>
+

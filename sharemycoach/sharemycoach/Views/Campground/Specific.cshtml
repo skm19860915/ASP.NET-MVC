@@ -1,0 +1,109 @@
+﻿<!--Campgrounds Specific View-->
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<div class="row">
+    <div class="row pre-header" style="padding-top:0px; height:600px;">
+        <hr class="top-separate-line" />
+        <div id="campgrounds-header"></div>
+        <div id="campgrounds-body"></div>
+        <div id="campgrounds-loading"></div>
+        <div id="campgrounds-footer"></div>
+    </div>
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>
+
+<script type="text/javascript">
+    var map_latitude = null;
+    var map_longitude = null;
+    var map_api_key = null;
+    var map_datas = null;
+    $(document).ready(function () {
+        var search_location_id = @ViewBag.SearchLocationSequenceId;
+        if(search_location_id > 0){
+            LoadCampgroundMapPage(search_location_id);
+        }
+        else{
+            var sequence_id = sessionStorage.getItem("CurrentLocationSequenceId");
+            LoadCampgroundMapPage(sequence_id);
+        }
+    });
+
+    function LoadCampgroundMapPage(id)
+    {
+        var webapi_path = '@System.Configuration.ConfigurationManager.AppSettings["RMXWebService"]';
+        var dirs = '@ViewBag.DirNames';
+        var dir_arr = dirs.split(',');
+        var is_found = false;
+        for (var i = 0; i < dir_arr.length; i++) {
+            if (id == dir_arr[i]) {
+                is_found = true;
+                break;
+            }
+        }
+        if (is_found) 
+        {
+            $("#campgrounds-header").load('../UserContent/' + id + '/Campgrounds_Map/Header.html', function (response, status, xhr) {
+                if (status == "error") { console.log("Not found Header.html...."); }
+            });
+            $("#campgrounds-body").load('../UserContent/' + id + '/Campgrounds_Map/Campgrounds_Map.html', function (response, status, xhr) {
+                if(status == "success")
+                {
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: webapi_path + "campground/" + id + "?token=AIzaSyAJSErr4vFLsOoylqQYkfQLKM26lnsHLXY",
+                        success: function(data)
+                        {
+                            jsonValue = jQuery.parseJSON(JSON.stringify(data));
+                            map_latitude = jsonValue.Latitude;
+                            map_longitude = jsonValue.Longitude;
+                            map_api_key = jsonValue.WebGoogleMapJavaScriptAPIKey;
+                            map_datas = jsonValue.MapList;
+                            $("#campgrounds-loading").load("../UserContent/CampgroundData.html");
+                        },
+                        error: function(error){ console.log(error.responseText); }
+                    });
+                }
+                if(status == "error"){ console.log("campground map file loading error...."); }
+            });
+        }
+        else
+        {
+            $("#campgrounds-header").load("../UserContent/Common/Campgrounds_Map/Header.html", function(response, status, xhr){
+                if(status == "success")
+                {
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: webapi_path + "location" + "?token=AIzaSyAJSErr4vFLsOoylqQYkfQLKM26lnsHLXY",
+                        success: function(data)
+                        {
+                            jsonValue = jQuery.parseJSON(JSON.stringify(data));
+                            getLocationList(jsonValue);
+                        },
+                        error: function(error){ console.log(error.responseText); }
+                    });
+                }
+                if(status == "error"){ console.log("header file loading error...."); };
+            });
+        }
+    }
+
+    function getLocationList(obj)
+    {
+        //console.log(obj);
+        var website = '@System.Configuration.ConfigurationManager.AppSettings["WebSite"]';
+        var list = '';
+        if(obj.length > 0){
+            for(var i = 0; i < obj.length; i++){
+                list += '<li><a class="nolineA" href="' + website + 'Campground?location=' + obj[i].State + '-' + obj[i].City + '">' + obj[i].City + ', ' + obj[i].State + '</a></li>';
+            }
+        }
+        else{
+            list = '<h3 style="color:red;">Not Found Location Informations !</h3>';
+        }
+
+        document.getElementById('location-list').innerHTML = list;
+    }
+</script>

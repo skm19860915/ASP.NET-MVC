@@ -1,0 +1,57 @@
+﻿<link href="~/Content/css/home.css" rel="stylesheet" />
+<div class="row">
+    <div class="row pre-header" style="padding-top:0px; height:714px;">
+        <hr class="top-separate-line" />
+        <div class="col-md-12">
+            <div id="success_div"></div>
+        </div>
+        <br />
+    </div>
+    <!--START video range-->
+    <div class="row pre-header" style="background-color:#FFFFFF;">
+        <div class="col-lg-4 col-md-4 col-sm-6 video-div">
+            <a target="_blank" href="https://vimeo.com/132552690"><img src="~/Content/images/sharemycoach.png" /></a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 video-div">
+            <a target="_blank" href="https://player.vimeo.com/video/152284628"><img src="~/Content/images/franchise.png" /></a>
+        </div>
+        <div class="col-lg-4 video-div">
+            <a target="_blank" href="https://www.ocregister.com/2015/09/17/rv-company-sees-spike-with-burning-man-station-offering-flex-fuel/"><img src="~/Content/images/rv.png" /></a>
+        </div>
+    </div>
+    <div class="row pre-header" style="background-color:#FFFFFF; text-align:center;">
+        <div class="col-lg-2">
+            <img src="~/Content/images/bbb.jpg" style="height:75px;" />
+        </div>
+        <div class="col-lg-2">
+            <img src="~/Content/images/ifa.jpg" style="height:75px; margin-left:35px;" />
+        </div>
+        <div class="col-lg-2">
+            <img src="~/Content/images/rvia.jpg" style="height:75px;" />
+        </div>
+        <div class="col-lg-4">
+            <img src="~/Content/images/rvda.jpg" style="height:65px;" />
+        </div>
+        <div class="col-lg-2">
+            <img src="~/Content/images/rvra.jpg" style="height:55px;" />
+        </div>
+    </div>
+    <div class="row pre-header" style="background-color:#FFFFFF; text-align:center;">
+        <br />
+    </div>
+    <!--END video range-->
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var infos = @Html.Raw(Json.Encode(ViewBag.Infos));
+        var web_regional_name = infos[0];
+        var location_city = infos[1];
+        var location_state = infos[2];
+        var phone_number = infos[3];
+        var dba_name = infos[4];
+        document.getElementById('success_div').innerHTML = "<h3 style='font-weight:normal; color: black; padding-left:45px; line-height:45px;'>Your email has been successfully sent.<br />" +
+                "If you wish to contact us during normal business hours, call the " + web_regional_name + " in " +
+                location_city + " " + location_state + " at " + "<a href='tel:" + 1 + phone_number.match(/[\d\.]+/g) + "'>" + phone_number +
+                "</a>.<br />If you leave a voice message we will contact you as soon as possible<br /><br /><br />Thank you for considering " + dba_name + " for your RV Rental Needs.</h3>";
+    });
+</script>

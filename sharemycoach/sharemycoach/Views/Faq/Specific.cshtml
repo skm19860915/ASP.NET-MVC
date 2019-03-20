@@ -1,0 +1,58 @@
+﻿<!--FAQ View-->
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<div class="row">
+    <div class="row pre-header" style="padding-top:0px;">
+        <hr class="top-separate-line" />
+        <div id="faq-header"></div>
+        <div id="faq-body"></div>
+        <div id="faq-footer"></div>
+    </div>
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>
+
+<script>
+    $(document).ready(function () {
+        var sequence_id = sessionStorage.getItem("CurrentLocationSequenceId");
+        LoadFaqPage(sequence_id);
+    })
+
+    function LoadFaqPage(id)
+    {
+        var dirs = '@ViewBag.DirNames';
+        var dir_arr = dirs.split(',');
+        var is_found = false;
+        for (var i = 0; i < dir_arr.length; i++) {
+            if (id == dir_arr[i]) {
+                is_found = true;
+                break;
+            }
+        }
+
+        if (is_found)
+        {
+            $('#faq-header').load('../UserContent/' + id + '/FAQ/Header.html', function (response, status, xhr) {
+                if (status == 'error') {
+                    console.log('Not found Header.html...');
+                }
+            });
+            $('#faq-body').load('../UserContent/' + id + '/FAQ/FAQ.html', function (response, status, xhr) {
+                if (status == 'error') {
+                    console.log('Not found FAQ.html...');
+                }
+            });
+            $('#faq-footer').load('../UserContent/' + id + '/FAQ/Footer.html', function (response, status, xhr) {
+                if (status == 'error') {
+                    console.log('Not found Footer.html...');
+                }
+            });
+        }
+        else
+        {
+            $('#faq-header').load('../UserContent/Common/FAQ/Header.html');
+            $('#faq-body').load('../UserContent/Common/FAQ/FAQ.html');
+            $('#faq-footer').load('../UserContent/Common/FAQ/Footer.html');
+        }
+    }
+</script>

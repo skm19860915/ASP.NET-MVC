@@ -1,0 +1,78 @@
+﻿div.location-panel{
+    padding-top:20px;
+    padding-left:50px;
+    padding-right:40px;
+    padding-bottom:20px;
+    background-color:#808080;
+    border-radius:10px;
+    height:300px;
+}
+div.location-panel-mobile{
+    padding-top:10px;
+    padding-left:50px;
+    padding-right:40px;
+    padding-bottom:20px;
+    height:300px;
+}
+div.location-panel-mobile h2{
+    padding-bottom:10px;
+    color:#000000;
+}
+div.location-panel-mobile h4{
+    padding-bottom:10px;
+    color:#000000;
+}
+div.location-panel-mobile span{
+    font-weight:normal; 
+    font-size:18px;
+    color:#000000;
+}
+button.btn-change{
+    height: 45px;
+    width: 200px;
+    font-size: 18px;
+    background-color:#15a737;
+    border-radius:5px;
+}
+button.btn-change:focus{
+    outline:0;
+}
+/*body.modal-open .background-container{
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
+    filter: url("https://gist.githubusercontent.com/amitabhaghosh197/b7865b409e835b5a43b5/raw/1a255b551091924971e7dee8935fd38a7fdf7311/blur".svg#blur);
+filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4');
+}*/
+div.class-div{
+vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    width: 100px;
+    border-radius: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+img.class-img{
+    height:60px;
+    width:80px;
+    background-color: grey;
+}
+.class-img-name {
+    display: block;
+    color:black;
+}
+div.class-div:hover{
+    border-color:#ff0000;
+}
+.my-hover{
+    padding:0 !important;
+}
+.red_border_div{
+    border: 2px solid #ff0000;
+}
+.white_border_div{
+    border: 2px solid #ffffff;
+}

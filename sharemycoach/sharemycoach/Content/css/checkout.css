@@ -1,0 +1,179 @@
+﻿div.info-control{
+    padding-bottom:10px;
+}
+/*div#info-div:after{
+    font-style: italic;
+    font-weight: 800;
+    content: "i";
+    display: inline-block;
+    position: absolute;
+    top: 46px;
+    left: 91%;   
+    text-align: center;
+    font-family: "Times New Roman", "Garamond", serif;
+    font-size: 18px;
+    color: #ffffff;
+    width: 25px;
+    height: 25px;
+    background-color: #0075b2;
+    border-radius: 50%;
+}*/
+span.location-span{
+    font-weight:normal;
+    font-size:17px;
+    color:#000000;
+}
+/*div#bind-div:after{
+    font-style: italic;
+    font-weight: 800;
+    content: "i";
+    display: inline-block;
+    position: absolute;
+    left: 270px;   
+    text-align: center;
+    font-family: "Times New Roman", "Garamond", serif;
+    font-size: 18px;
+    color: #ffffff;
+    width: 25px;
+    height: 25px;
+    background-color: #0075b2;
+    border-radius: 50%;
+}*/
+label.checkout-label{
+    padding-right:50px;
+    font-size:18px;
+}
+i#info_icon{
+    font-style: italic;
+    font-weight: 800;
+    /*content: "i";*/
+    display: inline-block;
+    position: absolute;
+    top: 26px;
+    left: 96%;   
+    text-align: center;
+    font-family: "Times New Roman", "Garamond", serif;
+    font-size: 18px;
+    color: #ffffff;
+    width: 25px;
+    height: 25px;
+    background-color: #0075b2;
+    border-radius: 50%;
+    padding-top: 0px;
+    padding-left: 9px;
+}
+i#insurance_icon{
+    font-style: italic;
+    font-weight: 800;
+    /*content: "i";*/
+    display: inline-block;
+    position: absolute;
+    /*top: 46px;
+    left: 91%;*/   
+    text-align: center;
+    font-family: "Times New Roman", "Garamond", serif;
+    font-size: 18px;
+    color: #ffffff;
+    width: 25px;
+    height: 25px;
+    background-color: #0075b2;
+    border-radius: 50%;
+    /*padding-top: 0px;
+    padding-left: 9px;*/
+}
+#insurance_icon .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #4B4B4B;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    margin-left:20px;
+    font-size: 15px;
+    font-weight: normal;
+    font-style: normal;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+#insurance_icon:hover .tooltiptext {
+    visibility: visible;
+}
+#equipment .tooltipDescription {
+    visibility: hidden;
+    width: 500px;
+    height:42px;
+    background-color: #4B4B4B;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    margin-left:20px;
+    font-size: 15px;
+    font-weight: normal;
+    font-style: normal;
+    text-overflow: ellipsis;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+#equipment:hover .tooltipDescription {
+    visibility: visible;
+}
+.modal.left.fade .modal-dialog{
+		left: -320px;
+		-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+		   -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+		     -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+		        transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+	
+.modal.left.fade.in .modal-dialog{
+	left: 0;
+}
+
+div#price-overview{
+    position: absolute;
+    z-index: 1;
+    top: -4px;
+    background-color: #15a737;
+    border: 1px solid black;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+#small_sticky {
+    position: fixed;
+    top:0px;
+    background: #FFFFFF;
+    left:15%;
+    width:275px;
+    z-index:1000;
+}
+div.estimateDiv{
+    margin: 10px;
+    text-align: center;
+    border: 2px solid #e1e1e1;
+    border-radius: 7px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+div.priceDiv{
+    text-align:center;
+}
+div#small_sticky span{
+    color:black;
+    font-size:12px;
+}
+div#watermark{
+    /*background-color: darkgrey;*/
+    position: absolute;
+    top: 165px;
+    z-index: 1000;
+    padding-left: 20px;
+    padding-right: 20px;
+    opacity: 0.5;
+    transform:rotate(30deg);
+    left:42px;
+}

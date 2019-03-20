@@ -1,0 +1,786 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{50B48C53-BF43-4045-AEE2-40E712F151A3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>sharemycoach</RootNamespace>
+    <AssemblyName>sharemycoach</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CaptchaMvc, Version=2.5.0.0, Culture=neutral, PublicKeyToken=fe46ad421dd3b0e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.1.2.3\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.1.2.3\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.1.2.3\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.1.2.3\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.1.2.3\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=1.2.3.490, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.1.2.3\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http">
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AboutUsController.cs" />
+    <Compile Include="Controllers\AddYourFleetController.cs" />
+    <Compile Include="Controllers\AllClassVehiclesController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CampgroundController.cs" />
+    <Compile Include="Controllers\CheckOutController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\DestinationController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\EventFlyerController.cs" />
+    <Compile Include="Controllers\FaqController.cs" />
+    <Compile Include="Controllers\GeneralInfoController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InformationController.cs" />
+    <Compile Include="Controllers\InsuranceController.cs" />
+    <Compile Include="Controllers\LearnMoreController.cs" />
+    <Compile Include="Controllers\NewsLetterController.cs" />
+    <Compile Include="Controllers\OptionalEquipmentController.cs" />
+    <Compile Include="Controllers\PageController.cs" />
+    <Compile Include="Controllers\QuoteResultController.cs" />
+    <Compile Include="Controllers\ResourcesController.cs" />
+    <Compile Include="Controllers\RVOwnersController.cs" />
+    <Compile Include="Controllers\RVTrainingVideosController.cs" />
+    <Compile Include="Controllers\ShowMeHowController.cs" />
+    <Compile Include="Controllers\TestimonialsController.cs" />
+    <Compile Include="Controllers\VehicleDetailController.cs" />
+    <Compile Include="Controllers\VehicleDetailForSaleController.cs" />
+    <Compile Include="Controllers\VehicleDetailsController.cs" />
+    <Compile Include="Controllers\VehicleQuoteController.cs" />
+    <Compile Include="Controllers\VehicleRentalController.cs" />
+    <Compile Include="Controllers\VehicleRentalsController.cs" />
+    <Compile Include="Controllers\VehiclesForSaleController.cs" />
+    <Compile Include="Controllers\WebMailController.cs" />
+    <Compile Include="Controllers\WorksController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CampgroundModel.cs" />
+    <Compile Include="Models\CompanyModel.cs" />
+    <Compile Include="Models\ContactModel.cs" />
+    <Compile Include="Models\EquipmentTypeModel.cs" />
+    <Compile Include="Models\FeeModel.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LeadSourceModel.cs" />
+    <Compile Include="Models\LocationModel.cs" />
+    <Compile Include="Models\LocationInsuranceCompanyModel.cs" />
+    <Compile Include="Models\MapModel.cs" />
+    <Compile Include="Models\QuoteModel.cs" />
+    <Compile Include="Models\RentalModel.cs" />
+    <Compile Include="Models\TestimonialModel.cs" />
+    <Compile Include="Models\TokenReceiver.cs" />
+    <Compile Include="Models\VehicleMediaItemModel.cs" />
+    <Compile Include="Models\WebAPI2Client.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AmenityViewModel.cs" />
+    <Compile Include="ViewModels\EventFlyerViewModel.cs" />
+    <Compile Include="ViewModels\FeaturedVehicleViewModel.cs" />
+    <Compile Include="ViewModels\MatchVehicleViewModel.cs" />
+    <Compile Include="ViewModels\OptionalItemViewModel.cs" />
+    <Compile Include="ViewModels\RandFeaturedViewModel.cs" />
+    <Compile Include="ViewModels\RandOtherFeaturedViewModel.cs" />
+    <Compile Include="ViewModels\SaleFeaturedViewModel.cs" />
+    <Compile Include="ViewModels\ServiceListViewModel.cs" />
+    <Compile Include="ViewModels\VehicleDetailViewModel.cs" />
+    <Compile Include="ViewModels\VehicleSaleDetailViewModel.cs" />
+    <Compile Include="ViewModels\VehiclesInLocationViewModel.cs" />
+    <Compile Include="ViewModels\WebCityStaticPageViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\css\checkout.css" />
+    <Content Include="Content\css\contact.css" />
+    <Content Include="Content\css\detail.css" />
+    <Content Include="Content\css\flyer.css" />
+    <Content Include="Content\css\general.css" />
+    <Content Include="Content\css\home.css" />
+    <Content Include="Content\css\listview.css" />
+    <Content Include="Content\css\location.css" />
+    <Content Include="Content\css\daterangepicker.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\signpainter-housescript-webfont.svg" />
+    <Content Include="Content\css\fullcalendar.css" />
+    <Content Include="Content\images\1.png" />
+    <Content Include="Content\images\2.png" />
+    <Content Include="Content\images\3.png" />
+    <Content Include="Content\images\4.png" />
+    <Content Include="Content\images\A.jpg" />
+    <Content Include="Content\images\AboutUs.png" />
+    <Content Include="Content\images\arrow.png" />
+    <Content Include="Content\images\Artboard 1Yelp Icon.png" />
+    <Content Include="Content\images\Artboard 1Yelp Icon.svg" />
+    <Content Include="Content\images\B.jpg" />
+    <Content Include="Content\images\bbb-logo-plus.png" />
+    <Content Include="Content\images\bbb.jpg" />
+    <Content Include="Content\images\black.png" />
+    <Content Include="Content\images\blog.jpg" />
+    <Content Include="Content\images\C.jpg" />
+    <Content Include="Content\images\company_marker.png" />
+    <Content Include="Content\images\CreditCard.png" />
+    <Content Include="Content\images\crew.png" />
+    <Content Include="Content\images\DateRv.jpg" />
+    <Content Include="Content\images\download.jpg" />
+    <Content Include="Content\images\franchise.png" />
+    <Content Include="Content\images\glyph1-small.png" />
+    <Content Include="Content\images\glyph1.png" />
+    <Content Include="Content\images\glyph2-small.png" />
+    <Content Include="Content\images\glyph2.png" />
+    <Content Include="Content\images\Happy RV Guy.png" />
+    <Content Include="Content\images\header BG.png" />
+    <Content Include="Content\images\How it works head.png" />
+    <Content Include="Content\images\i.png" />
+    <Content Include="Content\images\ifa.jpg" />
+    <Content Include="Content\images\if_menu-alt_134216.ico" />
+    <Content Include="Content\images\Insurance head.png" />
+    <Content Include="Content\images\insurance.png" />
+    <Content Include="Content\images\insurancebanner2.jpg" />
+    <Content Include="Content\images\LearnMore.png" />
+    <Content Include="Content\images\Logo.png" />
+    <Content Include="Content\images\maintenance.png" />
+    <Content Include="Content\images\map.png" />
+    <Content Include="Content\images\mark.png" />
+    <Content Include="Content\images\marker.png" />
+    <Content Include="Content\images\newRVImage.png" />
+    <Content Include="Content\images\other.png" />
+    <Content Include="Content\images\pane.png" />
+    <Content Include="Content\images\private_marker.png" />
+    <Content Include="Content\images\project.png" />
+    <Content Include="Content\images\public_marker.png" />
+    <Content Include="Content\images\RtNavCCLogos.png" />
+    <Content Include="Content\images\RV 404.png" />
+    <Content Include="Content\images\RV Group.png" />
+    <Content Include="Content\images\rv-works.png" />
+    <Content Include="Content\images\rv.png" />
+    <Content Include="Content\images\rvda.jpg" />
+    <Content Include="Content\images\RVDAdropshadowlogo.png" />
+    <Content Include="Content\images\rvia-logo.png" />
+    <Content Include="Content\images\rvia.jpg" />
+    <Content Include="Content\images\RVRA-Logo-Color.png" />
+    <Content Include="Content\images\rvra.jpg" />
+    <Content Include="Content\images\sharemycoach.png" />
+    <Content Include="Content\images\ShowMeHow.png" />
+    <Content Include="Content\images\tab.png" />
+    <Content Include="Content\images\Testimonials head.png" />
+    <Content Include="Content\images\testimonials.png" />
+    <Content Include="Content\images\TooLarge.jpg" />
+    <Content Include="Content\images\Toy-Hauler.jpg" />
+    <Content Include="Content\images\TT.jpg" />
+    <Content Include="Content\images\UT.jpg" />
+    <Content Include="Content\images\video-img.jpg" />
+    <Content Include="Content\images\videoapplicances.jpg" />
+    <Content Include="Content\images\videodriving.jpg" />
+    <Content Include="Content\images\videoelectric.jpg" />
+    <Content Include="Content\images\videoexterior.jpg" />
+    <Content Include="Content\images\videointroduction.jpg" />
+    <Content Include="Content\images\videolevelingsystem.jpg" />
+    <Content Include="Content\images\videosafety.jpg" />
+    <Content Include="Content\images\videotv.jpg" />
+    <Content Include="Content\images\videowatersewing.jpg" />
+    <Content Include="Content\images\ViewClassA.jpg" />
+    <Content Include="Content\images\webcitypage\viewClassA.jpg" />
+    <Content Include="Content\images\webcitypage\ViewClassB.jpg" />
+    <Content Include="Content\images\webcitypage\viewClassC.jpg" />
+    <Content Include="Content\images\webcitypage\ViewPickup.jpg" />
+    <Content Include="Content\images\webcitypage\ViewPopUp.jpg" />
+    <Content Include="Content\images\webcitypage\ViewToyHauler.jpg" />
+    <Content Include="Content\images\webcitypage\ViewTrailer.jpg" />
+    <Content Include="Content\js\AllClassVehicles\all-vehicle-list.js" />
+    <Content Include="Content\js\AllClassVehicles\dynamic-sticky-position.js" />
+    <Content Include="Content\js\Common\search-input.js" />
+    <Content Include="Content\js\utility.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\ai.0.15.0-build58334.js" />
+    <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\signpainter-housescript-webfont.eot" />
+    <Content Include="Content\fonts\signpainter-housescript-webfont.ttf" />
+    <Content Include="Content\fonts\signpainter-housescript-webfont.woff" />
+    <Content Include="Content\fonts\signpainter-housescript-webfont.woff2" />
+    <Content Include="Content\fonts\Lucida Handwriting Italic.ttf" />
+    <None Include="Properties\PublishProfiles\ShareMyCoach - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\ShareMyCoach - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\ShareMyCoach-dev - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\ShareMyCoach-dev - Web Deploy.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\daterangepicker.js" />
+    <Content Include="Scripts\fullcalendar.js" />
+    <Content Include="Scripts\fullcalendar.min.js" />
+    <Content Include="Scripts\gallery\amazingslider-1.css" />
+    <Content Include="Scripts\gallery\amazingslider.js" />
+    <Content Include="Scripts\gallery\arrows-32-32-0.png" />
+    <Content Include="Scripts\gallery\arrows-48-48-3.png" />
+    <Content Include="Scripts\gallery\bottomshadow-110-95-4.png" />
+    <Content Include="Scripts\gallery\bullet-16-16-3.png" />
+    <Content Include="Scripts\gallery\carouselarrows-32-32-0.png" />
+    <Content Include="Scripts\gallery\featuredarrow-16-8-2.png" />
+    <Content Include="Scripts\gallery\froogaloop2.min.js" />
+    <Content Include="Scripts\gallery\html5boxplayer.swf" />
+    <Content Include="Scripts\gallery\html5boxplayer_fullscreen.png" />
+    <Content Include="Scripts\gallery\html5boxplayer_hd.png" />
+    <Content Include="Scripts\gallery\html5boxplayer_playpause.png" />
+    <Content Include="Scripts\gallery\html5boxplayer_playvideo.png" />
+    <Content Include="Scripts\gallery\html5boxplayer_volume.png" />
+    <Content Include="Scripts\gallery\initslider-3.js" />
+    <Content Include="Scripts\gallery\initslider-1.js" />
+    <Content Include="Scripts\gallery\initslider-2.js" />
+    <Content Include="Scripts\gallery\jquery.js" />
+    <Content Include="Scripts\gallery\lightbox-close.png" />
+    <Content Include="Scripts\gallery\lightbox-loading.gif" />
+    <Content Include="Scripts\gallery\lightbox-navnext.png" />
+    <Content Include="Scripts\gallery\lightbox-navprev.png" />
+    <Content Include="Scripts\gallery\lightbox-next.png" />
+    <Content Include="Scripts\gallery\lightbox-pause.png" />
+    <Content Include="Scripts\gallery\lightbox-play.png" />
+    <Content Include="Scripts\gallery\lightbox-playvideo.png" />
+    <Content Include="Scripts\gallery\lightbox-prev.png" />
+    <Content Include="Scripts\gallery\navbuttonbgimage-28-28-0.png" />
+    <Content Include="Scripts\gallery\navplaypause-48-48-0.png" />
+    <Content Include="Scripts\gallery\play-32-32-0.png" />
+    <Content Include="Scripts\gallery\playvideo-64-64-0.png" />
+    <Content Include="Scripts\gallery\playvideo-64-64-1.png" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <Content Include="Scripts\jquery-modal-video.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jssor.slider-25.2.0.min.js" />
+    <Content Include="Scripts\modal-video.min.css" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="UserContent\10\Add_Your_RV_to_the_fleet\Add_Your_RV_to_the_fleet.html" />
+    <Content Include="UserContent\10\Add_Your_RV_to_the_fleet\Footer.html" />
+    <Content Include="UserContent\10\Add_Your_RV_to_the_fleet\Header.html" />
+    <Content Include="UserContent\10\Buy_an_RV\Buy_an_RV.html" />
+    <Content Include="UserContent\10\Buy_an_RV\Footer.html" />
+    <Content Include="UserContent\10\Buy_an_RV\Header.html" />
+    <Content Include="UserContent\10\Campgrounds_Map\Campgrounds_Map.html" />
+    <Content Include="UserContent\10\Campgrounds_Map\Footer.html" />
+    <Content Include="UserContent\10\Campgrounds_Map\Header.html" />
+    <Content Include="UserContent\10\FAQ\FAQ.html" />
+    <Content Include="UserContent\10\FAQ\Footer.html" />
+    <Content Include="UserContent\10\FAQ\Header.html" />
+    <Content Include="UserContent\10\General_Info\Footer.html" />
+    <Content Include="UserContent\10\General_Info\General_Info.html" />
+    <Content Include="UserContent\10\General_Info\Header.html" />
+    <Content Include="UserContent\10\Insurance_Company\Footer.html" />
+    <Content Include="UserContent\10\Insurance_Company\Header.html" />
+    <Content Include="UserContent\10\Insurance_Company\Insurance_Company.html" />
+    <Content Include="UserContent\10\Optional_Equipment\Footer.html" />
+    <Content Include="UserContent\10\Optional_Equipment\Header.html" />
+    <Content Include="UserContent\10\Optional_Equipment\Optional_Equipment.html" />
+    <Content Include="UserContent\1\Add_Your_RV_to_the_fleet\Add_Your_RV_to_the_fleet.html" />
+    <Content Include="UserContent\1\Add_Your_RV_to_the_fleet\Footer.html" />
+    <Content Include="UserContent\1\Add_Your_RV_to_the_fleet\Header.html" />
+    <Content Include="UserContent\1\Buy_an_RV\Buy_an_RV.html" />
+    <Content Include="UserContent\1\Buy_an_RV\Footer.html" />
+    <Content Include="UserContent\1\Buy_an_RV\Header.html" />
+    <Content Include="UserContent\1\Campgrounds_Map\Campgrounds_Map.html" />
+    <Content Include="UserContent\1\Campgrounds_Map\Footer.html" />
+    <Content Include="UserContent\1\Campgrounds_Map\Header.html" />
+    <Content Include="UserContent\1\FAQ\FAQ.html" />
+    <Content Include="UserContent\1\FAQ\Footer.html" />
+    <Content Include="UserContent\1\FAQ\Header.html" />
+    <Content Include="UserContent\1\General_Info\Footer.html" />
+    <Content Include="UserContent\1\General_Info\General_Info.html" />
+    <Content Include="UserContent\1\General_Info\Header.html" />
+    <Content Include="UserContent\1\Insurance_Company\Footer.html" />
+    <Content Include="UserContent\1\Insurance_Company\Header.html" />
+    <Content Include="UserContent\1\Insurance_Company\Insurance_Company.html" />
+    <Content Include="UserContent\1\Optional_Equipment\Footer.html" />
+    <Content Include="UserContent\1\Optional_Equipment\Header.html" />
+    <Content Include="UserContent\1\Optional_Equipment\Optional_Equipment.html" />
+    <Content Include="UserContent\29\Add_Your_RV_to_the_fleet\Add_Your_RV_to_the_fleet.html" />
+    <Content Include="UserContent\29\Add_Your_RV_to_the_fleet\Footer.html" />
+    <Content Include="UserContent\29\Add_Your_RV_to_the_fleet\Header.html" />
+    <Content Include="UserContent\29\Buy_an_RV\Buy_an_RV.html" />
+    <Content Include="UserContent\29\Buy_an_RV\Footer.html" />
+    <Content Include="UserContent\29\Buy_an_RV\Header.html" />
+    <Content Include="UserContent\29\Campgrounds_Map\Campgrounds_Map.html" />
+    <Content Include="UserContent\29\Campgrounds_Map\Footer.html" />
+    <Content Include="UserContent\29\Campgrounds_Map\Header.html" />
+    <Content Include="UserContent\29\FAQ\FAQ.html" />
+    <Content Include="UserContent\29\FAQ\Footer.html" />
+    <Content Include="UserContent\29\FAQ\Header.html" />
+    <Content Include="UserContent\29\General_Info\Footer.html" />
+    <Content Include="UserContent\29\General_Info\General_Info.html" />
+    <Content Include="UserContent\29\General_Info\Header.html" />
+    <Content Include="UserContent\29\Insurance_Company\Footer.html" />
+    <Content Include="UserContent\29\Insurance_Company\Header.html" />
+    <Content Include="UserContent\29\Insurance_Company\Insurance_Company.html" />
+    <Content Include="UserContent\29\Optional_Equipment\Footer.html" />
+    <Content Include="UserContent\29\Optional_Equipment\Header.html" />
+    <Content Include="UserContent\29\Optional_Equipment\Optional_Equipment.html" />
+    <Content Include="UserContent\3\Add_Your_RV_to_the_fleet\Add_Your_RV_to_the_fleet.html" />
+    <Content Include="UserContent\3\Add_Your_RV_to_the_fleet\Footer.html" />
+    <Content Include="UserContent\3\Add_Your_RV_to_the_fleet\Header.html" />
+    <Content Include="UserContent\3\Buy_an_RV\Buy_an_RV.html" />
+    <Content Include="UserContent\3\Buy_an_RV\Footer.html" />
+    <Content Include="UserContent\3\Buy_an_RV\Header.html" />
+    <Content Include="UserContent\3\Campgrounds_Map\Campgrounds_Map.html" />
+    <Content Include="UserContent\3\Campgrounds_Map\Footer.html" />
+    <Content Include="UserContent\3\Campgrounds_Map\Header.html" />
+    <Content Include="UserContent\3\FAQ\FAQ.html" />
+    <Content Include="UserContent\3\FAQ\Footer.html" />
+    <Content Include="UserContent\3\FAQ\Header.html" />
+    <Content Include="UserContent\3\General_Info\Footer.html" />
+    <Content Include="UserContent\3\General_Info\General_Info.html" />
+    <Content Include="UserContent\3\General_Info\Header.html" />
+    <Content Include="UserContent\3\Insurance_Company\Footer.html" />
+    <Content Include="UserContent\3\Insurance_Company\Header.html" />
+    <Content Include="UserContent\3\Insurance_Company\Insurance_Company.html" />
+    <Content Include="UserContent\3\Optional_Equipment\Footer.html" />
+    <Content Include="UserContent\3\Optional_Equipment\Header.html" />
+    <Content Include="UserContent\3\Optional_Equipment\Optional_Equipment.html" />
+    <Content Include="UserContent\5\Add_Your_RV_to_the_fleet\Add_Your_RV_to_the_fleet.html" />
+    <Content Include="UserContent\5\Add_Your_RV_to_the_fleet\Footer.html" />
+    <Content Include="UserContent\5\Add_Your_RV_to_the_fleet\Header.html" />
+    <Content Include="UserContent\5\Buy_an_RV\Buy_an_RV.html" />
+    <Content Include="UserContent\5\Buy_an_RV\Footer.html" />
+    <Content Include="UserContent\5\Buy_an_RV\Header.html" />
+    <Content Include="UserContent\5\Campgrounds_Map\Campgrounds_Map.html" />
+    <Content Include="UserContent\5\Campgrounds_Map\Footer.html" />
+    <Content Include="UserContent\5\Campgrounds_Map\Header.html" />
+    <Content Include="UserContent\5\FAQ\FAQ.html" />
+    <Content Include="UserContent\5\FAQ\Footer.html" />
+    <Content Include="UserContent\5\FAQ\Header.html" />
+    <Content Include="UserContent\5\General_Info\Footer.html" />
+    <Content Include="UserContent\5\General_Info\General_Info.html" />
+    <Content Include="UserContent\5\General_Info\Header.html" />
+    <Content Include="UserContent\5\Insurance_Company\Footer.html" />
+    <Content Include="UserContent\5\Insurance_Company\Header.html" />
+    <Content Include="UserContent\5\Insurance_Company\Insurance_Company.html" />
+    <Content Include="UserContent\5\Optional_Equipment\Footer.html" />
+    <Content Include="UserContent\5\Optional_Equipment\Header.html" />
+    <Content Include="UserContent\5\Optional_Equipment\Optional_Equipment.html" />
+    <Content Include="UserContent\7\Add_Your_RV_to_the_fleet\Add_Your_RV_to_the_fleet.html" />
+    <Content Include="UserContent\7\Add_Your_RV_to_the_fleet\Footer.html" />
+    <Content Include="UserContent\7\Add_Your_RV_to_the_fleet\Header.html" />
+    <Content Include="UserContent\7\Buy_an_RV\Buy_an_RV.html" />
+    <Content Include="UserContent\7\Buy_an_RV\Footer.html" />
+    <Content Include="UserContent\7\Buy_an_RV\Header.html" />
+    <Content Include="UserContent\7\Campgrounds_Map\Campgrounds_Map.html" />
+    <Content Include="UserContent\7\Campgrounds_Map\Footer.html" />
+    <Content Include="UserContent\7\Campgrounds_Map\Header.html" />
+    <Content Include="UserContent\7\FAQ\FAQ.html" />
+    <Content Include="UserContent\7\FAQ\Footer.html" />
+    <Content Include="UserContent\7\FAQ\Header.html" />
+    <Content Include="UserContent\7\General_Info\Footer.html" />
+    <Content Include="UserContent\7\General_Info\General_Info.html" />
+    <Content Include="UserContent\7\General_Info\Header.html" />
+    <Content Include="UserContent\7\Insurance_Company\Footer.html" />
+    <Content Include="UserContent\7\Insurance_Company\Header.html" />
+    <Content Include="UserContent\7\Insurance_Company\Insurance_Company.html" />
+    <Content Include="UserContent\7\Optional_Equipment\Footer.html" />
+    <Content Include="UserContent\7\Optional_Equipment\Header.html" />
+    <Content Include="UserContent\7\Optional_Equipment\Optional_Equipment.html" />
+    <Content Include="UserContent\BM18\Header.html" />
+    <Content Include="UserContent\BM18\images\header-logo.png" />
+    <Content Include="UserContent\BM18\images\header-pdf.png" />
+    <Content Include="UserContent\BM18\images\header-video.png" />
+    <Content Include="UserContent\BM18\RightSide.html" />
+    <Content Include="UserContent\BM18\VideoPlayer.html" />
+    <Content Include="UserContent\BM19\Header.html" />
+    <Content Include="UserContent\BM19\images\header-logo.png" />
+    <Content Include="UserContent\BM19\images\header-pdf.png" />
+    <Content Include="UserContent\BM19\images\header-video.png" />
+    <Content Include="UserContent\BM19\RightSide.html" />
+    <Content Include="UserContent\BM19\VideoPlayer.html" />
+    <Content Include="UserContent\CampgroundData.html" />
+    <Content Include="UserContent\Common\Add_Your_RV_to_the_fleet\Add_Your_RV_to_the_fleet.html" />
+    <Content Include="UserContent\Common\Add_Your_RV_to_the_fleet\Footer.html" />
+    <Content Include="UserContent\Common\Add_Your_RV_to_the_fleet\Header.html" />
+    <Content Include="UserContent\Common\Buy_an_RV\Buy_an_RV.html" />
+    <Content Include="UserContent\Common\Buy_an_RV\Footer.html" />
+    <Content Include="UserContent\Common\Buy_an_RV\Header.html" />
+    <Content Include="UserContent\Common\Campgrounds_Map\Campgrounds_Map.html" />
+    <Content Include="UserContent\Common\Campgrounds_Map\Footer.html" />
+    <Content Include="UserContent\Common\Campgrounds_Map\Header.html" />
+    <Content Include="UserContent\Common\FAQ\FAQ.html" />
+    <Content Include="UserContent\Common\FAQ\Footer.html" />
+    <Content Include="UserContent\Common\FAQ\Header.html" />
+    <Content Include="UserContent\Common\General_Info\Footer.html" />
+    <Content Include="UserContent\Common\General_Info\General_Info.html" />
+    <Content Include="UserContent\Common\General_Info\Header.html" />
+    <Content Include="UserContent\Common\Insurance_Company\Footer.html" />
+    <Content Include="UserContent\Common\Insurance_Company\Header.html" />
+    <Content Include="UserContent\Common\Insurance_Company\Insurance_Company.html" />
+    <Content Include="UserContent\Common\Optional_Equipment\Footer.html" />
+    <Content Include="UserContent\Common\Optional_Equipment\Header.html" />
+    <Content Include="UserContent\Common\Optional_Equipment\Optional_Equipment.html" />
+    <Content Include="UserContent\Common\Orientation_Videos\Footer.html" />
+    <Content Include="UserContent\Common\Orientation_Videos\Header.html" />
+    <Content Include="UserContent\Common\Orientation_Videos\Orientation_Videos.html" />
+    <Content Include="UserContent\custom.css" />
+    <Content Include="UserContent\Insurance.html" />
+    <Content Include="UserContent\KH19\Header.html" />
+    <Content Include="UserContent\KH19\images\header-logo.png" />
+    <Content Include="UserContent\KH19\images\header-pdf.png" />
+    <Content Include="UserContent\KH19\images\header-video.png" />
+    <Content Include="UserContent\KH19\RightSide.html" />
+    <Content Include="UserContent\KH19\VideoPlayer.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\AboutUs\Index.cshtml" />
+    <Content Include="Views\RVOwners\Index.cshtml" />
+    <Content Include="Views\Resources\Index.cshtml" />
+    <Content Include="Views\Faq\Index.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Works\Index.cshtml" />
+    <Content Include="Views\Campground\Index.cshtml" />
+    <Content Include="Views\GeneralInfo\Index.cshtml" />
+    <Content Include="Views\LearnMore\Index.cshtml" />
+    <Content Include="Views\NewsLetter\Index.cshtml" />
+    <Content Include="Views\OptionalEquipment\Index.cshtml" />
+    <Content Include="Views\RVTrainingVideos\Index.cshtml" />
+    <Content Include="Views\VehiclesForSale\Index.cshtml" />
+    <Content Include="Views\VehicleDetailForSale\Index.cshtml" />
+    <Content Include="Views\Contact\Success.cshtml" />
+    <Content Include="Views\AllClassVehicles\_NoFeaturedVehicles.cshtml" />
+    <Content Include="Views\Information\Index.cshtml" />
+    <Content Include="Views\Destination\Index.cshtml" />
+    <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\AllClassVehicles\AllClasses.cshtml" />
+    <Content Include="Views\VehicleDetail\Index.cshtml" />
+    <Content Include="Views\CheckOut\Index.cshtml" />
+    <Content Include="Views\Insurance\Index.cshtml" />
+    <Content Include="Views\Testimonials\Index.cshtml" />
+    <Content Include="Views\ShowMeHow\Index.cshtml" />
+    <Content Include="Views\EventFlyer\Index.cshtml" />
+    <Content Include="Views\Insurance\Specific.cshtml" />
+    <Content Include="Views\OptionalEquipment\Specific.cshtml" />
+    <Content Include="Views\AddYourFleet\Specific.cshtml" />
+    <Content Include="Views\VehiclesForSale\Specific.cshtml" />
+    <Content Include="Views\GeneralInfo\Specific.cshtml" />
+    <Content Include="Views\Campground\Specific.cshtml" />
+    <Content Include="Views\Shared\_VideoSection.cshtml" />
+    <Content Include="Views\AllClassVehicles\_AllVehicles.cshtml" />
+    <Content Include="Views\AllClassVehicles\Index.cshtml" />
+    <Content Include="Views\VehicleRentals\Index.cshtml" />
+    <Content Include="Views\AllClassVehicles\Error.cshtml" />
+    <Content Include="Views\VehicleRentals\Error.cshtml" />
+    <Content Include="Views\VehicleRental\Index.cshtml" />
+    <Content Include="Views\VehicleDetail\_Detail.cshtml" />
+    <Content Include="Views\VehicleQuote\Index.cshtml" />
+    <Content Include="Views\CheckOut\_Quote.cshtml" />
+    <Content Include="Views\Page\Index.cshtml" />
+    <Content Include="Views\Page\_Page.cshtml" />
+    <Content Include="Views\VehicleDetails\Index.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\VehicleDetails\Other.cshtml" />
+    <Content Include="Views\VehicleDetails\_Similar.cshtml" />
+    <Content Include="Views\VehicleDetails\Error.cshtml" />
+    <Content Include="Views\Error\_SimilarError.cshtml" />
+    <Content Include="Views\VehicleRental\Other.cshtml" />
+    <Content Include="Views\VehicleRental\Error.cshtml" />
+    <Content Include="Views\Page\PrivacyPolicy.cshtml" />
+    <Content Include="UserContent\BM18\PriceSheetAndWhatIncluded.pdf" />
+    <Content Include="UserContent\BM19\PriceSheetAndWhatIncluded.pdf" />
+    <Content Include="UserContent\KH19\PriceSheetAndWhatIncluded.pdf" />
+    <Content Include="Views\QuoteResult\Success.cshtml" />
+    <Content Include="Views\Home\_SearchSection.cshtml" />
+    <Content Include="Views\QuoteResult\Fail.cshtml" />
+    <Content Include="Views\Faq\Specific.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>5115</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:5115/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,654 @@
+﻿<!--Home View-->
+@section AdditionalMeta
+{
+    <meta name="keywords" content="rv rental,rv rentals, rent an rv, rv rentals california, rv rentals southern california, california, luxury rv rentals, diesel rv rentals, private rv rentals, motorhome rentals, camper, trailer, orange, county, orange county">
+    <meta name="description" content="We offer RV rentals California, luxury RV rentals, diesel RV rentals, and private RV rentals at ShareMyCoach.com. Rent an RV in southern California from the largest on site selection of privately owned RV rentals.">
+}
+@{ 
+    var kohInformation = System.Configuration.ConfigurationManager.AppSettings["KOHInfo"];
+    var youtubeId = System.Configuration.ConfigurationManager.AppSettings["YoutubeID"];
+    var reloadSlideVideo = System.Configuration.ConfigurationManager.AppSettings["ReloadSlideVideo"];
+}
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+<style>
+    span {
+        color: black;
+        font-weight: normal;
+        font-family: Arial;
+    }
+    h3#custom-header p{
+        color:black;
+        font-size:13px !important;
+    }
+</style>
+<link href="~/Scripts/gallery/amazingslider-1.css" rel="stylesheet" />
+<div class="row">
+    <div class="row pre-header" style="padding-top:0px;">
+        <div id="slide-video-div" class="hidden-xs" style="display:none;">
+            <h5 style="font-family:sans-serif; font-weight:normal; text-align:center;">@kohInformation</h5>
+            <div style="margin-top:-10px; margin-bottom:-8px;">
+                <div id="amazingslider-wrapper-4" style="display:block;position:relative;max-width:135px;margin:0px auto 0px;">
+                    <div id="amazingslider-4" style="display:block;position:relative;margin:0 auto;">
+                        <ul class="amazingslider-slides" style="display:none;">
+                            <li><a href="http://www.youtube.com/v/@youtubeId" class="html5lightbox"><img src="http://img.youtube.com/vi/@youtubeId/0.jpg" /></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <h6 style="font-family:sans-serif; font-weight:normal; text-align:center; margin-top:5px;">
+                <input type="checkbox" id="slide-checkbox" style="vertical-align:middle">
+                <span style="color:white; vertical-align:bottom;">Do not show again</span>
+            </h6>
+            <h6 style="text-align:center;"><button type="button" class="btn" id="slide-video-btn">Close</button></h6>
+        </div>
+        @Html.Partial("~/Views/Home/_SearchSection.cshtml")
+        <h1 class="logo1 carousel-caption">Find the perfect RV Rental</h1>
+        <h2 class="logo2 carousel-caption">But</h2>
+        <h2 class="logo3 carousel-caption">not from someone's backyard !</h2>
+        <img src="~/Content/images/blog.jpg" class="img-responsive" />
+        <div class="carousel-caption blog-div">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                <select class="form-control" id="locationName" name="locationName" style="border-radius:0px; margin-bottom:5px;">
+                    <option value="">Select a Franchise Location</option>
+                    @foreach (var item in ViewBag.LocationInfos)
+                    {
+                        <option value="@item.State-@item.City:@item.SequenceId" id="@item.SequenceId">@item.City, @item.State</option>
+                    }
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                <div class="input-group date" id="fromDate-div" style="margin-bottom:5px;">
+                    <input type="text" class="form-control" id="from_date" name="from_date" />
+                    <div class="input-group-addon" style="border-radius:0px; cursor:pointer;">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                <div class="input-group date" id="toDate-div" style="margin-bottom:5px;">
+                    <input type="text" class="form-control" id="to_date" name="to_date" />
+                    <div class="input-group-addon" style="border-radius:0px; cursor:pointer;">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <input type="button" class="btn btn-success" id="smarty-btn" value="Check Availability" onclick="getSelectedLocation();" />
+            </div>
+        </div>
+        <h2 class="logo4 carousel-caption">ShareMyCoach Managed Fleets - Safe, Clean and Always Affordable</h2>
+        <div class="visible-xs">
+            <img src="~/Content/images/CreditCard.png" style="height:20px; margin-top:-60px; margin-left:34px;" />
+            <img src="~/Content/images/bbb-logo-plus.png" style="height:20px; margin-top:-60px; margin-left:264px;" />
+        </div>
+    </div>
+    <div class="row pre-header" style="text-align:center; margin-top:-25px;">
+        <h5 class="pickup-city-header">Pick Up Cities</h5>
+        <h3 style="font-size:20px; margin-left:40px; margin-right:40px;">
+            @foreach (var item in ViewBag.LocationInfos)
+            {
+                <span>&nbsp;</span>
+                <a class="nolineA" href='@Url.Action("Location", "AllClassVehicles", new { id = @item.State + '-' + @item.City, cls = "All"})'>
+                    <span class="horizontal-location-span" title="@item.WebRegionalName Area">@item.City, @item.State</span>
+                </a>
+                <span>&nbsp;</span>
+            }
+        </h3>
+    </div>
+    <div class="row pre-header hidden-xs">
+        <h3 style="color:black; text-align:center; margin-top:-10px; margin-bottom:-30px;" id="custom-header">@Html.Raw(ViewBag.WebAllLocationsHTML)</h3>
+    </div>
+    <div class="row pre-header" style="text-align:center;" id="featured_vehicle_section">
+        <a href="javascript:;" style="text-decoration:none;">
+            <h2 class="show-vehicles-title">Click here to see featured vehicles from all locations</h2>
+        </a>
+        <div style="display:none;" id="featured_vehicle_list">
+            @foreach (var val in ViewBag.AllRandFeaturedVehicles)
+            {
+                var class_id = "";
+                if (val.ClassType == 1)
+                {
+                    class_id = "A";
+                }
+                else if (val.ClassType == 2)
+                {
+                    class_id = "B";
+                }
+                else if (val.ClassType == 3)
+                {
+                    class_id = "C";
+                }
+                else if (val.ClassType == 7)
+                {
+                    class_id = "TH";
+                }
+                else if (val.ClassType == 8)
+                {
+                    class_id = "TT";
+                }
+                else if (val.ClassType == 9)
+                {
+                    class_id = "UT";
+                }
+                <div class="col-lg-3 col-md-3 col-sm-4 vehicle-info">
+                    <div class="primary-vehicle-div">
+                        <a href='@Url.Action("Location", "AllClassVehicles", new { id = @val.State + "-" + @val.City, cls = @class_id })' onclick="saveVehicleSequenceId(this)" id="@val.VehicleSequenceId">
+                            @if (val.IsSquarePhoto == true)
+                            {
+                                <img src="data:image/jpg;base64, @Convert.ToBase64String(val.Photo)" class="clip-vehicle-img" />
+                            }
+                            else
+                            {
+                                <img src="data:image/jpg;base64, @Convert.ToBase64String(val.Photo)" class="vehicle-img" />
+                            }
+                            @if (string.IsNullOrEmpty(val.Name))
+                            {
+                                if (val.IsSquarePhoto == true)
+                                {
+                                    <h5 class="vehicle-license" style="margin-top:137px;"> --- </h5>
+                                }
+                                else
+                                {
+                                    <h5 class="vehicle-license"> --- </h5>
+                                }
+                            }
+                            else
+                            {
+                                if (val.InsurancePolicy != null)
+                                {
+                                    if (val.IsSquarePhoto == true)
+                                    {
+                                        <h5 class="vehicle-license" style="margin-top:137px;">@val.Name<span style="color:white; font-weight:bold;">&nbsp;&#10033;</span></h5>
+                                    }
+                                    else
+                                    {
+                                        <h5 class="vehicle-license">@val.Name<span style="color:white; font-weight:bold;">&nbsp;&#10033;</span></h5>
+                                    }
+                                }
+                                else
+                                {
+                                    if (val.IsSquarePhoto == true)
+                                    {
+                                        <h5 class="vehicle-license" style="margin-top:137px;">@val.Name</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5 class="vehicle-license">@val.Name</h5>
+                                    }
+                                }
+                            }
+                            @if (string.IsNullOrEmpty(val.WebRegionalName))
+                            {
+                                <h6 class="vehicle-location"> -- </h6>
+                            }
+                            else
+                            {
+                                <h6 class="vehicle-location">@val.WebRegionalName</h6>
+                            }
+                            @if (string.IsNullOrEmpty(val.Price))
+                            {
+                                <p class="vehicle-price"> - </p>
+                            }
+                            else
+                            {
+                                <p class="vehicle-price">@val.Price</p>
+                            }
+                        </a>
+                    </div>
+                    <br />
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row pre-header" style="background-color:#5a5151; text-align:center;">
+        <br />
+        <h2 class="hidden-xs">Committed to Integrity, Safety and Total Customer Satisfaction</h2>
+        <h2 class="visible-xs" style="font-size:23px;">Committed to Integrity, Safety and Total Customer Satisfaction</h2>
+        <br />
+        <div class="col-lg-4">
+            <img src="~/Content/images/maintenance.png" class="img-responsive feature-img" />
+            <h4>Professionally Maintained Vehicles</h4>
+            <p class="rv-text">Every R.V. in our inventory is throughly inspected and sanitized by our professional maintenance team prior to every rental.</p>
+        </div>
+        <div class="col-lg-4">
+            <img src="~/Content/images/crew.png" class="img-responsive feature-img" />
+            <h4>Professional full-time rental staff</h4>
+            <p class="rv-text">No problematic R.V. owners to deal with. Rest assured that your R.V. vacation plans are being handled by our trustworthy staff. 24/7 Text Support.</p>
+        </div>
+        <div class="col-lg-4">
+            <img src="~/Content/images/newRVImage.png" class="img-responsive feature-img" />
+            <h4>Huge Rental R.V Inventory</h4>
+            <p class="rv-text">Large or small, you can feel confident that ShareMyCoach.com has the perfect R.V. rental for your next vacation or event.</p>
+        </div>
+    </div>
+    <div class="row pre-header visible-lg">
+        <br />
+        <div class="col-lg-3">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Works")'>
+                    <img src="~/Content/images/rv-works.png" class="img-responsive" />
+                    <div class="carousel-caption title" style="left:9%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">How ShareMyCoach Works</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Campground")'>
+                    <img src="~/Content/images/map.png" class="img-responsive" />
+                    <div class="carousel-caption title" style="left:9%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">Campgrounds Map</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Insurance")'>
+                    <img src="~/Content/images/insurance.png" class="img-responsive" />
+                    <div class="carousel-caption title" style="left:9%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">Insurance Information</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Testimonials")'>
+                    <div><img src="~/Content/images/testimonials.png" class="img-responsive" /></div>
+                    <div class="carousel-caption title" style="left:9%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">Testimonials</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <br />
+        <br />
+    </div>
+    <div class="row pre-header visible-md">
+        <br />
+        <div class="col-md-3">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Works")'>
+                    <img src="~/Content/images/rv-works.png" class="img-responsive" />
+                    <div class="carousel-caption title" style="left:9%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">How ShareMyCoach Works</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Campground")'>
+                    <img src="~/Content/images/map.png" class="img-responsive" />
+                    <div class="carousel-caption title" style="left:9%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">Campgrounds Map</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Insurance")'>
+                    <img src="~/Content/images/insurance.png" class="img-responsive" />
+                    <div class="carousel-caption title" style="left:9%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">Insurance Information</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Testimonials")'>
+                    <div><img src="~/Content/images/testimonials.png" class="img-responsive" /></div>
+                    <div class="carousel-caption title" style="left:9%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">Testimonials</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <br />
+        <br />
+    </div>
+    <div class="row pre-header visible-sm">
+        <br />
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Works")'>
+                    <img src="~/Content/images/rv-works.png" class="img-responsive" />
+                    <div class="carousel-caption title" style="left:11%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">How ShareMyCoach Works</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Campground")'>
+                    <img src="~/Content/images/map.png" class="img-responsive" />
+                    <div class="carousel-caption title" style="left:11%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">Campgrounds Map</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    <div class="row pre-header visible-sm">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Insurance")'>
+                    <img src="~/Content/images/insurance.png" class="img-responsive" />
+                    <div class="carousel-caption title" style="left:11%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">Insurance Information</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Testimonials")'>
+                    <div><img src="~/Content/images/testimonials.png" class="img-responsive" /></div>
+                    <div class="carousel-caption title" style="left:11%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">Testimonials</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+        <br />
+        <br />
+    </div>
+    <div class="row pre-header visible-xs">
+        <br />
+        <div class="col-xs-12">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Works")'>
+                    <img src="~/Content/images/rv-works.png" class="img-responsive" />
+                    <div class="carousel-caption title" style="left:15%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">How ShareMyCoach Works</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Campground")'>
+                    <img src="~/Content/images/map.png" class="img-responsive" />
+                    <div class="carousel-caption title" style="left:15%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">Campgrounds Map</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Insurance")'>
+                    <img src="~/Content/images/insurance.png" class="img-responsive" />
+                    <div class="carousel-caption title" style="left:15%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">Insurance Information</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="img-tile">
+                <a href='@Url.Action("Index", "Testimonials")'>
+                    <div><img src="~/Content/images/testimonials.png" class="img-responsive" /></div>
+                    <div class="carousel-caption title" style="left:15%;">
+                        <span style="font-family: Lato; font-weight:bold; color:white;">Testimonials</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <br />
+        <br />
+    </div>
+    <div class="row pre-header" style="padding-bottom:0px; padding-top:0px;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <img src="~/Content/images/ShowMeHow.png" class="img-responsive" />
+                <div class="carousel-caption">
+                    <a class="btn btn-default show-me-how" href='@Url.Action("Index", "ShowMeHow")'>Show Me How</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>
+<script src="~/Scripts/jquery-2.2.3.min.js"></script>
+<script src="~/Scripts/gallery/amazingslider.js"></script>
+<script src="~/Scripts/gallery/initslider-3.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+    var location_list = @Html.Raw(Json.Encode(ViewBag.LocationInfos));
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+    $(document).ready(function () {
+        sessionStorage.setItem("default_search", 0);
+
+        loadDates();
+        loadLocationInfo();
+        //loadSlideVideo();
+
+        var session_current_class_id = sessionStorage.getItem("current_class_id");
+        var session_current_price_index = sessionStorage.getItem("current_price_index");
+        if(session_current_class_id){
+            sessionStorage.removeItem("current_class_id");
+        }
+        if(session_current_price_index){
+            sessionStorage.removeItem("current_price_index");
+        }
+
+        $("#locationName").change(function () {
+            var selectedItem = $(this).val();
+            for(var i = 0; i < location_list.length; i++)
+            {
+                var value = location_list[i].State + "-" + location_list[i].City + ":" + location_list[i].SequenceId;
+                if(selectedItem === value){
+                    var existValidationClass = $("#locationName").hasClass("invalid-input");
+                    if (existValidationClass) {
+                        $("#locationName").removeClass("invalid-input");
+                    }
+                }
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    function loadLocationInfo()
+    {
+        var sequence_id = sessionStorage.getItem("CurrentLocationSequenceId");
+        if (sequence_id === undefined || sequence_id == null || sequence_id == "undefined") {
+            console.log('no selected location');
+        }
+        else {
+            document.getElementById(sequence_id).selected = true;
+        }
+    }
+
+    function loadDates()
+    {
+        $('#toDate-div').keyup(function(e){
+            if(e.which == 9){
+                var from_date = $('#fromDate-div').datepicker('getDate');
+                if(from_date == null){
+                    $("#from_date").addClass("invalid-input");
+                }
+                else
+                {
+                    var existValidationClass = $("#from_date").hasClass("invalid-input");
+                    if (existValidationClass) 
+                    {
+                        $("#from_date").removeClass("invalid-input");
+                    }
+                    var from_date_obj = new Date(from_date);
+                    var from_change_date = from_date_obj.setDate(from_date_obj.getDate());
+                    $('#toDate-div').datepicker('setStartDate', new Date(from_change_date));
+                }
+            }
+        });
+
+        $('#smarty-btn').keyup(function(e){
+            if(e.which == 9){
+                var to_date = $('#toDate-div').datepicker('getDate');
+                if(to_date)
+                {
+                    var existValidationClass = $("#to_date").hasClass("invalid-input");
+                    if (existValidationClass) 
+                    {
+                        $("#to_date").removeClass("invalid-input");
+                    }
+                }
+            }
+        });
+
+        if (sessionStorage.getItem("dateDeparture") === undefined || sessionStorage.getItem("dateDeparture") == null || sessionStorage.getItem("dateDeparture") == "undefined") {
+            var date = new Date()
+            $('#fromDate-div').datepicker({
+                format: 'mm/dd/yyyy',
+                startDate: new Date(date.getTime() + 2 * 24 * 60 * 60 * 1000),
+            });
+            $('#toDate-div').datepicker({
+                format: 'mm/dd/yyyy',
+                startDate: new Date(date.getTime() + 2 * 24 * 60 * 60 * 1000),
+            });
+            $('#fromDate-div').datepicker().on('changeDate', function (e) {
+                var d_change_date = e.date;
+                var date_obj = new Date(d_change_date);
+                var r_change_date = date_obj.setDate(date_obj.getDate());
+                $('#toDate-div').datepicker('setStartDate', new Date(r_change_date));
+            });
+        }
+        else
+        {
+            var session_date_departure = new Date(sessionStorage.getItem("dateDeparture"));
+            var session_date_return = new Date(sessionStorage.getItem("dateReturn"));
+            $('#fromDate-div').datepicker({
+                format: 'mm/dd/yyyy',
+                startDate: new Date(session_date_departure),
+            });
+            $('#fromDate-div').datepicker('setDate', new Date(session_date_departure));
+            $('#toDate-div').datepicker({
+                format: 'mm/dd/yyyy',
+                startDate: new Date(session_date_return),
+            });
+            $('#toDate-div').datepicker('setDate', new Date(session_date_return));
+        }
+    }
+
+    function getSelectedLocation()
+    {
+        var locationName, locationSequenceId;
+        var locationInfo = document.getElementById("locationName").value;
+        if (locationInfo == '')
+        {
+            $("#locationName").addClass("invalid-input");
+            return;
+        }
+        else 
+        {
+            var array = locationInfo.split(':');
+            locationName = array[0];
+            locationSequenceId = array[1];
+            sessionStorage.setItem("CurrentLocationSequenceId", locationSequenceId);
+        }
+        var fromDate = $('#from_date').val();
+        var toDate = $('#to_date').val();
+
+        var f_date = $('#fromDate-div').datepicker('getDate');
+
+        if(fromDate && !toDate)
+        {
+            $("#to_date").addClass("invalid-input");
+            return;
+        }
+        if(!fromDate && toDate)
+        {
+            $("#from_date").addClass("invalid-input");
+            return;
+        }
+        if(toDate)
+        {
+            var existValidationClass = $("#to_date").hasClass("invalid-input");
+            if (existValidationClass) 
+            {
+                $("#to_date").removeClass("invalid-input");
+            }
+        }
+
+        if (fromDate) {
+            sessionStorage.setItem("dateDeparture", fromDate);
+        }
+        else {
+            sessionStorage.setItem("dateDeparture", "undefined");
+        }
+        if (toDate) {
+            sessionStorage.setItem("dateReturn", toDate);
+        }
+        else {
+            sessionStorage.setItem("dateReturn", "undefined");
+        }
+
+        var link = '@Url.Action("Location", "AllClassVehicles", new { id = "-1" })';
+        link = link.replace("-1", locationName);
+        location.href = link;
+    }
+
+    function saveVehicleSequenceId(e)
+    {
+        var id = $(e).attr('id');
+        sessionStorage.setItem("TargetVehicleSequenceId", id);
+    }
+
+    function loadSlideVideo()
+    {
+        var slide_video_status = sessionStorage.getItem('slide_video_status');
+        var reloadSlideVideo = '@reloadSlideVideo';
+        if(reloadSlideVideo){
+            $('#slide-video-div').css('display', 'block');
+            return;
+        }
+
+        if(slide_video_status){
+            $('#slide-video-div').css('display', 'none');
+        }
+        else{
+            $('#slide-video-div').css('display', 'block');
+        }
+    }
+</script>
+<script>
+    $('#featured_vehicle_section a').click(function(e){
+        $('#featured_vehicle_list').toggle();
+    });
+    $('#featured_vehicle_section a h2').hover(function(){
+        $('#featured_vehicle_section a h2').css('color', 'yellow');
+    });
+    $('#featured_vehicle_section a h2').mouseleave(function(){
+        $('#featured_vehicle_section a h2').css('color', 'white');
+    });
+</script>
+<script>
+    $("#slide-video-btn").click(function(e){
+        $('#slide-video-div').hide("slide", { direction: "left", distance:1 }, 1500);
+    });
+    $('#slide-checkbox').change(function(){
+        if(this.checked){
+            sessionStorage.setItem("slide_video_status", 1);
+        }
+        else{
+            var slide_video_status = sessionStorage.getItem('slide_video_status');
+            if(slide_video_status){
+                sessionStorage.removeItem('slide_video_status');
+            }
+        }
+    });
+</script>

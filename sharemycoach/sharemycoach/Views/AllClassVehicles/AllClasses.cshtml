@@ -1,0 +1,257 @@
+﻿<!--All Classes View-->
+@section AdditionalMeta
+{
+    <meta name="keywords" content="rv rental, rv rentals, rent an rv, rv rentals california, rv rentals southern california, california, luxury rv rentals, diesel rv rentals, private rv rentals, motorhome rentals, camper, trailer, orange, county, orange county">
+    <meta name="description" content="We offer RV rentals California, luxury RV rentals, diesel RV rentals, and private RV rentals at ShareMyCoach.com. Rent an RV in southern California from the largest on site selection of privately owned RV rentals.">
+}
+@{ 
+    var paramOfHamburgerMenu = ViewBag.LocationInfo.State + "-" + ViewBag.LocationInfo.City;
+}
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<style>
+    h2#web-location-page-html p{
+        color:black;
+        font-size:15px !important;
+    }
+    h2#web-location-page-html-bottom{
+        margin-top:-20px;
+        margin-bottom:-20px;
+    }
+    h2#web-location-page-html-bottom p{
+        color:black;
+        font-size:15px !important;
+    }
+    h6#horizontal-menu-header a span{
+        color:black;
+    }
+</style>
+<div class="row">
+    <div class="row pre-header" style="padding-top:0px;">
+        @Html.Partial("~/Views/Home/_SearchSection.cshtml")
+        <hr style="border:1px solid grey; margin-bottom:20px; margin-top:0px;" />
+    </div>
+    @if (ViewBag.LocationInfo.IsLocationBehindOnPaying == true)
+    {
+        <div class="row pre-header" style="text-align:center;">
+            <h2 style="color:black; padding-top:100px; padding-bottom:120px;">This location is currently under maintenance.<br />Please check back later.</h2>
+        </div>
+    }
+    else
+    {
+        <div class="row pre-header" style="text-align:center;">
+            <h1 style="color:#000000; font-size:30px; margin-top:-10px;">@ViewBag.LocationInfo.WebRegionalName RVs</h1>
+
+            <h6 id="horizontal-menu-header" style="margin-left:50px; margin-right:50px;">
+                <a href='@Url.Action("Specific", "FAQ", new { location = paramOfHamburgerMenu })'><span>FAQ</span></a>&nbsp;/&nbsp;
+                <a href='@Url.Action("Specific", "Insurance", new { location = paramOfHamburgerMenu })'><span>Insurance Company</span></a>&nbsp;/&nbsp;
+                <a href='@Url.Action("Specific", "OptionalEquipment", new { location = paramOfHamburgerMenu })'><span>Optional Equipment</span></a>&nbsp;/&nbsp;
+                <a href='@Url.Action("Specific", "AddYourFleet", new { location = paramOfHamburgerMenu })'><span>Add Your RV to the fleet</span></a>&nbsp;/&nbsp;
+                <a href='@Url.Action("Specific", "VehiclesForSale", new { location = paramOfHamburgerMenu })'><span>Buy an RV</span></a>&nbsp;/&nbsp;
+                <a href='@Url.Action("Specific", "GeneralInfo", new { location = paramOfHamburgerMenu })'><span>General Info</span></a>&nbsp;/&nbsp;
+                <a href='@Url.Action("Specific", "Campground", new { location = paramOfHamburgerMenu })'><span>Campgrounds Map</span></a>&nbsp;/&nbsp;
+                <a href='@Url.Action("Index", "RVTrainingVideos")'><span>Orientation Videos</span></a>
+            </h6>
+
+            <h2 id="web-location-page-html">
+                @Html.Raw(ViewBag.LocationInfo.WebLocationPageHTML)
+            </h2>
+            <h4 style="color:#ff0000">Which Type of Vehicle Interests you?</h4>
+            @if (ViewBag.FeaturesCount == 2)
+            {
+                <div class="col-lg-3 col-md-3 col-sm-2"></div>
+                foreach (var val in ViewBag.RandFeaturesInLocation)
+                {
+                    var class_id = "";
+                    if (val.ClassType == 1)
+                    {
+                        class_id = "A";
+                    }
+                    else if (val.ClassType == 2)
+                    {
+                        class_id = "B";
+                    }
+                    else if (val.ClassType == 3)
+                    {
+                        class_id = "C";
+                    }
+                    else if (val.ClassType == 7)
+                    {
+                        class_id = "TH";
+                    }
+                    else if (val.ClassType == 8)
+                    {
+                        class_id = "TT";
+                    }
+                    else if (val.ClassType == 9)
+                    {
+                        class_id = "UT";
+                    }
+                    <div class="col-lg-3 col-md-3 col-sm-4 vehicle-info">
+                        <div class="vehicle-div">
+                            <a href='@Url.Action("Location", "AllClassVehicles", new { id = @val.State + "-" + @val.City, cls = @class_id })' onclick="saveVehicleSequenceId(this)" id="@val.VehicleSequenceId">
+                                @if (val.Photo != null)
+                                {
+                                    if (val.IsSquarePhoto == true)
+                                    {
+                                        <img src="data:image/jpg;base64, @Convert.ToBase64String(val.Photo)" class="clip-vehicle-img" />
+                                    }
+                                    else
+                                    {
+                                        <img src="data:image/jpg;base64, @Convert.ToBase64String(val.Photo)" class="vehicle-img" />
+                                    }
+                                }
+                                <div class="banner">
+                                    @if (string.IsNullOrEmpty(val.WebBannerName))
+                                    {
+                                        <span>----</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@val.WebBannerName</span>
+                                    }
+                                </div>
+                                @if (string.IsNullOrEmpty(val.City) && string.IsNullOrEmpty(val.State))
+                                {
+                                    if (val.IsSquarePhoto == true)
+                                    {
+                                        <h5 class="vehicle-license" style="padding-bottom:5px; margin-top:140px;">---</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5 class="vehicle-license" style="padding-bottom:5px;">---</h5>
+                                    }
+                                }
+                                else
+                                {
+                                    if (val.IsSquarePhoto == true)
+                                    {
+                                        <h5 class="vehicle-license" style="padding-bottom:5px; margin-top:140px;">@val.City,&nbsp;@val.State</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5 class="vehicle-license" style="padding-bottom:5px;">@val.City,&nbsp;@val.State</h5>
+                                    }
+                                }
+                            </a>
+                        </div>
+                        <br />
+                    </div>
+                }
+                <div class="col-lg-3 col-md-3 col-sm-2"></div>
+            }
+            else
+            {
+                foreach (var val in ViewBag.RandFeaturesInLocation)
+                {
+                    var class_id = "";
+                    if (val.ClassType == 1)
+                    {
+                        class_id = "A";
+                    }
+                    else if (val.ClassType == 2)
+                    {
+                        class_id = "B";
+                    }
+                    else if (val.ClassType == 3)
+                    {
+                        class_id = "C";
+                    }
+                    else if (val.ClassType == 7)
+                    {
+                        class_id = "TH";
+                    }
+                    else if (val.ClassType == 8)
+                    {
+                        class_id = "TT";
+                    }
+                    else if (val.ClassType == 9)
+                    {
+                        class_id = "UT";
+                    }
+                    <div class="col-lg-3 col-md-3 col-sm-4 vehicle-info">
+                        <div class="vehicle-div">
+                            <a href='@Url.Action("Location", "AllClassVehicles", new { id = @val.State + "-" + @val.City, cls = @class_id })' onclick="saveVehicleSequenceId(this)" id="@val.VehicleSequenceId">
+                                @if (val.Photo != null)
+                                {
+                                    if (val.IsSquarePhoto == true)
+                                    {
+                                        <img src="data:image/jpg;base64, @Convert.ToBase64String(val.Photo)" class="clip-vehicle-img" />
+                                    }
+                                    else
+                                    {
+                                        <img src="data:image/jpg;base64, @Convert.ToBase64String(val.Photo)" class="vehicle-img" />
+                                    }
+                                }
+                                <div class="banner">
+                                    @if (string.IsNullOrEmpty(val.WebBannerName))
+                                    {
+                                        <span>----</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@val.WebBannerName</span>
+                                    }
+                                </div>
+                                @if (string.IsNullOrEmpty(val.City) && string.IsNullOrEmpty(val.State))
+                                {
+                                    if (val.IsSquarePhoto == true)
+                                    {
+                                        <h5 class="vehicle-license" style="padding-bottom:5px; margin-top:140px;">---</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5 class="vehicle-license" style="padding-bottom:5px;">---</h5>
+                                    }
+                                }
+                                else
+                                {
+                                    if (val.IsSquarePhoto == true)
+                                    {
+                                        <h5 class="vehicle-license" style="padding-bottom:5px; margin-top:140px;">@val.City,&nbsp;@val.State</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5 class="vehicle-license" style="padding-bottom:5px;">@val.City,&nbsp;@val.State</h5>
+                                    }
+                                }
+                            </a>
+                        </div>
+                        <br />
+                    </div>
+                }
+            }
+        </div>
+        <div class="row pre-header" style="text-align:center;">
+            <h2 id="web-location-page-html-bottom">
+                @Html.Raw(ViewBag.LocationInfo.WebLocationPageHTMLBottom)
+            </h2>
+        </div>
+    }
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>
+<script>
+    $(document).ready(function () {
+        sessionStorage.setItem("default_search", 0);
+
+        sessionStorage.setItem("CurrentLocationSequenceId", '@ViewBag.LocationInfo.SequenceId');
+
+        var is_paying = @Json.Encode(ViewBag.LocationInfo.IsLocationBehindOnPaying);
+        if(is_paying == true){
+            var exist_session = sessionStorage.getItem("CurrentLocationOid");
+            if(exist_session != null){
+                sessionStorage.removeItem("CurrentLocationOid");
+            }
+        }
+        else{
+            sessionStorage.setItem("CurrentLocationOid", '@ViewBag.LocationInfo.Oid');
+        }
+    });
+
+    function saveVehicleSequenceId(e)
+    {
+        var id = $(e).attr('id');
+        sessionStorage.setItem("TargetVehicleSequenceId", id);
+    }
+</script>

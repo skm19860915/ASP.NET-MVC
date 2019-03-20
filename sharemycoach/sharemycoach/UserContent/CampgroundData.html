@@ -1,0 +1,63 @@
+﻿<script>
+    var map;
+    var markers = [];
+    function initialize() {
+        map = new google.maps.Map(document.getElementById('campgrounds-map'), {
+            mapTypeId: google.maps.MapTypeId.HYBRID,
+            center: new google.maps.LatLng(map_latitude, map_longitude),
+            minZoom: 8,
+            zoom: 8
+        });
+
+        var iconBase = '/Content/images/';
+        var icons = {
+            companyIcon: {
+                name: 'company',
+                icon: iconBase + 'company_marker.png'
+            },
+            publicIcon: {
+                name: 'public',
+                icon: iconBase + 'public_marker.png'
+            },
+            privateIcon: {
+                name: 'private',
+                icon: iconBase + 'private_marker.png'
+            }
+        };
+
+        var list = [];
+        for (var i = 0; i < map_datas.length; i++) {
+            var content = '<div>' + '<span style="color:black">' + map_datas[i].Name + '</span>' +
+                        '<div><br/>' + map_datas[i].Street + '</div>' +
+                        '<div>' + map_datas[i].City + ' ' + map_datas[i].State + ' ' + map_datas[i].Zip + '</div><br>' +
+                        '<div><a href="https://' + map_datas[i].Website + '" target="_blank">Click Here to visit Website</a></div>';
+
+            list.push({ 'position': new google.maps.LatLng(map_datas[i].Lat, map_datas[i].Lng), 'type': map_datas[i].Type, 'content': content });
+        }
+
+        list.forEach(function (item) {
+            var locationInfowindow = new google.maps.InfoWindow({
+                content: item.content
+            });
+
+            var marker = new google.maps.Marker({
+                position: item.position,
+                icon: icons[item.type + 'Icon'].icon,
+                map: map,
+                infowindow: locationInfowindow
+            });
+            markers.push(marker);
+            google.maps.event.addListener(marker, 'mouseover', function () {
+                hideAllInfoWindows(map);
+                this.infowindow.open(map, this);
+            });
+        });
+    }
+
+    function hideAllInfoWindows(map) {
+        markers.forEach(function (marker) {
+            marker.infowindow.close(map, marker);
+        });
+    }
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJSErr4vFLsOoylqQYkfQLKM26lnsHLXY&sensor=false&callback=initialize"></script>
