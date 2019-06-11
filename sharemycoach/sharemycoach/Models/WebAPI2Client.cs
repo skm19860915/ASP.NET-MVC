@@ -1,4 +1,5 @@
-﻿using sharemycoach.ViewModels;
+﻿using sharemycoach.Models.Location;
+using sharemycoach.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -37,6 +38,18 @@ namespace sharemycoach.Models
                 return null;
 
             return resp.Content.ReadAsAsync<IEnumerable<LocationModel>>().Result;
+        }
+
+        public IEnumerable<LocationBaseInfoModel> GetAllBaseInfosOfLocation(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+                return null;
+
+            var resp = GetResponseFromWebAPI("location/base", "?token=" + token);
+            if (resp == null)
+                return null;
+
+            return resp.Content.ReadAsAsync<IEnumerable<LocationBaseInfoModel>>().Result;
         }
 
         public CompanyModel GetCompany(string token)
@@ -147,12 +160,12 @@ namespace sharemycoach.Models
             return resp.Content.ReadAsAsync<IEnumerable<EventFlyerViewModel>>().Result;
         }
 
-        public VehicleDetailViewModel GetDetail(string id, string token)
+        public VehicleDetailViewModel GetDetail(string id, bool isChanged, string token)
         {
             if (string.IsNullOrEmpty(token))
                 return null;
 
-            var resp = GetResponseFromWebAPI("detail/", id + "?token=" + token);
+            var resp = GetResponseFromWebAPI("detail/", id + "?isChanged=" + isChanged + "&token=" + token);
             if (resp == null)
                 return null;
 

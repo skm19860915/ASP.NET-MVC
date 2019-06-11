@@ -76,3 +76,49 @@ div.class-div:hover{
 .white_border_div{
     border: 2px solid #ffffff;
 }
+.grey_border_div{
+    border: 2px solid #d3d3d3;
+}
+div#state_div h1, h2, h4{
+    text-align:center;
+    color:black;
+}
+div#state_div h1{
+    font-size:24px;
+    margin-bottom:-15px;
+}
+div#state_div h2{
+    font-size:20px;
+}
+img.sale-img{
+    position: absolute;
+    z-index: 1;
+    width: 60px;
+    margin-top: -26px;
+    margin-left: -26px;
+}
+@media only screen and (min-width : 1200px){
+    div#state_div h1{
+       margin-top:-30px;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199.98px){
+    div#state_div h1{
+       margin-top:-30px;
+    }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    div#state_div h1{
+       margin-top:-30px;
+    }
+}
+@media (min-width: 576px) and (max-width: 767.98px){
+    div#state_div h1{
+       margin-top:0px;
+    }
+}
+@media (max-width: 575.98px){
+    div#state_div h1{
+       margin-top:0px;
+    }
+}

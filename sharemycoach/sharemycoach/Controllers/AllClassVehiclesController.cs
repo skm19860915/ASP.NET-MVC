@@ -1,8 +1,10 @@
 ﻿using sharemycoach.Models;
 using sharemycoach.ViewModels;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Data;
 
 namespace sharemycoach.Controllers
 {
@@ -10,7 +12,8 @@ namespace sharemycoach.Controllers
     {
         public AllClassVehiclesController()
         {
-            ViewBag.LocationDatas = _locationInfos;
+            var locationInfos = _wc.GetAllLocations(_token);
+            ViewBag.LocationDatas = locationInfos;
         }
 
         [RandFeaturedViewModel]
@@ -59,6 +62,7 @@ namespace sharemycoach.Controllers
             ViewBag.AllFeaturedVehiclesInLocation = allFeaturedVehiclesInLocation;
             ViewBag.WebLocationPageHTML = allFeaturedVehiclesInLocation.FirstOrDefault().WebLocationPageHTML;
             ViewBag.WebLocationPageHTMLBottom = allFeaturedVehiclesInLocation.FirstOrDefault().WebLocationPageHTMLBottom;
+            ViewBag.API = info.WebGoogleMapJavaScriptAPIKey;
 
             ViewBag.Class = cls;
             return true;
@@ -76,6 +80,7 @@ namespace sharemycoach.Controllers
 
             ViewBag.RandFeaturesInLocation = randFeaturesPerLocation;
             ViewBag.FeaturesCount = randFeaturesPerLocation.Count();
+            ViewBag.API = info.WebGoogleMapJavaScriptAPIKey;
             return true;
         }
 
@@ -134,5 +139,7 @@ namespace sharemycoach.Controllers
 
             ViewBag.Url = parameter;
         }
+
+        
     }
 }

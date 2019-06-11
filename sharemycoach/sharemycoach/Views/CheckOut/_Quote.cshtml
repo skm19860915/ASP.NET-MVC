@@ -23,10 +23,10 @@
 <style>
     span { color: black; font-weight: normal; font-family: Arial; }
 </style>
-<div class="row">
-    <div class="row pre-header" style="padding-top:0px;">
+<div class="row" style="margin-top:-5px;">
+    <div class="row pre-header hidden-xs" style="padding-top:0px;">
         @Html.Partial("~/Views/Home/_SearchSection.cshtml")
-        <hr style="border:1px solid grey; margin-bottom:20px; margin-top:0px;" />
+        <hr style="border:1px solid grey; margin-bottom:20px; margin-top:5px;" />
     </div>
     <div class="row pre-header visible-xs">
         <div class="col-xs-12 mobile-title"><span style="font-family:Lato; font-weight:bold;">Reservation Information</span></div>
@@ -62,7 +62,7 @@
             </div>
         </div>
         <!-- END mobile device-->
-        <hr style="border:1px solid grey; margin-left:50px; margin-right:50px; margin-bottom:20px;" />
+        <hr style="border:1px solid grey; margin-left:30px; margin-right:30px; margin-bottom:20px;" />
         @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "QuoteForm" }))
         {
             <div class="row">
@@ -544,9 +544,8 @@
                         </div>
                     </div>
                     <div class="row hidden-xs">
-                        <div class="col-lg-11 col-md-11 col-sm-11">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div id="price-overview"><h4 style="color:white;">@info.DailyRate</h4></div>
-                            <div id="watermark"><h5 style="color:white; font-size:45px;">@info.DBAName</h5></div>
                             <div id="amazingslider-wrapper-1" style="display:block;position:relative;max-width:900px;margin:0px auto 98px; margin-top:-10px;">
                                 <div id="amazingslider-1" style="display:block;position:relative;margin:0 auto;">
                                     <ul class="amazingslider-slides" style="display:none;">
@@ -602,64 +601,60 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-1 col-md-1 col-sm-1"></div>
                     </div>
                     <br />
                     @if (ViewBag.OptionalItemList != null)
                     {
-                        <div class="row">
-                            <div class="col-md-11" id="equipment_handler">
-                                <a href="javascript:;" style="text-decoration:none;" id="equipment_link">
-                                    <h5 style="padding:12px; text-align:center; margin-bottom:0px; background-color:#4B4B4B;">Click here to Show Optional Items</h5>
-                                </a>
-                                <div class="row" style="display:none;" id="additional_equipment">
-                                    <br />
-                                    @foreach (var item in ViewBag.OptionalItemList)
+                        <div id="equipment_handler">
+                            <a href="javascript:;" style="text-decoration:none;" id="equipment_link">
+                                <h5 style="padding:12px; text-align:center; margin-bottom:0px; background-color:#4B4B4B;">Click here to Show Optional Items</h5>
+                            </a>
+                            <div class="row" style="display:none;" id="additional_equipment">
+                                <br />
+                                @foreach (var item in ViewBag.OptionalItemList)
+                                {
+                                    if (item.IsEquipmentType == true)
                                     {
-                                        if (item.IsEquipmentType == true)
-                                        {
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <div class="checkbox">
-                                                    <label style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:78%" title="@item.Name">
-                                                        <input type="hidden" value="@item.WebPrice" /><!--Sticky Form uses this hidden Value! Don't try to remove !-->
-                                                        <input type="checkbox" value="@item.Oid:@item.Name:@item.WebPrice" name="equipments" class="equipments">
-                                                        @item.Name
-                                                    </label>
-                                                    @if (double.Parse(item.WebPrice) == 0)
-                                                    {
-                                                        <label style="float:right;" class="web_price">0</label>
-                                                    }
-                                                    else
-                                                    {
-                                                        <label style="float:right;" class="web_price">@item.WebPrice</label>
-                                                    }
-                                                </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="checkbox">
+                                                <label style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:78%" title="@item.Name">
+                                                    <input type="hidden" value="@item.WebPrice" /><!--Sticky Form uses this hidden Value! Don't try to remove !-->
+                                                    <input type="checkbox" value="@item.Oid:@item.Name:@item.WebPrice" name="equipments" class="equipments">
+                                                    @item.Name
+                                                </label>
+                                                @if (double.Parse(item.WebPrice) == 0)
+                                                {
+                                                    <label style="float:right;" class="web_price">0</label>
+                                                }
+                                                else
+                                                {
+                                                    <label style="float:right;" class="web_price">@item.WebPrice</label>
+                                                }
                                             </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <div class="checkbox">
-                                                    <label style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:78%" title="@item.Name">
-                                                        <input type="hidden" value="@item.WebPrice" /><!--Sticky Form uses this hidden Value! Don't try to remove !-->
-                                                        <input type="checkbox" value="@item.Oid:@item.Name:@item.WebPrice" name="fees" class="fees">
-                                                        @item.Name
-                                                    </label>
-                                                    @if (double.Parse(item.WebPrice) == 0)
-                                                    {
-                                                        <label style="float:right;" class="web_price">0</label>
-                                                    }
-                                                    else
-                                                    {
-                                                        <label style="float:right;" class="web_price">@item.WebPrice</label>
-                                                    }
-                                                </div>
-                                            </div>
-                                        }
+                                        </div>
                                     }
-                                </div>
+                                    else
+                                    {
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="checkbox">
+                                                <label style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:78%" title="@item.Name">
+                                                    <input type="hidden" value="@item.WebPrice" /><!--Sticky Form uses this hidden Value! Don't try to remove !-->
+                                                    <input type="checkbox" value="@item.Oid:@item.Name:@item.WebPrice" name="fees" class="fees">
+                                                    @item.Name
+                                                </label>
+                                                @if (double.Parse(item.WebPrice) == 0)
+                                                {
+                                                    <label style="float:right;" class="web_price">0</label>
+                                                }
+                                                else
+                                                {
+                                                    <label style="float:right;" class="web_price">@item.WebPrice</label>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                }
                             </div>
-                            <div class="col-md-1"></div>
                         </div>
                     }
                 </div>
@@ -672,26 +667,29 @@
                             <textarea class="form-control" rows="5" id="instructions" name="instructions"></textarea>
                         </div>
                         <!-- Hidden datas -->
-                        <input type="hidden" value="@info.Oid" id="vehicle_oid" name="vehicle_oid" />
-                        <input type="hidden" value="@info.NameOnWeb" id="vehicle_name" name="vehicle_name" />
-                        <input type="hidden" value="@info.QuickFindKeyWord" id="vehicle_key" name="vehicle_key" />
-                        <input type="hidden" value="@info.Location" id="location" name="location" />
-                        <input type="hidden" value="@info.LocationName" id="location_name" name="location_name" />
-                        <input type="hidden" value="@info.Organization" id="organization" name="organization" />
-                        <input type="hidden" value="@info.OrganizationName" id="organization_name" name="organization_name" />
-                        <input type="hidden" value="@info.ClassOid" id="class_oid" name="class_oid" />
-                        <input type="hidden" value="@info.ClassName" id="vehicle_class" name="vehicle_class" />
-                        <input type="hidden" value="@info.OutgoingUserName" id="outgoing_username" name="outgoing_username" />
-                        <input type="hidden" value="@info.OutgoingServerName" id="outgoing_servername" name="outgoing_servername" />
-                        <input type="hidden" value="@info.OutgoingServerPort" id="outgoing_serverport" name="outgoing_serverport" />
-                        <input type="hidden" value="@info.OutgoingPassword" id="outgoing_password" name="outgoing_password" />
-                        <input type="hidden" value="@info.EmailAddress" id="email_address" name="email_address" />
-                        <input type="hidden" value="@info.WebQuoteEmailAddress" id="web_quote_email_address" name="web_quote_email_address" />
-                        <input type="hidden" value="@info.PrimaryPhone" id="phone_number" name="phone_number" />
-                        <input type="hidden" value="@info.DBAName" id="dba_name" name="dba_name" />
-                        <input type="hidden" value="@info.WebRegionalName" id="web_reginal_name" name="web_regional_name" />
-                        <input type="hidden" value="@info.State" id="location_state" name="location_state" />
-                        <input type="hidden" value="@info.City" id="location_city" name="location_city" />
+                        <input type="hidden" value="@info.Oid" name="vehicle_oid" />
+                        <input type="hidden" value="@info.NameOnWeb" name="vehicle_name" />
+                        <input type="hidden" value="@info.QuickFindKeyWord" name="vehicle_key" />
+                        <input type="hidden" value="@info.Location" name="location" />
+                        <input type="hidden" value="@info.LocationName" name="location_name" />
+                        <input type="hidden" value="@info.Organization" name="organization" />
+                        <input type="hidden" value="@info.OrganizationName" name="organization_name" />
+                        <input type="hidden" value="@info.ClassOid" name="class_oid" />
+                        <input type="hidden" value="@info.ClassName" name="vehicle_class" />
+                        <input type="hidden" value="@info.OutgoingUserName" name="outgoing_username" />
+                        <input type="hidden" value="@info.OutgoingServerName" name="outgoing_servername" />
+                        <input type="hidden" value="@info.OutgoingServerPort" name="outgoing_serverport" />
+                        <input type="hidden" value="@info.OutgoingPassword" name="outgoing_password" />
+                        <input type="hidden" value="@info.EmailAddress" name="email_address" />
+                        <input type="hidden" value="@info.WebQuoteEmailAddress" name="web_quote_email_address" />
+                        <input type="hidden" value="@info.PrimaryPhone" name="phone_number" />
+                        <input type="hidden" value="@info.DBAName" name="dba_name" />
+                        <input type="hidden" value="@info.WebRegionalName" name="web_regional_name" />
+                        <input type="hidden" value="@info.State" name="location_state" />
+                        <input type="hidden" value="@info.City" name="location_city" />
+                        <input type="hidden" value="@info.OldVehicleID" name="old_vehicle_oid" />
+                        <input type="hidden" value="@info.EmailSupportRequestAddress" name="email_support_request_address" />
+                        <input type="hidden" value="@info.FriendlyCompanyName" name="friendly_company_name" />
                         <div style="text-align:center;">
                             <button type="submit" id="form_submit" class="btn btn-success btn-submit">Submit</button>
                         </div>
@@ -917,7 +915,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="estimate_modal" tabindex="-1" role="dialog">
+<div class="modal down fade" id="estimate_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog hidden-lg hidden-md hidden-sm visible-xs" style="margin-left:55px; margin-right:55px;">
         <div style="background-color:white;">
             <div class="modal-body" style="padding:0px;">
@@ -954,6 +952,8 @@
                             <input type="hidden" value="@info.EmailAddress" id="small_email_address" name="small_email_address" />
                             <input type="hidden" value="@info.WebQuoteEmailAddress" id="small_web_quote_email_address" name="small_web_quote_email_address" />
                             <input type="hidden" value="@info.PrimaryPhone" id="small_phone_number" name="small_phone_number" />
+                            <input type="hidden" value="@info.OldVehicleID" id="small_old_vehicle_oid" name="small_old_vehicle_oid" />
+                            <input type="hidden" value="@info.EmailSupportRequestAddress" id="small_email_support_request_address" name="small_email_support_request_address" />
                             <input type="hidden" value="" id="small_vehicle_id" name="small_vehicle_id" />
                             <input type="hidden" value="" id="small_destination" name="small_destination" />
                             <input type="hidden" value="" id="small_trip" name="small_trip" />
@@ -1014,7 +1014,7 @@
                         <div class="col-xs-1"></div>
                         <div class="col-xs-10">
                             <label class="custom-lbl">State</label>
-                            <select name="small_state" id="small_state" class="form-control form-custom"></select>
+                            <input type="text" class="form-control form-custom" id="small_state" name="small_state" />
                         </div>
                         <div class="col-xs-1"></div>
                     </div>
@@ -1085,12 +1085,13 @@
     </div>
 </div>
 
-<div id="element" style="display:block; z-index:1000;">
+<div class="hidden-xs">
+    <div id="sticky-tab" style="display:block; z-index:100;">
+        <img src="~/Content/images/tab.png" style="width:38px;" />
+    </div>
+    <div id="element" style="display:block; z-index:1000;">
+    </div>
 </div>
-
-<script src="~/Scripts/moment.js"></script>
-<script src="~/Scripts/fullcalendar.min.js"></script>
-<script src="~/Scripts/moment-with-locales.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
 <script src="~/Scripts/gallery/amazingslider.js"></script>
 <script src="~/Scripts/gallery/initslider-1.js"></script>
@@ -1099,7 +1100,6 @@
 <script>
     $(document).ready(function(){
         sessionStorage.setItem("default_search", 1);
-
         sessionStorage.setItem("CurrentClassType", '@info.ClassType');
     });
 </script>
@@ -1181,7 +1181,6 @@
         }, function (results, status) {
             if (status == 'OK') 
             {
-                //console.log(results[0]);
                 var array = results[0].address_components;
                 if(array.length < 6){
                     alert('Invalid Address!! Please try again!');
@@ -1808,17 +1807,28 @@
     });
     $('#estimate_modal').on('show.bs.modal', function (){
         //console.log(life_date);
-        $('#modal_sticky').html('<div style="border: 2px solid darkgrey"><div style="background-color:black; padding-bottom:45px; padding-left:15px; padding-right:15px; padding-top:20px;"><span style="padding-right:40px; float:left; color:white; font-size:18px; font-family:Lato; font-weight:bold;">Veh #' + vehicle_key + '</span><span style="float:right; color:white; font-size:18px; font-family:Lato; font-weight:bold;">$' + daily_rate + ' per day</span></div>' +
+        $('#modal_sticky').html('<div style="border: 2px solid darkgrey">' + 
+            '<div style="background-color:black; padding-bottom:45px; padding-left:15px; padding-right:15px; padding-top:20px;">' + 
+            '<span style="padding-right:40px; float:left; color:white; font-size:18px; font-family:Lato; font-weight:bold;">Veh #' + vehicle_key + 
+            '</span><span style="float:right; color:white; font-size:18px; font-family:Lato; font-weight:bold;">$' + daily_rate + ' per day</span></div>' +
             '<div class="estimateDiv"><span style="color:#555; font-family:Lato; font-weight:bold;">' + life_date + '</span></div>' +
-            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">$' + daily_rate + '&nbsp;&#215;&nbsp;' + interval + ' days</span><span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + Math.floor(daily_rate * interval) + '</span><br />' +
-            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">Cleaning</span><span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + cleaning_fee + '</span><br />' +
-            '<span style="padding-left:15px; float:left; font-family:Lato; font-weight:bold;">Prep.Fee</span><span style="padding-right:15px; float:right; font-family:Lato; font-weight:bold;">$' + prep_fee + '</span><br />' +
-            '<span style="padding-left:15px; float:left; font-family:Lato; font-weight:bold;">Add.Equipment</span><span style="padding-right:15px; float:right; font-family:Lato; font-weight:bold;">$' + additional_equipment + '</span>' +
+            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">$' + daily_rate + '&nbsp;&#215;&nbsp;' + interval + ' days</span>' + 
+            '<span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + Math.floor(daily_rate * interval) + '</span><br />' +
+            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">Cleaning</span>' + 
+            '<span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + cleaning_fee + '</span><br />' +
+            '<span style="padding-left:15px; float:left; font-family:Lato; font-weight:bold;">Prep.Fee</span>' + 
+            '<span style="padding-right:15px; float:right; font-family:Lato; font-weight:bold;">$' + prep_fee + '</span><br />' +
+            '<span style="padding-left:15px; float:left; font-family:Lato; font-weight:bold;">Add.Equipment</span>' + 
+            '<span style="padding-right:15px; float:right; font-family:Lato; font-weight:bold;">$' + additional_equipment + '</span>' +
             '<br /><hr style="margin:10px; border:0; border-top:1px solid black;" />' +
-            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">Total</span><span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + Math.floor(daily_rate * interval + cleaning_fee + prep_fee + additional_equipment) + '</span>' +
+            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">Total</span>' + 
+            '<span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + 
+            Math.floor(daily_rate * interval + cleaning_fee + prep_fee + additional_equipment) + '</span>' +
             '<br /><hr style="margin-top:10px; margin-bottom:10px; border:0; border-top:1px solid #e1e1e1;" />' +
-            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">Security Deposit</span><span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + deposit + '</span><br />' +
-            '<div style="margin-top:10px;"><span style="padding-left:15px;color:black; font-size:14px; font-family:Lato; font-weight:bold;">Includes ' + Math.floor(interval * hours) + ' Free Hours</span><span style="float:right; padding-right:15px; font-weight:bold; font-family:Lato; font-size:14px;">Generator</span></div>' +
+            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">Security Deposit</span>' + 
+            '<span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + deposit + '</span><br />' +
+            '<div style="margin-top:10px;"><span style="padding-left:15px;color:black; font-size:14px; font-family:Lato; font-weight:bold;">Includes ' + 
+            Math.floor(interval * hours) + ' Free Hours</span><span style="float:right; padding-right:15px; font-weight:bold; font-family:Lato; font-size:14px;">Generator</span></div>' +
             '<h5 style="padding-left:15px;color:black;">Includes ' + Math.floor(interval * miles) + ' Free Miles</h5><br /><br />' +
             '<div style="text-align:center;"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#info_modal">Enter Your Info</button><br /><br /></div>');
     });
@@ -1826,7 +1836,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
 <script type="text/javascript">
     var vehicle_key, daily_rate, life_date, interval, cleaning_fee, prep_fee, deposit, hours, miles, dateDeparture, dateReturn, minimumNumberOfTimeInterval, calcByNights;
-    var additional_equipment = 0;
+    var additional_equipment = 0, stickyWidth, screenWidth, screenHeight;
     $(function(){
         vehicle_key = @Html.Raw(Json.Encode(info.QuickFindKeyWord));
         daily_rate = getDecimalValue(@info.HigherRate);
@@ -1840,54 +1850,25 @@
 
         getInitDates();
         loadStickyForm();
-
-        var stickyHeight = $("#element").outerHeight();
+        
         var e = document.getElementById('element');
-        var stickyHeight = $("#element").outerHeight();
-        var responsiveHeight = getStatusDiv();
-        var currentWindowHeight = $(window).height();
+        var s = document.getElementById('sticky-tab');
 
-        initialMethod();
         $(window).resize(function(){
-            responsiveHeight = getStatusDiv();
-            var documentWidth = $(document).width();
-            if(documentWidth >= 1200){
-                e.style.marginLeft = '325px';
+            screenWidth = $("#mobile-search-bar").width();
+            var hiddenTabPosition = screenWidth - stickyWidth + 210;
+            var shownTabPosition = screenWidth - stickyWidth - 63;
+            var shownStickyPosition = screenWidth - stickyWidth - 27;
+            if(e.style.display == 'none'){
+                s.style.marginLeft = hiddenTabPosition + 'px';
+                $('#element').hide();
             }
-            else if(documentWidth >= 992 && documentWidth < 1200){
-                e.style.marginLeft = '240px';
-            }
-            else if(documentWidth >= 768 && documentWidth < 992){
-                e.style.marginLeft = '130px';
-            }
-            else if(documentWidth < 768){
-                e.style.marginLeft = '-800px';
+            else{
+                s.style.marginLeft = shownTabPosition + 'px';
+                e.style.marginLeft = shownStickyPosition + 'px';
+                $('#element').show();
             }
         })
-
-        $(window).scroll(function() {
-            var scrollAmount =  $(this).scrollTop();
-            if($(this).scrollTop() > 0){
-                e.style.top = currentWindowHeight - stickyHeight + 'px';
-                e.style.display = 'block';
-                e.style.left = '50%';
-            }
-            if($(this).scrollTop() >= responsiveHeight - stickyHeight){
-                e.style.display='none';
-            }
-        });
-
-        function getStatusDiv()
-        {
-            var totalHeight = $("#quote-range").outerHeight()+ $("#photo-range").outerHeight() + 110;
-            return totalHeight;
-        }
-
-        function initialMethod() 
-        {
-            $("#element").css('top', currentWindowHeight - stickyHeight +'px');
-            $("#element").css('position', 'fixed');
-        }
 
         function loadStickyForm()
         {
@@ -1908,18 +1889,43 @@
             }
 
             window.onload = document.getElementById('element').innerHTML =
-            '<div style="border: 2px solid darkgrey"><div style="background-color:black; padding-bottom:45px; padding-left:15px; padding-right:15px; padding-top:20px;"><span style="padding-right:40px; float:left; color:white; font-size:18px; font-family:Lato; font-weight:bold;">Veh #' + vehicle_key + '</span><span style="float:right; color:white; font-size:18px; font-family:Lato; font-weight:bold;">$' + daily_rate + ' per day</span></div>' +
+            '<div style="border: 2px solid darkgrey"><div style="background-color:black; padding-bottom:45px; padding-left:15px; padding-right:15px; padding-top:20px;">' + 
+            '<span style="padding-right:40px; float:left; color:white; font-size:18px; font-family:Lato; font-weight:bold;">Veh #' + vehicle_key + 
+            '</span><span style="float:right; color:white; font-size:18px; font-family:Lato; font-weight:bold;">$' + daily_rate + ' per day</span></div>' +
             '<div class="estimateDiv"><span style="color:#555; font-family:Lato; font-weight:bold;">' + life_date + '</span></div>' +
-            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">$' + daily_rate + '&nbsp;&#215;&nbsp;' + interval_day + '</span><span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + Math.floor(daily_rate * interval_val) + '</span><br />' +
-            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">Cleaning</span><span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + cleaning_fee + '</span><br />' +
-            '<span style="padding-left:15px; float:left; font-family:Lato; font-weight:bold;">Prep.&nbsp;&nbsp;Fee</span><span style="padding-right:15px; float:right; font-family:Lato; font-weight:bold;">$' + prep_fee + '</span><br />' +
-            '<span style="padding-left:15px; float:left; font-family:Lato; font-weight:bold;">Add.&nbsp;&nbsp;&nbsp;Equipment</span><span style="padding-right:15px; float:right; font-family:Lato; font-weight:bold;">$' + additional_equipment + '</span>' +
+            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">$' + daily_rate + '&nbsp;&#215;&nbsp;' + interval_day + 
+            '</span><span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + Math.floor(daily_rate * interval_val) + '</span><br />' +
+            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">Cleaning</span>' + 
+            '<span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + cleaning_fee + '</span><br />' +
+            '<span style="padding-left:15px; float:left; font-family:Lato; font-weight:bold;">Prep.&nbsp;&nbsp;Fee</span>' + 
+            '<span style="padding-right:15px; float:right; font-family:Lato; font-weight:bold;">$' + prep_fee + '</span><br />' +
+            '<span style="padding-left:15px; float:left; font-family:Lato; font-weight:bold;">Add.&nbsp;&nbsp;&nbsp;Equipment</span>' + 
+            '<span style="padding-right:15px; float:right; font-family:Lato; font-weight:bold;">$' + additional_equipment + '</span>' +
             '<br /><hr style="margin:10px; border:0; border-top:1px solid black;" />' +
-            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">Total</span><span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + Math.floor(daily_rate * interval_val + cleaning_fee + prep_fee + additional_equipment) + '</span>' +
+            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">Total</span>' + 
+            '<span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + 
+            Math.floor(daily_rate * interval_val + cleaning_fee + prep_fee + additional_equipment) + '</span>' +
             '<br /><hr style="margin-top:10px; margin-bottom:10px; border:0; border-top:1px solid #e1e1e1;" />' +
-            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">Security Deposit</span><span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + deposit + '</span><br />' +
-            '<div style="margin-top:10px;"><span style="padding-left:15px;color:black; font-size:14px; font-family:Lato;">Includes <b>' + Math.floor(interval_val * hours) + '</b> Free Hours Generator</span></div>' +
+            '<span style="padding-left:15px; float:left; color:#555; font-family:Lato; font-weight:bold;">Security Deposit</span>' + 
+            '<span style="padding-right:15px; float:right; color:#555; font-family:Lato; font-weight:bold;">$' + deposit + '</span><br />' +
+            '<div style="margin-top:10px;"><span style="padding-left:15px;color:black; font-size:14px; font-family:Lato;">Includes <b>' + 
+            Math.floor(interval_val * hours) + '</b> Free Hours Generator</span></div>' +
             '<h5 style="padding-left:15px;color:black; font-weight:normal;">Includes <b>' + Math.floor(interval_val * miles) + '</b> Free Miles</h5><br /><br />';
+
+            screenHeight = $(window).height();
+            screenWidth = $("#mobile-search-bar").width();
+            var stickyHeight = $("#element").outerHeight(); 
+            stickyWidth = $("#element").width();
+            
+            $("#element").css('top', screenHeight - stickyHeight +'px');
+            $("#element").css('position', 'fixed');
+            $("#sticky-tab").css('top', screenHeight - stickyHeight +'px');
+            $("#sticky-tab").css('position', 'fixed');
+            var shownTabPosition = screenWidth - stickyWidth - 63;
+            var shownStickyPosition = screenWidth - stickyWidth - 27;
+            $('#sticky-tab').css('margin-left', shownTabPosition + 'px');
+            $('#element').css('margin-left', shownStickyPosition + 'px');
+            //$('#element').css('display', 'block');
         }
 
         function getDecimalValue(value)
@@ -1988,8 +1994,26 @@
             $('#returnDate').datepicker('setDate', new Date(dateReturn));
         }
 
+        $("#sticky-tab").click(function(e){
+            e.preventDefault();
+            var element = document.getElementById('element');
+            if(element.style.display == 'none')
+            {
+                var shownTabPosition = screenWidth - stickyWidth - 63;
+                var shownStickyPosition = screenWidth - stickyWidth - 27;
+                $('#sticky-tab').css('margin-left', shownTabPosition + 'px');
+                $('#element').css('margin-left', shownStickyPosition + 'px');
+                $('#element').show();
+            }
+            else
+            {
+                var hiddenTabPosition = screenWidth - stickyWidth + 210;
+                $('#sticky-tab').css('margin-left', hiddenTabPosition + 'px');
+                $('#element').hide();
+            }
+        });
+
         $('#departureDate').datepicker().on('changeDate', function (e) {
-            //console.log(e.date);
             var d_change_date = e.date;
             var date_obj = new Date(d_change_date);
             var r_change_date = date_obj.setDate(date_obj.getDate() + minimumNumberOfTimeInterval - calcByNights);
@@ -2037,10 +2061,12 @@
         $('#additional_equipment').toggle();
         var status = $('#additional_equipment').css('display');
         if(status == 'none'){
-            document.getElementById('equipment_link').innerHTML = '<h5 style="padding:12px; margin-bottom:0px; text-align:center; background-color:#4B4B4B;">Click here to Show Optional Items</h5>';
+            document.getElementById('equipment_link').innerHTML = 
+                '<h5 style="padding:12px; margin-bottom:0px; text-align:center; background-color:#4B4B4B;">Click here to Show Optional Items</h5>';
         }
         if(status == 'block'){
-            document.getElementById('equipment_link').innerHTML = '<h5 style="padding:12px; margin-bottom:0px; text-align:center; background-color:#4B4B4B;">Click here to Hide Optional Items</h5>';
+            document.getElementById('equipment_link').innerHTML = 
+                '<h5 style="padding:12px; margin-bottom:0px; text-align:center; background-color:#4B4B4B;">Click here to Hide Optional Items</h5>';
         }
     });
     $('#equipment_handler').hover(function () {

@@ -12,9 +12,6 @@ namespace sharemycoach.Controllers
     {
         public ActionResult Index(string id)
         {
-            if (string.IsNullOrEmpty(id))
-                return null;
-
             GetEventFlyerInformation(id, null);
             return View();
         }

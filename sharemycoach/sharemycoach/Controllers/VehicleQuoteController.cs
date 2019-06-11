@@ -23,7 +23,7 @@ namespace sharemycoach.Controllers
             if (matchVehicle.IsActive == true)
             {
                 var webUniqueId = matchVehicle.WebUniqueId;
-                var detailInformation = _wc.GetDetail(webUniqueId, _token);
+                var detailInformation = _wc.GetDetail(webUniqueId, false, _token);
                 if (detailInformation == null)
                     return RedirectToAction("Index", "Error");
                     

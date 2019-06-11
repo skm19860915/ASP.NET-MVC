@@ -12,7 +12,8 @@ namespace sharemycoach.Controllers
         public TestimonialsController()
         {
             ViewBag.Title = "RV Testimonials";
-            ViewBag.LocationInfos = _locationInfos;
+            var locationInfos = _wc.GetAllLocations(_token);
+            ViewBag.LocationInfos = locationInfos;
         }
 
         public ActionResult Index(string location)

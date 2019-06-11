@@ -1,18 +1,17 @@
 ﻿using sharemycoach.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace sharemycoach.Controllers
 {
     public class VehicleDetailForSaleController : BaseController
     {
-        public VehicleDetailForSaleController()
-        {
-            ViewBag.Title = "36FT Pace Arrow 1240 - | " + Properties.Resources.SHARE_MY_COACH;
-        }
+        private VehicleSaleDetailViewModel detailSaleInfo;
 
         public ActionResult Index(string id)
         {
-            VehicleSaleDetailViewModel detailSaleInfo = null;
             var extParam = id.Substring(id.Length - 5);
             if (extParam.Equals(".aspx"))
             {
@@ -34,9 +33,21 @@ namespace sharemycoach.Controllers
 
             if (detailSaleInfo == null)
                 return RedirectToAction("Index", "Error");
+
+            ViewBag.Title = detailSaleInfo.NameOnWeb + " - RV Rentals | " + Properties.Resources.SHARE_MY_COACH;
                 
             ViewBag.Info = detailSaleInfo;
             return View();
+        }
+
+        private List<string> GetDateTimeValues(List<DateTime> dateList)
+        {
+            var stringList = new List<string>();
+            foreach (var item in dateList)
+            {
+                stringList.Add(string.Format("{0:yyyy-MM-dd}", item));
+            }
+            return stringList;
         }
     }
 }

@@ -131,18 +131,6 @@ namespace sharemycoach
             );
 
             routes.MapRoute(
-               name: "Vehicles-For-Sale",
-               url: "Vehicles-For-Sale.aspx",
-               defaults: new { controller = "VehiclesForSale", action = "Specific" }
-            );
-
-            routes.MapRoute(
-                name: "Vehicle-Sale",
-                url:"Vehicle-Sale/{id}",
-                defaults: new { controller = "VehicleDetailForSale", action = "Index" }
-            );
-
-            routes.MapRoute(
                name: "General-Info",
                url: "General-Info.aspx",
                defaults: new { controller = "GeneralInfo", action = "Specific" }
@@ -167,15 +155,33 @@ namespace sharemycoach
             );
 
             routes.MapRoute(
-             name: "EventFlyers",
-             url: "EventFlyer/{id}",
-             defaults: new { controller = "EventFlyer", action = "Index", id = UrlParameter.Optional }
+                name: "EventFlyers",
+                url: "EventFlyer/{id}",
+                defaults: new { controller = "EventFlyer", action = "Index", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
-             name: "webmail",
-             url: "webmail",
-             defaults: new { controller = "WebMail", action = "Index" }
+               name: "webmail",
+               url: "webmail",
+               defaults: new { controller = "WebMail", action = "Index" }
+            );
+
+            routes.MapRoute(
+                name: "reviews",
+                url: "reviews.aspx",
+                defaults: new { controller = "Reviews", action = "Index" }
+            );
+
+            routes.MapRoute(
+             name: "Vehicles-For-Sale",
+             url: "Vehicles-For-Sale.aspx",
+             defaults: new { controller = "VehiclesForSale", action = "Specific" }
+            );
+
+            routes.MapRoute(
+                name: "Vehicle-Sale",
+                url: "Vehicle-Sale/{id}",
+                defaults: new { controller = "VehicleDetailForSale", action = "Index" }
             );
 
             routes.MapRoute(

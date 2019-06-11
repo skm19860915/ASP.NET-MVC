@@ -13,5 +13,6 @@ namespace sharemycoach.Models
         public string OrganizationName { get; set; }
         public string PrimaryPhone { get; set; }
         public string Zip { get; set; }
+        public string Fax { get; set; }
     }
 }

@@ -43,3 +43,9 @@ span.detail-info-span{
     color:black;
     padding-right:10px;
 }
+img#detail-star-img{
+    position:absolute;
+    z-index:1;
+    width:90px;
+    margin-top:6px;
+}

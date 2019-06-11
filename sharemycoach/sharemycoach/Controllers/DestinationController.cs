@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using System.Data;
 
 namespace sharemycoach.Controllers
 {
@@ -8,7 +9,8 @@ namespace sharemycoach.Controllers
         [Route("Destination/{id}")]
         public ActionResult Index(string id)
         {
-            var targetDestinationData = _webCityPageInfos.FirstOrDefault(x => x.ActionName == id);
+            var webCityPageInfos = _wc.GetAllWebCityStaticPages(_token);
+            var targetDestinationData = webCityPageInfos.FirstOrDefault(x => x.ActionName == id);
             if(targetDestinationData == null)
                 return RedirectToAction("Index", "Error");
 

@@ -23,7 +23,7 @@
     }
 </style>
 <link href="~/Scripts/gallery/amazingslider-1.css" rel="stylesheet" />
-<div class="row">
+<div class="row" style="margin-top:-3px;">
     <div class="row pre-header" style="padding-top:0px;">
         <div id="slide-video-div" class="hidden-xs" style="display:none;">
             <h5 style="font-family:sans-serif; font-weight:normal; text-align:center;">@kohInformation</h5>
@@ -48,16 +48,19 @@
         <h2 class="logo3 carousel-caption">not from someone's backyard !</h2>
         <img src="~/Content/images/blog.jpg" class="img-responsive" />
         <div class="carousel-caption blog-div">
-            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-11">
+                <div class="numberCircle" id="number1">1</div>
                 <select class="form-control" id="locationName" name="locationName" style="border-radius:0px; margin-bottom:5px;">
                     <option value="">Select a Franchise Location</option>
-                    @foreach (var item in ViewBag.LocationInfos)
+                    @foreach (var item in ViewBag.locationInfosOfHome)
                     {
                         <option value="@item.State-@item.City:@item.SequenceId" id="@item.SequenceId">@item.City, @item.State</option>
                     }
                 </select>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                
+                <div class="numberCircle" id="number2">2</div>
                 <div class="input-group date" id="fromDate-div" style="margin-bottom:5px;">
                     <input type="text" class="form-control" id="from_date" name="from_date" />
                     <div class="input-group-addon" style="border-radius:0px; cursor:pointer;">
@@ -66,6 +69,7 @@
                 </div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                <div class="numberCircle" id="number3">3</div>
                 <div class="input-group date" id="toDate-div" style="margin-bottom:5px;">
                     <input type="text" class="form-control" id="to_date" name="to_date" />
                     <div class="input-group-addon" style="border-radius:0px; cursor:pointer;">
@@ -74,19 +78,20 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <input type="button" class="btn btn-success" id="smarty-btn" value="Check Availability" onclick="getSelectedLocation();" />
+                <div class="numberCircle" id="number4">4</div>
+                <input type="button" class="form-control btn btn-success" id="smarty-btn" value="Check Availability" onclick="getSelectedLocation();" />
             </div>
         </div>
         <h2 class="logo4 carousel-caption">ShareMyCoach Managed Fleets - Safe, Clean and Always Affordable</h2>
         <div class="visible-xs">
             <img src="~/Content/images/CreditCard.png" style="height:20px; margin-top:-60px; margin-left:34px;" />
-            <img src="~/Content/images/bbb-logo-plus.png" style="height:20px; margin-top:-60px; margin-left:264px;" />
+            <img src="~/Content/images/bbb-logo-plus.png" style="height:20px; margin-top:-100px; margin-left:340px;" />
         </div>
     </div>
     <div class="row pre-header" style="text-align:center; margin-top:-25px;">
         <h5 class="pickup-city-header">Pick Up Cities</h5>
         <h3 style="font-size:20px; margin-left:40px; margin-right:40px;">
-            @foreach (var item in ViewBag.LocationInfos)
+            @foreach (var item in ViewBag.locationInfosOfHome)
             {
                 <span>&nbsp;</span>
                 <a class="nolineA" href='@Url.Action("Location", "AllClassVehicles", new { id = @item.State + '-' + @item.City, cls = "All"})'>
@@ -427,7 +432,7 @@
 <script src="~/Scripts/gallery/initslider-3.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-    var location_list = @Html.Raw(Json.Encode(ViewBag.LocationInfos));
+    var location_list = @Html.Raw(Json.Encode(ViewBag.locationInfosOfHome));
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
 <script>
@@ -467,7 +472,7 @@
     {
         var sequence_id = sessionStorage.getItem("CurrentLocationSequenceId");
         if (sequence_id === undefined || sequence_id == null || sequence_id == "undefined") {
-            console.log('no selected location');
+            //console.log('no selected location');
         }
         else {
             document.getElementById(sequence_id).selected = true;

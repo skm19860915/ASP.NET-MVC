@@ -9,7 +9,8 @@ namespace sharemycoach.Controllers
         public VehicleRentalsController()
         {
             ViewBag.Title = "RV One Vehicle Per Class In Given Location";
-            ViewBag.LocationDatas = _locationInfos;
+            var locationInfos = _wc.GetAllLocations(_token);
+            ViewBag.LocationDatas = locationInfos;
         }
 
         public ActionResult Index(string typeid = "All")

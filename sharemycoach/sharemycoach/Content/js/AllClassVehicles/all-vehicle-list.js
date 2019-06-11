@@ -1,4 +1,11 @@
-﻿$(document).ready(function ()
+﻿$(document.body).on("mouseenter", "img.sale-img", function () {
+    $(this).attr('src', '../../Content/images/star2.png');
+});
+$(document.body).on("mouseleave", "img.sale-img", function () {
+    $(this).attr('src', '../../Content/images/star1.png');
+});
+
+$(document).ready(function ()
 {
     var flag_a = false; var flag_b = false; var flag_c = false; var flag_th = false; var flag_tt = false; var flag_ut = false, target_vehicle_sequence_id = 0;
     if (vehicle_list == null)
@@ -7,7 +14,8 @@
             '<h4 style="color:red; font-style:italic; text-align:center;">Please check back soon.<br /> There are currently no vehicles configured at this location</h4>';
         return;
     }
-    if (sessionStorage.getItem("TargetVehicleSequenceId") === undefined || sessionStorage.getItem("TargetVehicleSequenceId") == null || sessionStorage.getItem("TargetVehicleSequenceId") == "undefined")
+    if (sessionStorage.getItem("TargetVehicleSequenceId") === undefined || sessionStorage.getItem("TargetVehicleSequenceId") == null
+        || sessionStorage.getItem("TargetVehicleSequenceId") == "undefined")
     {
         target_vehicle_sequence_id = 0;
     }
@@ -15,7 +23,8 @@
     {
         target_vehicle_sequence_id = sessionStorage.getItem("TargetVehicleSequenceId");
     }
-    if (sessionStorage.getItem("CurrentClassType") === undefined || sessionStorage.getItem("CurrentClassType") == null || sessionStorage.getItem("CurrentClassType") == "undefined")
+    if (sessionStorage.getItem("CurrentClassType") === undefined || sessionStorage.getItem("CurrentClassType") == null
+        || sessionStorage.getItem("CurrentClassType") == "undefined")
     {
         generateVehicleList(0, 0);
     }
@@ -29,7 +38,7 @@
         {
             if (current_class_type == "A")
             {
-                $("#class_a").children().removeClass('white_border_div');
+                $("#class_a").children().removeClass('grey_border_div');
                 $("#class_a").children().addClass('red_border_div');
                 flag_a = true;
                 flag_b = false;
@@ -41,7 +50,7 @@
             }
             else if (current_class_type == "B")
             {
-                $("#class_b").children().removeClass('white_border_div');
+                $("#class_b").children().removeClass('grey_border_div');
                 $("#class_b").children().addClass('red_border_div');
                 flag_b = true;
                 flag_a = false;
@@ -53,7 +62,7 @@
             }
             else if (current_class_type == "C")
             {
-                $("#class_c").children().removeClass('white_border_div');
+                $("#class_c").children().removeClass('grey_border_div');
                 $("#class_c").children().addClass('red_border_div');
                 flag_c = true;
                 flag_a = false;
@@ -65,7 +74,7 @@
             }
             else if (current_class_type == "TH")
             {
-                $("#class_th").children().removeClass('white_border_div');
+                $("#class_th").children().removeClass('grey_border_div');
                 $("#class_th").children().addClass('red_border_div');
                 flag_th = true;
                 flag_a = false;
@@ -77,7 +86,7 @@
             }
             else if (current_class_type == "TT")
             {
-                $("#class_tt").children().removeClass('white_border_div');
+                $("#class_tt").children().removeClass('grey_border_div');
                 $("#class_tt").children().addClass('red_border_div');
                 flag_tt = true;
                 flag_a = false;
@@ -89,7 +98,7 @@
             }
             else if (current_class_type == "UT")
             {
-                $("#class_ut").children().removeClass('white_border_div');
+                $("#class_ut").children().removeClass('grey_border_div');
                 $("#class_ut").children().addClass('red_border_div');
                 flag_ut = true;
                 flag_a = false;
@@ -104,7 +113,7 @@
         {
             if (session_current_class_id == 1)
             {
-                $("#class_a").children().removeClass('white_border_div');
+                $("#class_a").children().removeClass('grey_border_div');
                 $("#class_a").children().addClass('red_border_div');
                 flag_a = true;
                 flag_b = false;
@@ -116,7 +125,7 @@
             }
             else if (session_current_class_id == 2)
             {
-                $("#class_b").children().removeClass('white_border_div');
+                $("#class_b").children().removeClass('grey_border_div');
                 $("#class_b").children().addClass('red_border_div');
                 flag_b = true;
                 flag_a = false;
@@ -128,7 +137,7 @@
             }
             else if (session_current_class_id == 3)
             {
-                $("#class_c").children().removeClass('white_border_div');
+                $("#class_c").children().removeClass('grey_border_div');
                 $("#class_c").children().addClass('red_border_div');
                 flag_c = true;
                 flag_a = false;
@@ -140,7 +149,7 @@
             }
             else if (session_current_class_id == 7)
             {
-                $("#class_th").children().removeClass('white_border_div');
+                $("#class_th").children().removeClass('grey_border_div');
                 $("#class_th").children().addClass('red_border_div');
                 flag_th = true;
                 flag_a = false;
@@ -152,7 +161,7 @@
             }
             else if (session_current_class_id == 8)
             {
-                $("#class_tt").children().removeClass('white_border_div');
+                $("#class_tt").children().removeClass('grey_border_div');
                 $("#class_tt").children().addClass('red_border_div');
                 flag_tt = true;
                 flag_a = false;
@@ -164,7 +173,7 @@
             }
             else if (session_current_class_id == 9)
             {
-                $("#class_ut").children().removeClass('white_border_div');
+                $("#class_ut").children().removeClass('grey_border_div');
                 $("#class_ut").children().addClass('red_border_div');
                 flag_ut = true;
                 flag_a = false;
@@ -196,18 +205,18 @@
         tab.style.display = 'none';
         sticky.style.display = 'none';
         is_display_none = true;
-        $(this).children().removeClass('white_border_div');
+        $(this).children().removeClass('grey_border_div');
         $(this).children().addClass('red_border_div');
         $('#class_b').children().removeClass('red_border_div');
-        $('#class_b').children().addClass('white_border_div');
+        $('#class_b').children().addClass('grey_border_div');
         $('#class_c').children().removeClass('red_border_div');
-        $('#class_c').children().addClass('white_border_div');
+        $('#class_c').children().addClass('grey_border_div');
         $('#class_th').children().removeClass('red_border_div');
-        $('#class_th').children().addClass('white_border_div');
+        $('#class_th').children().addClass('grey_border_div');
         $('#class_tt').children().removeClass('red_border_div');
-        $('#class_tt').children().addClass('white_border_div');
+        $('#class_tt').children().addClass('grey_border_div');
         $('#class_ut').children().removeClass('red_border_div');
-        $('#class_ut').children().addClass('white_border_div');
+        $('#class_ut').children().addClass('grey_border_div');
         flag_a = true;
         flag_b = false;
         flag_c = false;
@@ -227,18 +236,18 @@
         tab.style.display = 'none';
         sticky.style.display = 'none';
         is_display_none = true;
-        $(this).children().removeClass('white_border_div');
+        $(this).children().removeClass('grey_border_div');
         $(this).children().addClass('red_border_div');
         $('#class_a').children().removeClass('red_border_div');
-        $('#class_a').children().addClass('white_border_div');
+        $('#class_a').children().addClass('grey_border_div');
         $('#class_c').children().removeClass('red_border_div');
-        $('#class_c').children().addClass('white_border_div');
+        $('#class_c').children().addClass('grey_border_div');
         $('#class_th').children().removeClass('red_border_div');
-        $('#class_th').children().addClass('white_border_div');
+        $('#class_th').children().addClass('grey_border_div');
         $('#class_tt').children().removeClass('red_border_div');
-        $('#class_tt').children().addClass('white_border_div');
+        $('#class_tt').children().addClass('grey_border_div');
         $('#class_ut').children().removeClass('red_border_div');
-        $('#class_ut').children().addClass('white_border_div');
+        $('#class_ut').children().addClass('grey_border_div');
         flag_b = true;
         flag_a = false;
         flag_c = false;
@@ -258,18 +267,18 @@
         tab.style.display = 'none';
         sticky.style.display = 'none';
         is_display_none = true;
-        $(this).children().removeClass('white_border_div');
+        $(this).children().removeClass('grey_border_div');
         $(this).children().addClass('red_border_div');
         $('#class_a').children().removeClass('red_border_div');
-        $('#class_a').children().addClass('white_border_div');
+        $('#class_a').children().addClass('grey_border_div');
         $('#class_b').children().removeClass('red_border_div');
-        $('#class_b').children().addClass('white_border_div');
+        $('#class_b').children().addClass('grey_border_div');
         $('#class_th').children().removeClass('red_border_div');
-        $('#class_th').children().addClass('white_border_div');
+        $('#class_th').children().addClass('grey_border_div');
         $('#class_tt').children().removeClass('red_border_div');
-        $('#class_tt').children().addClass('white_border_div');
+        $('#class_tt').children().addClass('grey_border_div');
         $('#class_ut').children().removeClass('red_border_div');
-        $('#class_ut').children().addClass('white_border_div');
+        $('#class_ut').children().addClass('grey_border_div');
         flag_c = true;
         flag_a = false;
         flag_b = false;
@@ -289,18 +298,18 @@
         tab.style.display = 'none';
         sticky.style.display = 'none';
         is_display_none = true;
-        $(this).children().removeClass('white_border_div');
+        $(this).children().removeClass('grey_border_div');
         $(this).children().addClass('red_border_div');
         $('#class_a').children().removeClass('red_border_div');
-        $('#class_a').children().addClass('white_border_div');
+        $('#class_a').children().addClass('grey_border_div');
         $('#class_b').children().removeClass('red_border_div');
-        $('#class_b').children().addClass('white_border_div');
+        $('#class_b').children().addClass('grey_border_div');
         $('#class_c').children().removeClass('red_border_div');
-        $('#class_c').children().addClass('white_border_div');
+        $('#class_c').children().addClass('grey_border_div');
         $('#class_tt').children().removeClass('red_border_div');
-        $('#class_tt').children().addClass('white_border_div');
+        $('#class_tt').children().addClass('grey_border_div');
         $('#class_ut').children().removeClass('red_border_div');
-        $('#class_ut').children().addClass('white_border_div');
+        $('#class_ut').children().addClass('grey_border_div');
         flag_th = true;
         flag_a = false;
         flag_b = false;
@@ -320,18 +329,18 @@
         tab.style.display = 'none';
         sticky.style.display = 'none';
         is_display_none = true;
-        $(this).children().removeClass('white_border_div');
+        $(this).children().removeClass('grey_border_div');
         $(this).children().addClass('red_border_div');
         $('#class_a').children().removeClass('red_border_div');
-        $('#class_a').children().addClass('white_border_div');
+        $('#class_a').children().addClass('grey_border_div');
         $('#class_b').children().removeClass('red_border_div');
-        $('#class_b').children().addClass('white_border_div');
+        $('#class_b').children().addClass('grey_border_div');
         $('#class_c').children().removeClass('red_border_div');
-        $('#class_c').children().addClass('white_border_div');
+        $('#class_c').children().addClass('grey_border_div');
         $('#class_th').children().removeClass('red_border_div');
-        $('#class_th').children().addClass('white_border_div');
+        $('#class_th').children().addClass('grey_border_div');
         $('#class_ut').children().removeClass('red_border_div');
-        $('#class_ut').children().addClass('white_border_div');
+        $('#class_ut').children().addClass('grey_border_div');
         flag_tt = true;
         flag_a = false;
         flag_b = false;
@@ -351,18 +360,18 @@
         tab.style.display = 'none';
         sticky.style.display = 'none';
         is_display_none = true;
-        $(this).children().removeClass('white_border_div');
+        $(this).children().removeClass('grey_border_div');
         $(this).children().addClass('red_border_div');
         $('#class_a').children().removeClass('red_border_div');
-        $('#class_a').children().addClass('white_border_div');
+        $('#class_a').children().addClass('grey_border_div');
         $('#class_b').children().removeClass('red_border_div');
-        $('#class_b').children().addClass('white_border_div');
+        $('#class_b').children().addClass('grey_border_div');
         $('#class_c').children().removeClass('red_border_div');
-        $('#class_c').children().addClass('white_border_div');
+        $('#class_c').children().addClass('grey_border_div');
         $('#class_th').children().removeClass('red_border_div');
-        $('#class_th').children().addClass('white_border_div');
+        $('#class_th').children().addClass('grey_border_div');
         $('#class_tt').children().removeClass('red_border_div');
-        $('#class_tt').children().addClass('white_border_div');
+        $('#class_tt').children().addClass('grey_border_div');
         flag_ut = true;
         flag_a = false;
         flag_b = false;
@@ -383,17 +392,17 @@
         sticky.style.display = 'none';
         is_display_none = true;
         $('#class_a').children().removeClass('red_border_div');
-        $('#class_a').children().addClass('white_border_div');
+        $('#class_a').children().addClass('grey_border_div');
         $('#class_b').children().removeClass('red_border_div');
-        $('#class_b').children().addClass('white_border_div');
+        $('#class_b').children().addClass('grey_border_div');
         $('#class_c').children().removeClass('red_border_div');
-        $('#class_c').children().addClass('white_border_div');
+        $('#class_c').children().addClass('grey_border_div');
         $('#class_th').children().removeClass('red_border_div');
-        $('#class_th').children().addClass('white_border_div');
+        $('#class_th').children().addClass('grey_border_div');
         $('#class_tt').children().removeClass('red_border_div');
-        $('#class_tt').children().addClass('white_border_div');
+        $('#class_tt').children().addClass('grey_border_div');
         $('#class_ut').children().removeClass('red_border_div');
-        $('#class_ut').children().addClass('white_border_div');
+        $('#class_ut').children().addClass('grey_border_div');
         flag_a = false;
         flag_b = false;
         flag_c = false;
@@ -537,7 +546,8 @@
         var is_location_behind_on_paying = is_location_behind_on_paying;
         if(is_location_behind_on_paying == true)
         {
-            var invisible_html = '<br /><br /><h2 style="color:#000000; text-align:center;">This location is currently under maintenance.<br />Please check back later.</h2><br /><br /><br /><br /><br /><br />';
+            var invisible_html = '<br /><br /><h2 style="color:#000000; text-align:center;">This location is currently under maintenance.<br />' +
+                'Please check back later.</h2><br /><br /><br /><br /><br /><br />';
             document.getElementById('photo_div').innerHTML = invisible_html;
             document.getElementById('detail_photo_div').innerHTML = invisible_html;
             return;
@@ -574,14 +584,20 @@
                         var web_unique_id = vehicle_list[i].WebUniqueId;
                         var insurance_policy = vehicle_list[i].InsurancePolicy;
                         var is_square_photo = vehicle_list[i].IsSquarePhoto;
+                        var showForSale = vehicle_list[i].ShowForSale;
+                        var forSaleOn = vehicle_list[i].ForSaleOn;
+                        var salePrice = vehicle_list[i].SalePrice;
 
                         if (target_vehicle_sequence_id == vehicle_seq) {
-                            html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle, children, adolescents, adults, date_list, target_vehicle_sequence_id, insurance_policy, is_square_photo);
+                            html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                                children, adolescents, adults, date_list, target_vehicle_sequence_id, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
                         }
                         else {
-                            html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle, children, adolescents, adults, date_list, null, insurance_policy, is_square_photo);
+                            html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                                children, adolescents, adults, date_list, null, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
                         }
-                        d_html += generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description, children, adolescents, adults, featured_vehicle, insurance_policy, date_list);
+                        d_html += generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description,
+                            children, adolescents, adults, featured_vehicle, insurance_policy, date_list);
                     }
                 }
             }
@@ -612,14 +628,20 @@
                     var web_unique_id = vehicle_list[i].WebUniqueId;
                     var insurance_policy = vehicle_list[i].InsurancePolicy;
                     var is_square_photo = vehicle_list[i].IsSquarePhoto;
+                    var showForSale = vehicle_list[i].ShowForSale;
+                    var forSaleOn = vehicle_list[i].ForSaleOn;
+                    var salePrice = vehicle_list[i].SalePrice;
 
                     if (target_vehicle_sequence_id == vehicle_seq) {
-                        html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle, children, adolescents, adults, date_list, target_vehicle_sequence_id, insurance_policy, is_square_photo);
+                        html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                            children, adolescents, adults, date_list, target_vehicle_sequence_id, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
                     }
                     else {
-                        html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle, children, adolescents, adults, date_list, null, insurance_policy, is_square_photo);
+                        html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                            children, adolescents, adults, date_list, null, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
                     }
-                    d_html += generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description, children, adolescents, adults, featured_vehicle, insurance_policy, date_list);
+                    d_html += generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description,
+                        children, adolescents, adults, featured_vehicle, insurance_policy, date_list);
                 }
             }
         }
@@ -629,7 +651,8 @@
             {
                 for (var i = 0; i < vehicle_list.length; i++)
                 {
-                    if ((vehicle_list[i].ClassType == index && vehicle_list[i].WebPriceGroup == price_index) || (vehicle_list[i].ClassType == index && vehicle_list[i].WebPriceGroup > price_index && price_index == 500))
+                    if ((vehicle_list[i].ClassType == index && vehicle_list[i].WebPriceGroup == price_index) ||
+                        (vehicle_list[i].ClassType == index && vehicle_list[i].WebPriceGroup > price_index && price_index == 500))
                     {
                         var vehicle_key = vehicle_list[i].VehicleKey;
                         var photo = vehicle_list[i].Photo;
@@ -654,14 +677,20 @@
                         var web_unique_id = vehicle_list[i].WebUniqueId;
                         var insurance_policy = vehicle_list[i].InsurancePolicy;
                         var is_square_photo = vehicle_list[i].IsSquarePhoto;
+                        var showForSale = vehicle_list[i].ShowForSale;
+                        var forSaleOn = vehicle_list[i].ForSaleOn;
+                        var salePrice = vehicle_list[i].SalePrice;
 
                         if (target_vehicle_sequence_id == vehicle_seq) {
-                            html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle, children, adolescents, adults, date_list, target_vehicle_sequence_id, insurance_policy, is_square_photo);
+                            html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                                children, adolescents, adults, date_list, target_vehicle_sequence_id, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
                         }
                         else {
-                            html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle, children, adolescents, adults, date_list, null, insurance_policy, is_square_photo);
+                            html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                                children, adolescents, adults, date_list, null, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
                         }
-                        d_html += generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description, children, adolescents, adults, featured_vehicle, insurance_policy, date_list);
+                        d_html += generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description,
+                            children, adolescents, adults, featured_vehicle, insurance_policy, date_list);
                     }
                 }
             }
@@ -694,14 +723,20 @@
                         var web_unique_id = vehicle_list[i].WebUniqueId;
                         var insurance_policy = vehicle_list[i].InsurancePolicy;
                         var is_square_photo = vehicle_list[i].IsSquarePhoto;
+                        var showForSale = vehicle_list[i].ShowForSale;
+                        var forSaleOn = vehicle_list[i].ForSaleOn;
+                        var salePrice = vehicle_list[i].SalePrice;
 
                         if (target_vehicle_sequence_id == vehicle_seq) {
-                            html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle, children, adolescents, adults, date_list, target_vehicle_sequence_id, insurance_policy, is_square_photo);
+                            html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                                children, adolescents, adults, date_list, target_vehicle_sequence_id, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
                         }
                         else {
-                            html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle, children, adolescents, adults, date_list, null, insurance_policy, is_square_photo);
+                            html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                                children, adolescents, adults, date_list, null, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
                         }
-                        d_html += generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description, children, adolescents, adults, featured_vehicle, insurance_policy, date_list);
+                        d_html += generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description,
+                            children, adolescents, adults, featured_vehicle, insurance_policy, date_list);
                     }
                 }
             }
@@ -709,7 +744,7 @@
 
         if (html)
         {
-            document.getElementById('photo_div').innerHTML = '<h2 style="color:#000000;">All vehicles in ' + vehicle_list[0].WebRegionalName + '</h2>' + html;
+            document.getElementById('photo_div').innerHTML = '<h2 class="hidden-xs" style="color:#000000;">All vehicles in ' + vehicle_list[0].WebRegionalName + '</h2>' + html;
         }
         else
         {
@@ -727,7 +762,8 @@
         }
     }
 
-    function generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, website_url, featured_vehicle, children, adolescents, adults, date_list, is_target, insurance_policy, is_square_photo)
+    function generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, website_url, featured_vehicle,
+        children, adolescents, adults, date_list, is_target, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice)
     {
         var g_html = '', g_popup_dialog = '', g_tile = '';
         var g_name, g_price, g_web_region_name, g_photo;
@@ -782,35 +818,103 @@
         {
             if (is_target)
             {
-                if (photo == "big") {
-                    g_photo = '<div class="ribbon" style="bottom:90px;"><div class="featured-txt">Featured</div></div>'
-                    + '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img" style="width:194px;">';
-                }
-                else {
-                    if (is_square_photo == true) {
-                            g_photo = '<div class="ribbon" style="bottom:93px; right:-21px;"><div class="featured-txt">Featured</div></div>'
-                        + '<img src="data:image/jpg;base64,' + photo + '" class="highlight-clip-vehicle-img">';
+                if (photo == "big")
+                {
+                    if (showForSale == true && forSaleOn != null)
+                    {
+                        g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                + '<div class="ribbon" style="bottom:90px;"><div class="featured-txt">Featured</div></div>'
+                                + '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img" style="width:194px;">';
                     }
-                    else {
+                    else
+                    {
+                        g_photo = '<div class="ribbon" style="bottom:90px;"><div class="featured-txt">Featured</div></div>'
+                                + '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img" style="width:194px;">';
+                    }
+                }
+                else
+                {
+                    if (is_square_photo == true)
+                    {
+                        if (showForSale == true && forSaleOn != null)
+                        {
+                            g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                    + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                    + '<div class="ribbon" style="bottom:93px; right:-21px;"><div class="featured-txt">Featured</div></div>'
+                                    + '<img src="data:image/jpg;base64,' + photo + '" class="highlight-clip-vehicle-img">';
+                        }
+                        else
+                        {
+                            g_photo = '<div class="ribbon" style="bottom:93px; right:-21px;"><div class="featured-txt">Featured</div></div>'
+                                    + '<img src="data:image/jpg;base64,' + photo + '" class="highlight-clip-vehicle-img">';
+                        }
+                    }
+                    else
+                    {
+                        if (showForSale == true && forSaleOn != null)
+                        {
+                            g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                    + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                    + '<div class="ribbon" style="bottom:92px; right:-21px;"><div class="featured-txt">Featured</div></div>'
+                                    + '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img" style="width:194px;">';
+                        }
+                        else
+                        {
                             g_photo = '<div class="ribbon" style="bottom:92px; right:-21px;"><div class="featured-txt">Featured</div></div>'
-                        + '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img" style="width:194px;">';
+                                    + '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img" style="width:194px;">';
+                        }
                     }
                 }
             }
             else
             {
-                if (photo == "big") {
-                    g_photo = '<div class="ribbon"><div class="featured-txt">Featured</div></div>'
-                    + '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img">';
-                }
-                else {
-                    if (is_square_photo == true) {
-                            g_photo = '<div class="ribbon"><div class="featured-txt">Featured</div></div>'
-                        + '<img src="data:image/jpg;base64,' + photo + '" class="clip-vehicle-img">';
+                if (photo == "big")
+                {
+                    if (showForSale == true && forSaleOn != null)
+                    {
+                        g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                + '<div class="ribbon"><div class="featured-txt">Featured</div></div>'
+                                + '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img">';
                     }
-                    else {
+                    else
+                    {
+                        g_photo = '<div class="ribbon"><div class="featured-txt">Featured</div></div>'
+                                + '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img">';
+                    }
+                }
+                else
+                {
+                    if (is_square_photo == true)
+                    {
+                        if (showForSale == true && forSaleOn != null)
+                        {
+                            g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                    + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                    + '<div class="ribbon"><div class="featured-txt">Featured</div></div>'
+                                    + '<img src="data:image/jpg;base64,' + photo + '" class="clip-vehicle-img">';
+                        }
+                        else
+                        {
                             g_photo = '<div class="ribbon"><div class="featured-txt">Featured</div></div>'
-                        + '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img">';
+                                    + '<img src="data:image/jpg;base64,' + photo + '" class="clip-vehicle-img">';
+                        }
+                    }
+                    else
+                    {
+                        if (showForSale == true && forSaleOn != null)
+                        {
+                            g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                    + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                    + '<div class="ribbon"><div class="featured-txt">Featured</div></div>'
+                                    + '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img">';
+                        }
+                        else
+                        {
+                            g_photo = '<div class="ribbon"><div class="featured-txt">Featured</div></div>'
+                                    + '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img">';
+                        }
                     }
                 }
             }
@@ -819,29 +923,91 @@
         {
             if (is_target)
             {
-                if (photo == "big") {
-                    g_photo = '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img" style="width:194px;">';
-                }
-                else {
-                    if (is_square_photo == true) {
-                        g_photo = '<img src="data:image/jpg;base64,' + photo + '" class="highlight-clip-vehicle-img">';
+                if (photo == "big")
+                {
+                    if (showForSale == true && forSaleOn != null)
+                    {
+                        g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                + '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img" style="width:194px;">';
                     }
-                    else {
-                        g_photo = '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img" style="width:194px;">';
+                    else
+                    {
+                        g_photo = '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img" style="width:194px;">';
+                    }
+                }
+                else
+                {
+                    if (is_square_photo == true)
+                    {
+                        if (showForSale == true && forSaleOn != null)
+                        {
+                            g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                    + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                    + '<img src="data:image/jpg;base64,' + photo + '" class="highlight-clip-vehicle-img">';
+                        }
+                        else
+                        {
+                            g_photo = '<img src="data:image/jpg;base64,' + photo + '" class="highlight-clip-vehicle-img">';
+                        }
+                    }
+                    else
+                    {
+                        if (showForSale == true && forSaleOn != null)
+                        {
+                            g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                    + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                    + '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img" style="width:194px;">';
+                        }
+                        else
+                        {
+                            g_photo = '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img" style="width:194px;">';
+                        }
                     }
                 }
             }
             else
             {
-                if (photo == "big") {
-                    g_photo = '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img">';
-                }
-                else {
-                    if (is_square_photo == true) {
-                        g_photo = '<img src="data:image/jpg;base64,' + photo + '" class="clip-vehicle-img">';
+                if (photo == "big")
+                {
+                    if (showForSale == true && forSaleOn != null)
+                    {
+                        g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                + '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img">';
                     }
-                    else {
-                        g_photo = '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img">';
+                    else
+                    {
+                        g_photo = '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img">';
+                    }
+                }
+                else
+                {
+                    if (is_square_photo == true)
+                    {
+                        if (showForSale == true && forSaleOn != null)
+                        {
+                            g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                    + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                    + '<img src="data:image/jpg;base64,' + photo + '" class="clip-vehicle-img">';
+                        }
+                        else
+                        {
+                            g_photo = '<img src="data:image/jpg;base64,' + photo + '" class="clip-vehicle-img">';
+                        }
+                    }
+                    else
+                    {
+                        if (showForSale == true && forSaleOn != null)
+                        {
+                            g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                    + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                    + '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img">';
+                        }
+                        else
+                        {
+                            g_photo = '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img">';
+                        }
                     }
                 }
             }
@@ -864,7 +1030,8 @@
         return g_html;
     }
 
-    function generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description, children, adolescents, adults, featured_vehicle, insurance_policy, date_list)
+    function generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description,
+        children, adolescents, adults, featured_vehicle, insurance_policy, date_list)
     {
         
 
@@ -875,7 +1042,8 @@
         {
             if (insurance_policy)
             {
-                g_d_name = '<div class="row daily-div"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><h4>' + name + '<span style="color:black;">&nbsp;&#10033;</span></h4></div></div>';
+                g_d_name = '<div class="row daily-div"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><h4>' + name +
+                    '<span style="color:black;">&nbsp;&#10033;</span></h4></div></div>';
             }
             else
             {
@@ -945,8 +1113,9 @@
 
         if (price)
         {
-            g_d_price = '<div class="row daily-div"><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><h5>Daily:&nbsp;' + price + '</h5></div><div class="col-lg-8 col-md-8 col-sm-8 col-xs-6">' +
-                     '<button type="button" class="estimate_data btn btn-success btn-quote hidden-xs" style="margin-right:10px;" onclick="getEstimateOfDetail(this);" value="'
+            g_d_price = '<div class="row daily-div"><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><h5>Daily:&nbsp;'
+                     + price + '</h5></div><div class="col-lg-8 col-md-8 col-sm-8 col-xs-6">'
+                     + '<button type="button" class="estimate_data btn btn-success btn-quote hidden-xs" style="margin-right:10px;" onclick="getEstimateOfDetail(this);" value="'
                      + vehicle_key + '">Get Estimate</button><button type="button" class="detail_data btn btn-danger btn-details" onclick="getMorePhotos(this);" value="'
                      + web_unique_id + '">More Photos</button></div></div>';
         }
@@ -995,7 +1164,8 @@
             g_d_web_description = "No description";
         }
 
-        var g_d_panel = '<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><div class="listview-div" title="' + g_d_web_description + '">' + g_d_name + group2 + '<br />' + g_d_price + '<br /></div></div>';
+        var g_d_panel = '<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><div class="listview-div" title="' + g_d_web_description + '">' +
+            g_d_name + group2 + '<br />' + g_d_price + '<br /></div></div>';
 
         g_d_html = '<div class="row" style="padding-bottom:20px;">' + g_d_photo + g_d_panel + '</div>';
 

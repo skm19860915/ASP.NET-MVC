@@ -39,6 +39,11 @@ namespace sharemycoach.ViewModels
         public decimal? HigherRate { get; set; }
         public string WebTransportedID { get; set; }
         public Guid? InsurancePolicy { get; set; }
+        public int? OldVehicleID { get; set; }
+        public Nullable<bool> ShowForSale { get; set; }
+        public Nullable<DateTime> ForSaleOn { get; set; }
+        public Nullable<DateTime> SoldOn { get; set; }
+        public int? SalePrice { get; set; }
         //location
         public bool? isShowCalendarOnWeb { get; set; }
         public bool? IsCalendarWithBookings { get; set; }
@@ -64,6 +69,8 @@ namespace sharemycoach.ViewModels
         public int? MinimumNumberOfTimeInterval { get; set; }
         public bool? CalcByNights { get; set; }
         public string WebQuoteEmailAddress { get; set; }
+        public string EmailSupportRequestAddress { get; set; }
+        public string FriendlyCompanyName { get; set; }
         // vehicleclass
         public Guid ClassOid { get; set; }
         public string ClassName { get; set; }

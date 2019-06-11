@@ -1,8 +1,11 @@
 ﻿<!--All Classes View-->
+@using System.Text.RegularExpressions;
 @section AdditionalMeta
 {
-    <meta name="keywords" content="rv rental, rv rentals, rent an rv, rv rentals california, rv rentals southern california, california, luxury rv rentals, diesel rv rentals, private rv rentals, motorhome rentals, camper, trailer, orange, county, orange county">
-    <meta name="description" content="We offer RV rentals California, luxury RV rentals, diesel RV rentals, and private RV rentals at ShareMyCoach.com. Rent an RV in southern California from the largest on site selection of privately owned RV rentals.">
+    <meta name="keywords" content="rv rental, rv rentals, rent an rv, rv rentals california, rv rentals southern california, 
+          california, luxury rv rentals, diesel rv rentals, private rv rentals, motorhome rentals, camper, trailer, orange, county, orange county">
+    <meta name="description" content="We offer RV rentals California, luxury RV rentals, diesel RV rentals, 
+          and private RV rentals at ShareMyCoach.com. Rent an RV in southern California from the largest on site selection of privately owned RV rentals.">
 }
 @{ 
     var paramOfHamburgerMenu = ViewBag.LocationInfo.State + "-" + ViewBag.LocationInfo.City;
@@ -25,10 +28,10 @@
         color:black;
     }
 </style>
-<div class="row">
-    <div class="row pre-header" style="padding-top:0px;">
+<div class="row" style="margin-top:-5px;">
+    <div class="row pre-header hidden-xs" style="padding-top:0px;">
         @Html.Partial("~/Views/Home/_SearchSection.cshtml")
-        <hr style="border:1px solid grey; margin-bottom:20px; margin-top:0px;" />
+        <hr style="border:1px solid grey; margin-top:5px;" />
     </div>
     @if (ViewBag.LocationInfo.IsLocationBehindOnPaying == true)
     {
@@ -38,10 +41,10 @@
     }
     else
     {
-        <div class="row pre-header" style="text-align:center;">
-            <h1 style="color:#000000; font-size:30px; margin-top:-10px;">@ViewBag.LocationInfo.WebRegionalName RVs</h1>
-
-            <h6 id="horizontal-menu-header" style="margin-left:50px; margin-right:50px;">
+        <div class="row pre-header" style="text-align:center;" id="region_div">
+            <h1>@ViewBag.LocationInfo.WebRegionalName RVs</h1>
+            <h3><a href='tel:@Regex.Replace(1 + ViewBag.LocationInfo.PrimaryPhone, "[^0-9]+", string.Empty)'>@ViewBag.LocationInfo.PrimaryPhone</a></h3>
+            <h6 id="horizontal-menu-header">
                 <a href='@Url.Action("Specific", "FAQ", new { location = paramOfHamburgerMenu })'><span>FAQ</span></a>&nbsp;/&nbsp;
                 <a href='@Url.Action("Specific", "Insurance", new { location = paramOfHamburgerMenu })'><span>Insurance Company</span></a>&nbsp;/&nbsp;
                 <a href='@Url.Action("Specific", "OptionalEquipment", new { location = paramOfHamburgerMenu })'><span>Optional Equipment</span></a>&nbsp;/&nbsp;
@@ -55,7 +58,7 @@
             <h2 id="web-location-page-html">
                 @Html.Raw(ViewBag.LocationInfo.WebLocationPageHTML)
             </h2>
-            <h4 style="color:#ff0000">Which Type of Vehicle Interests you?</h4>
+            <h4>Which Type of Vehicle Interests you?</h4>
             @if (ViewBag.FeaturesCount == 2)
             {
                 <div class="col-lg-3 col-md-3 col-sm-2"></div>
@@ -144,30 +147,12 @@
                 foreach (var val in ViewBag.RandFeaturesInLocation)
                 {
                     var class_id = "";
-                    if (val.ClassType == 1)
-                    {
-                        class_id = "A";
-                    }
-                    else if (val.ClassType == 2)
-                    {
-                        class_id = "B";
-                    }
-                    else if (val.ClassType == 3)
-                    {
-                        class_id = "C";
-                    }
-                    else if (val.ClassType == 7)
-                    {
-                        class_id = "TH";
-                    }
-                    else if (val.ClassType == 8)
-                    {
-                        class_id = "TT";
-                    }
-                    else if (val.ClassType == 9)
-                    {
-                        class_id = "UT";
-                    }
+                    if (val.ClassType == 1){ class_id = "A"; }
+                    else if (val.ClassType == 2){ class_id = "B"; }
+                    else if (val.ClassType == 3){ class_id = "C"; }
+                    else if (val.ClassType == 7){ class_id = "TH"; }
+                    else if (val.ClassType == 8){ class_id = "TT"; }
+                    else if (val.ClassType == 9){ class_id = "UT"; }
                     <div class="col-lg-3 col-md-3 col-sm-4 vehicle-info">
                         <div class="vehicle-div">
                             <a href='@Url.Action("Location", "AllClassVehicles", new { id = @val.State + "-" + @val.City, cls = @class_id })' onclick="saveVehicleSequenceId(this)" id="@val.VehicleSequenceId">

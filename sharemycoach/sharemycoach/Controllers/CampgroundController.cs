@@ -19,6 +19,7 @@ namespace sharemycoach.Controllers
                 return RedirectToAction("Index", "Error");
 
             ViewBag.SearchLocationSequenceId = locationInfo.SequenceId;
+            ViewBag.api = locationInfo.WebGoogleMapJavaScriptAPIKey;
             var dirNames = GetCustomerDirectoryList();
             ViewBag.DirNames = dirNames;
 

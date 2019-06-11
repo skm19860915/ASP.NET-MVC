@@ -247,6 +247,7 @@
     <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Controllers\QuoteResultController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
+    <Compile Include="Controllers\Reviews\ReviewsController.cs" />
     <Compile Include="Controllers\RVOwnersController.cs" />
     <Compile Include="Controllers\RVTrainingVideosController.cs" />
     <Compile Include="Controllers\ShowMeHowController.cs" />
@@ -272,6 +273,7 @@
     <Compile Include="Models\LeadSourceModel.cs" />
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\LocationInsuranceCompanyModel.cs" />
+    <Compile Include="Models\Location\LocationBaseInfoModel.cs" />
     <Compile Include="Models\MapModel.cs" />
     <Compile Include="Models\QuoteModel.cs" />
     <Compile Include="Models\RentalModel.cs" />
@@ -298,6 +300,7 @@
     <Compile Include="ViewModels\VehicleDetailViewModel.cs" />
     <Compile Include="ViewModels\VehicleSaleDetailViewModel.cs" />
     <Compile Include="ViewModels\VehiclesInLocationViewModel.cs" />
+    <Compile Include="ViewModels\WebCityStaticPageTitleViewModel.cs" />
     <Compile Include="ViewModels\WebCityStaticPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -334,7 +337,10 @@
     <Content Include="Content\images\crew.png" />
     <Content Include="Content\images\DateRv.jpg" />
     <Content Include="Content\images\download.jpg" />
+    <Content Include="Content\images\FacebookButtonGreyOnly.png" />
     <Content Include="Content\images\franchise.png" />
+    <Content Include="Content\images\GButton1.png" />
+    <Content Include="Content\images\GButton2.png" />
     <Content Include="Content\images\glyph1-small.png" />
     <Content Include="Content\images\glyph1.png" />
     <Content Include="Content\images\glyph2-small.png" />
@@ -373,6 +379,9 @@
     <Content Include="Content\images\rvra.jpg" />
     <Content Include="Content\images\sharemycoach.png" />
     <Content Include="Content\images\ShowMeHow.png" />
+    <Content Include="Content\images\smclogo.png" />
+    <Content Include="Content\images\star1.png" />
+    <Content Include="Content\images\star2.png" />
     <Content Include="Content\images\tab.png" />
     <Content Include="Content\images\Testimonials head.png" />
     <Content Include="Content\images\testimonials.png" />
@@ -722,14 +731,18 @@
     <Content Include="UserContent\BM18\PriceSheetAndWhatIncluded.pdf" />
     <Content Include="UserContent\BM19\PriceSheetAndWhatIncluded.pdf" />
     <Content Include="UserContent\KH19\PriceSheetAndWhatIncluded.pdf" />
-    <Content Include="Views\QuoteResult\Success.cshtml" />
     <Content Include="Views\Home\_SearchSection.cshtml" />
-    <Content Include="Views\QuoteResult\Fail.cshtml" />
     <Content Include="Views\Faq\Specific.cshtml" />
+    <Content Include="Views\QuoteResult\WebQuoteSuccess.cshtml" />
+    <Content Include="Views\QuoteResult\WebQuoteFail.cshtml" />
+    <Content Include="Views\QuoteResult\MobileQuoteSuccess.cshtml" />
+    <Content Include="Views\QuoteResult\MobileQuoteFail.cshtml" />
+    <Content Include="Views\Reviews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\First\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

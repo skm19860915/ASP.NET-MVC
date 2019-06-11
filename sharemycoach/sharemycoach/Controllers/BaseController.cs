@@ -6,16 +6,17 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
+using System.Data;
 
 namespace sharemycoach.Controllers
 {
     public class BaseController : Controller
     {
         public WebAPI2Client _wc;
-        public CompanyModel _companyInfos;
-        public IEnumerable<LocationModel> _locationInfos;
-        public IEnumerable<WebCityStaticPageViewModel> _webCityPageInfos;
         public string _token;
+        public CompanyModel _companyInfos;
+        private IEnumerable<WebCityStaticPageTitleViewModel> destinationTitles;
+        private IEnumerable<WebCityStaticPageTitleViewModel> eventTitles;
 
         public BaseController()
         {
@@ -24,26 +25,34 @@ namespace sharemycoach.Controllers
 
             var webCityPageInfos = _wc.GetAllWebCityStaticPages(_token);
 
-            _webCityPageInfos = webCityPageInfos;
-            
             if(webCityPageInfos != null)
             {
-                var rentalDestinationList = webCityPageInfos.Where(x => x.IsPointOfInterest == true).ToList();
-                var rentalEventList = webCityPageInfos.Where(x => x.IsEvent == true).ToList();
+                destinationTitles = from w in webCityPageInfos
+                                      where w.IsPointOfInterest == true
+                                      select new WebCityStaticPageTitleViewModel
+                                      {
+                                          Location = w.Location,
+                                          MetaTitle = w.MetaTitle,
+                                          ControllerName = w.ControllerName,
+                                          ActionName = w.ActionName
+                                      };
 
-                ViewBag.DestinationList = rentalDestinationList;
-                ViewBag.EventList = rentalEventList;
+                eventTitles = from w in webCityPageInfos
+                                where w.IsEvent == true
+                                select new WebCityStaticPageTitleViewModel
+                                {
+                                    Location = w.Location,
+                                    MetaTitle = w.MetaTitle,
+                                    ControllerName = w.ControllerName,
+                                    ActionName = w.ActionName
+                                };
             }
-            else
-            {
-                ViewBag.DestinationList = null;
-                ViewBag.EventList = null;
-            }
 
-            var locationInfos = _wc.GetAllLocations(_token);
-            ViewBag.RightList = locationInfos;
+            ViewBag.DestinationList = destinationTitles;
+            ViewBag.EventList = eventTitles;
 
-            _locationInfos = locationInfos;
+            var locationBaseInfos = _wc.GetAllBaseInfosOfLocation(_token);
+            ViewBag.RightList = locationBaseInfos;
 
             var companyInfos = _wc.GetCompany(_token);
             _companyInfos = companyInfos;
@@ -72,7 +81,7 @@ namespace sharemycoach.Controllers
 
         public LocationModel GetTargetLocationInfo(string location)
         {
-            var locations = _locationInfos;
+            var locations = _wc.GetAllLocations(_token);
             var param = location.Split('-').ToList();
             var locationInfo = locations.FirstOrDefault(x => x.State == param[0] && x.City == param[1]);
             return locationInfo;

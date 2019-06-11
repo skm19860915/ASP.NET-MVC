@@ -1,6 +1,7 @@
 ﻿using sharemycoach.Models;
 using sharemycoach.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -8,6 +9,7 @@ namespace sharemycoach.Controllers
 {
     public class VehicleDetailsController : BaseController
     {
+
         public ActionResult Index(int id)
         {
             var matchVehicle = _wc.GetMatchVehicle(id, _token);
@@ -17,7 +19,7 @@ namespace sharemycoach.Controllers
             if (matchVehicle.IsActive == true)
             {
                 var webUniqueId = matchVehicle.WebUniqueId;
-                var detailInfo = _wc.GetDetail(webUniqueId, _token);
+                var detailInfo = _wc.GetDetail(webUniqueId, false, _token);
                 if (detailInfo == null)
                     return RedirectToAction("Index", "Error");
 
@@ -26,7 +28,8 @@ namespace sharemycoach.Controllers
             }
 
             var locationOid = matchVehicle.Location;
-            var locationInfo = _locationInfos.FirstOrDefault(x => x.Oid == locationOid);
+            var locationInfos = _wc.GetAllLocations(_token);
+            var locationInfo = locationInfos.FirstOrDefault(x => x.Oid == locationOid);
             if (locationInfo == null)
                 return RedirectToAction("Index", "Error");
 

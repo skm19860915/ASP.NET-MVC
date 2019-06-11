@@ -1,4 +1,7 @@
 ﻿using System.Web.Mvc;
+using System.Data;
+using System;
+using System.Linq;
 
 namespace sharemycoach.Controllers
 {
@@ -30,6 +33,18 @@ namespace sharemycoach.Controllers
             var dirNames = GetCustomerDirectoryList();
             ViewBag.DirNames = dirNames;
             return View();
+        }
+
+        private Guid? GetGuidList(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return null;
+
+            var oid = str.Split(':').FirstOrDefault();
+            if (oid == null)
+                return null;
+
+            return new Guid(oid);
         }
     }
 }

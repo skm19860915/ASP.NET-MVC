@@ -27,17 +27,18 @@ namespace sharemycoach.Models
         public string Children { get; set; }
         public string WebUserComments { get; set; }
         public string LeadSourceOid { get; set; }
-        public string LeadSourceValue { get; set; }
+        public string LeadSourceValue { get; set; } // only for rackspace webservice
         public string WebUserSelectedClass { get; set; }
         public string ClassOid { get; set; }
         public string VehicleName { get; set; }
         public string VehicleId { get; set; }
         public string LocationInsuranceCompanyOidsAndNames { get; set; }
-        public string Comments { get; set; }
+        public string Comments { get; set; } // only for rmxaffiliate system (When mode.txt is "Event", it has some values)
         public string WebUserSelectedCountry { get; set; }
         public string EquipmentTypeOids { get; set; }
         public string FeeOids { get; set; }
-        public string EquipmentTypeNames { get; set; }
-        public string FeeNames { get; set; }
+        public string EquipmentTypeNames { get; set; } // only for rackspace webservice
+        public string FeeNames { get; set; } // only for rackspace webservice
+        public string OldVehicleID { get; set; } // only for rackspace webservice
     }
 }

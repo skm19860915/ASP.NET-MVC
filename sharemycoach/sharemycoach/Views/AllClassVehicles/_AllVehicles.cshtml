@@ -3,7 +3,8 @@
 @section AdditionalMeta
 {
     <meta name="keywords" content="rv, rental, fleet, rent, motorhome, trailer, toy hauler, ">
-    <meta name="description" content="View our RV rental fleet and select the perfect RV for your next trip. Share My Coach has a huge selection of luxury Class A motorhomes available in southern California.">
+    <meta name="description" content="View our RV rental fleet and select the perfect RV for your next trip. 
+          Share My Coach has a huge selection of luxury Class A motorhomes available in southern California.">
 }
 @{ 
     var info = ViewBag.LocationInfo;
@@ -33,137 +34,85 @@
         margin-right: 50px;
     }
 </style>
-<div class="row">
+<div class="row" style="margin-top:-5px;">
     <div class="row pre-header visible-xs">
         <div class="col-xs-12"><img src="~/Content/images/pane.png" class="img-responsive" style="width:200%; margin-top:-10px; margin-bottom:-10px; margin-left:15px;" /></div>
     </div>
     <div class="row pre-header hidden-xs" id="count_div" style="padding-top:0px;">
         @Html.Partial("~/Views/Home/_SearchSection.cshtml")
-        <hr style="border:1px solid grey; margin-bottom:20px; margin-top:0px;" />
+        <hr style="border:1px solid grey; margin-top:5px;" />
     </div>
-    <div class="row pre-header" style="padding-top:0px; padding-bottom:0px;" id="state_div">
-        <div style="text-align:center;">
-            <h1 style="color:black; font-size:24px;">@info.City @info.State R.V's</h1>
-            <h4 style="color:black;">@info.WebRegionalName Area</h4>
+    <div class="row pre-header" id="state_div">
+        <h1>@info.City @info.State R.V's</h1>
+        <h2>@info.WebRegionalName Area</h2>
+        <h4><a href='tel:@Regex.Replace(1 + info.PrimaryPhone, "[^0-9]+", string.Empty)'>@info.PrimaryPhone</a></h4>
+    </div>
+    <div class="row pre-header" id="price_div">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+            <label style="margin-left:30px; margin-top:14px;" for="Filter by price">Filter by price</label>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+            <select class="form-control form-custom price_id" style="margin-top:8px;">
+                <option value="0" selected>All</option>
+                <option value="100">$100 - $200</option>
+                <option value="200">$200 - $300</option>
+                <option value="300">$300 - $400</option>
+                <option value="400">$400 - $500</option>
+                <option value="500">$500 or More</option>
+            </select>
+        </div>
+        <div class="col-lg-2 col-md-2"></div>
+        <div class="col-lg-2 col-md-2"></div>
+        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+            <input type="image" class="btn_original" src="~/Content/images/glyph1-small.png" />
+            <input type="image" class="btn_detail" src="~/Content/images/glyph2-small.png" />
         </div>
     </div>
-    <div class="row pre-header visible-lg" id="price_div">
-        <div class="col-lg-5">
-            <div class="form-group" style="padding-left:100px; padding-right:100px;">
-                <label for="Filter by price">Filter by price</label>
-                <select class="form-control form-custom price_id">
-                    <option value="0" selected>All</option>
-                    <option value="100">$100 - $200</option>
-                    <option value="200">$200 - $300</option>
-                    <option value="300">$300 - $400</option>
-                    <option value="400">$400 - $500</option>
-                    <option value="500">$500 or More</option>
-                </select>
+    <div class="row pre-header" id="class_div" style="margin-top:-10px;">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-10 col-xs-8">
+                    <label style="margin-left:30px; margin-top:40px;" for="Filter by vehicle type">Filter by vehicle type</label>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-2 col-xs-4">
+                    <div class="class-div grey_border_div">
+                        <a href='javascript:;' id="class_total"><h3 style="text-align:center; color:black; font-size:21px; margin-top:15px; margin-bottom:16px; letter-spacing:3px;">View<br />All</h3></a>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-lg-7">
-            <br /><label style="margin-left:30px;" for="Filter by vehicle type">Filter by vehicle type</label>
-        </div>
-    </div>
-    <div class="row pre-header" id="class_div">
-        <div class="col-lg-2 visible-lg" style="text-align:center;">
-            <a href='javascript:;' id="class_total"><h3 style="color:black;">View All</h3></a>
-        </div>
-        <div class="col-md-12 hidden-xs hidden-lg" style="text-align:center;">
-            <label style="margin-right:30px;">Filter by vehicle type</label>
-            <a href='javascript:;' id="class_total"><span style="color:black; font-size:25px;">View All</span></a>
-        </div>
-        <div class="visible-xs" style="text-align:center;">
-            <a href='javascript:;' id="class_total">
-                <div class="class-div" style="border-color:#ff0000; height:101px; padding-top:3px; margin-bottom:10px;">
-                    <h3 style="color:black;">ALL Classes</h3>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-8 col-md-12">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
             <div class="row" style="font-weight:bold; font-size:12px; align-content:center; text-align:center; padding-left:10px; padding-right:10px;">
-                <div class="col-md-2 col-sm-4 col-xs-4 my-hover">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 my-hover">
                     <a href='javascript:;' id="class_a">
-                        <div class="class-div white_border_div"><img src="~/Content/images/A.jpg" class="class-img" />Class A</div>
+                        <div class="class-div grey_border_div"><img src="~/Content/images/A.jpg" class="class-img" />Class A</div>
                     </a>
                 </div>
-                <div class="col-md-2 col-sm-4 col-xs-4 my-hover">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 my-hover">
                     <a href='javascript:;' id="class_b">
-                        <div class="class-div white_border_div"><img src="~/Content/images/B.jpg" class="class-img" />Class B</div>
+                        <div class="class-div grey_border_div"><img src="~/Content/images/B.jpg" class="class-img" />Class B</div>
                     </a>
                 </div>
-                <div class="col-md-2 col-sm-4 col-xs-4 my-hover">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 my-hover">
                     <a href='javascript:;' id="class_c">
-                        <div class="class-div white_border_div"><img src="~/Content/images/C.jpg" class="class-img" />Class C</div>
+                        <div class="class-div grey_border_div"><img src="~/Content/images/C.jpg" class="class-img" />Class C</div>
                     </a>
                 </div>
-                <div class="col-md-2 col-sm-4 col-xs-4 my-hover">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 my-hover">
                     <a href='javascript:;' id="class_th">
-                        <div class="class-div white_border_div"><img src="~/Content/images/Toy-Hauler.jpg" class="class-img" />Toy-Hauler</div>
+                        <div class="class-div grey_border_div"><img src="~/Content/images/Toy-Hauler.jpg" class="class-img" />Toy-Hauler</div>
                     </a>
                 </div>
-                <div class="col-md-2 col-sm-4 col-xs-4 my-hover">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 my-hover">
                     <a href='javascript:;' id="class_tt">
-                        <div class="class-div white_border_div"><img src="~/Content/images/TT.jpg" class="class-img" />Travel Trailers</div>
+                        <div class="class-div grey_border_div"><img src="~/Content/images/TT.jpg" class="class-img" />Travel Trailers</div>
                     </a>
                 </div>
-                <div class="col-md-2 col-sm-4 col-xs-4 my-hover">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 my-hover">
                     <a href='javascript:;' id="class_ut">
-                        <div class="class-div white_border_div"><img src="~/Content/images/UT.jpg" class="class-img" />Utility Trailer</div>
+                        <div class="class-div grey_border_div"><img src="~/Content/images/UT.jpg" class="class-img" />Utility Trailer</div>
                     </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-2 visible-lg">
-            <div class="row" style="margin:0 auto; align-content:center; text-align:center;">
-                <br /><br />
-                <input type="image" class="btn_original" src="~/Content/images/glyph1-small.png" style="filter:invert(70%);" />
-                <input type="image" class="btn_detail" src="~/Content/images/glyph2-small.png" style="filter:invert(70%);" />
-            </div>
-        </div>
-        <div class="col-md-12 col-sm-12 hidden-lg hidden-xs">
-            <div class="row">
-                <div class="col-md-2 col-sm-3">
-                    <label style="color:black; margin-top:15px; margin-left:30px;">Filter by price</label>
-                </div>
-                <div class="col-md-2 col-sm-3">
-                    <div style="margin-top:12px;">
-                        <select class="form-control form-custom price_id">
-                            <option value="0" selected>All</option>
-                            <option value="100">$100 - $200</option>
-                            <option value="200">$200 - $300</option>
-                            <option value="300">$300 - $400</option>
-                            <option value="400">$400 - $500</option>
-                            <option value="500">$500 or More</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-8 col-sm-6">
-                    <input type="image" class="btn_detail" src="~/Content/images/glyph2-small.png" style="filter:invert(70%); float:right; margin-right:40px;" />
-                    <input type="image" class="btn_original" src="~/Content/images/glyph1-small.png" style="filter:invert(70%); float:right; margin-right:10px;" />
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 visible-xs">
-            <div class="row">
-                <div class="col-xs-4">
-                    <label style="font-size:12px; color:black; margin-top:15px; margin-left:30px;">Filter by price</label>
-                </div>
-                <div class="col-xs-4">
-                    <div style="margin-top:12px;">
-                        <select class="form-control form-custom price_id">
-                            <option value="0" selected>All</option>
-                            <option value="100">$100 - $200</option>
-                            <option value="200">$200 - $300</option>
-                            <option value="300">$300 - $400</option>
-                            <option value="400">$400 - $500</option>
-                            <option value="500">$500 or More</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-xs-4">
-                    <input type="image" class="btn_detail" src="~/Content/images/glyph2-small.png" style="filter:invert(70%); float:right; margin-right:20px;" />
-                    <input type="image" class="btn_original" src="~/Content/images/glyph1-small.png" style="filter:invert(70%); float:right; margin-right:5px;" />
                 </div>
             </div>
         </div>
@@ -174,6 +123,7 @@
             <h3 style="color:black; text-align:center; margin-top:-10px; margin-bottom:-30px;" id="location-html-header">@Html.Raw(ViewBag.WebLocationPageHTML)</h3>
         </div>
     }
+    <h2 class="visible-xs" id="region-h2" style="color:#000000;">All vehicles in @info.WebRegionalName</h2>
     <div class="row pre-header" style="text-align:center;" id="photo_div"></div>
     <div class="row pre-header" style="display:none;" id="detail_photo_div"></div>
 
@@ -373,6 +323,7 @@
          @:vehicle_list.push(@data);
     }
     //console.log(vehicle_list);
+    //console.log(minimum_number_of_time_interval);
 
     var latitude = @info.Latitude;
     var longitude = @info.Longitude;
@@ -842,5 +793,35 @@
         link = link.replace("-1", key_val);
         location.href = link;
     }
+</script>
+<script>
+    $('a#class_total h3').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#region-h2').offset().top }, 2000);
+    });
+    $('a#class_a div.class-div').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#region-h2').offset().top }, 2000);
+    });
+    $('a#class_b div.class-div').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#region-h2').offset().top }, 2000);
+    });
+    $('a#class_c div.class-div').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#region-h2').offset().top }, 2000);
+    });
+    $('a#class_th div.class-div').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#region-h2').offset().top }, 2000);
+    });
+    $('a#class_tt div.class-div').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#region-h2').offset().top }, 2000);
+    });
+    $('a#class_ut div.class-div').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#region-h2').offset().top }, 2000);
+    });
 </script>
 <script src="~/Content/js/AllClassVehicles/dynamic-sticky-position.js"></script>

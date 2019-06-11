@@ -11,11 +11,13 @@ namespace sharemycoach.Controllers
 {
     public class ContactController : BaseController
     {
+        private IEnumerable<LocationModel> locationInfos;
+
         public ContactController()
         {
             ViewBag.Title = "RV Contact Us";
 
-            var locationInfos = _locationInfos;
+            locationInfos = _wc.GetAllLocations(_token);
             var list = new List<MapModel>();
             foreach (var item in locationInfos)
             {
@@ -32,6 +34,7 @@ namespace sharemycoach.Controllers
                         PrimaryPhone = item.PrimaryPhone,
                         OrganizationName = item.OrganizationName,
                         Zip = item.Zip,
+                        Fax = item.Fax
                     };
                     list.Add(record);
                 }
@@ -53,6 +56,7 @@ namespace sharemycoach.Controllers
                 return RedirectToAction("Index", "Error");
 
             ViewBag.SearchLocationOid = locationInfo.Oid;
+            ViewBag.api = locationInfo.WebGoogleMapJavaScriptAPIKey;
             return View();
         }
 
@@ -83,7 +87,7 @@ namespace sharemycoach.Controllers
                 var response = await client.PostAsJsonAsync(endPoint, contactModel);
                 if (response.IsSuccessStatusCode)
                 {
-                    var selectedLocationInfos = _locationInfos.FirstOrDefault(x => x.Oid == Guid.Parse(location));
+                    var selectedLocationInfos = locationInfos.FirstOrDefault(x => x.Oid == Guid.Parse(location));
                     ViewBag.SelectedLocationInfos = selectedLocationInfos;
                     return View("Success");
                 }

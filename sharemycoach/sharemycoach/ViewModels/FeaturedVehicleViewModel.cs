@@ -46,5 +46,9 @@ namespace sharemycoach.ViewModels
         public bool? IsLocationBehindOnPaying { get; set; }
         public List<string> DateList { get; set; }
         public bool IsSquarePhoto { get; set; }
+        public Nullable<bool> ShowForSale { get; set; }
+        public Nullable<DateTime> ForSaleOn { get; set; }
+        public Nullable<DateTime> SoldOn { get; set; }
+        public int? SalePrice { get; set; }
     }
 }

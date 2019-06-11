@@ -34,7 +34,7 @@
     @RenderSection("AdditionalMeta", false)
     <meta name="author" content="">
 
-    <link href="http://www.sharemycoach.com/UserData/Content/Images/smcbannerlogo1.png" rel="shortcut icon" type="image/x-icon" />
+    <link href="~/Content/images/smclogo.png" rel="shortcut icon" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -59,7 +59,7 @@
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
     <div class="container" id="my_container">
-        <!-----------------------------------------------------------------------START HEADER SECTION ------------------------------------------------------------------------>
+        <!----------------------------------------------------------START HEADER SECTION --------------------------------------------------------->
         <div class="row visible-xs" style="margin-right:-30px;">
             <!--START mobile logo image-->
             <div class="row" style="align-content:center; text-align:center;">
@@ -119,12 +119,12 @@
         <!--START menu, search-bar, menu-items of large-->
         <div class="row header-div hidden-xs">
             <div class="row" id="mobile-search-bar">
-                <div class="col-lg-3 col-md-2 col-sm-2">
+                <div class="col-lg-3 col-md-3 col-sm-4">
                     <a href='@Url.Action("Index", "Home")'>
                         <img src="~/Content/images/Logo.png" class="header-logo" />
                     </a>
                 </div>
-                <div class="col-lg-9 col-md-10 col-sm-10">
+                <div class="col-lg-9 col-md-9 col-sm-8">
                     <ul id="header-menu">
                         <li><a href='@Url.Action("Index", "RVOwners")'><span>RV OWNERS</span></a></li>
                         <li><a href='@Url.Action("Index", "Resources")'><span>RESOURCES</span></a></li>
@@ -140,7 +140,7 @@
                 </div>
             </div>
         </div>
-        <!-----------------------------------------------------------------------END HEADER SECTION ------------------------------------------------------------------------>
+        <!-------------------------------------------------------------END HEADER SECTION --------------------------------------------------------------->
         <div class="row" id="main-content">
             <div class="row" style="background-color:white; border-right:2px solid black;">
                 <div class="col-lg-10" id="left-content" style="padding-right:30px;">
@@ -155,24 +155,13 @@
                                 <br />
                                 @foreach (var item in ViewBag.RightList)
                                 {
-                                    if (item.IsLocationBehindOnPaying == true)
-                                    {
-                                        <p class="disable_rightbar">
+                                    <a class="nolineA" href='@Url.Action("Location", "AllClassVehicles", new { id = @item.State + '-' + @item.City})'>
+                                        <p class="rightbar">
                                             <span class="right-bold-round">@item.City, @item.State</span>
                                             <br>
                                             <span class="right-script">@item.WebRegionalName Area</span>
                                         </p>
-                                    }
-                                    else
-                                    {
-                                        <a class="nolineA" href='@Url.Action("Location", "AllClassVehicles", new { id = @item.State + '-' + @item.City})'>
-                                            <p class="rightbar">
-                                                <span class="right-bold-round">@item.City, @item.State</span>
-                                                <br>
-                                                <span class="right-script">@item.WebRegionalName Area</span>
-                                            </p>
-                                        </a>
-                                    }
+                                    </a>
                                     <br />
                                 }
                                 <img src="~/Content/images/RtNavCCLogos.png" class="img-responsive" />
@@ -183,7 +172,7 @@
                 <!--END Right Navigator-->
             </div>
         </div>
-        <!-----------------------------------------------------------------------START FOOTER SECTION ------------------------------------------------------------------------>
+        <!------------------------------------------------------START FOOTER SECTION --------------------------------------------------->
         <div class="row footer-div">
             <!--START footer menu -->
             <div class="row" style="background-color:#272424; height:auto;">
@@ -206,9 +195,15 @@
                                     <div class="row" style="margin-left:auto;">
                                         <h5 class="footer-menu-list">SHAREMYCOACH.COM</h5>
                                         <ul class="footer-ul">
-                                            <li><a title="RVs For Sale" href='@Url.Action("Index", "VehiclesForSale")' class="footer-menu">*&nbsp;RVs and Trailers For Sale</a></li>
-                                            <li><a title="Contact Share My RV Rental" href='@Url.Action("Index", "Contact")' class="footer-menu">*&nbsp;Contact Us</a></li>
-                                            <li><a title="Our Story" target="_blank" href="https://vimeo.com/256642979" class="footer-menu">*&nbsp;Our Story</a></li>
+                                            <li>
+                                                <a title="RVs For Sale" href='@Url.Action("Index", "VehiclesForSale")' class="footer-menu">*&nbsp;RVs and Trailers For Sale</a>
+                                            </li>
+                                            <li>
+                                                <a title="Contact Share My RV Rental" href='@Url.Action("Index", "Contact")' class="footer-menu">*&nbsp;Contact Us</a>
+                                            </li>
+                                            <li>
+                                                <a title="Our Story" target="_blank" href="https://vimeo.com/256642979" class="footer-menu">*&nbsp;Our Story</a>
+                                            </li>
                                         </ul>
                                         <h5 class="footer-menu-list">RV RENTALS</h5>
                                         <ul class="footer-ul">
@@ -305,7 +300,10 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-5"><h5 class="poster-span">Connect With Us!</h5></div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-7">
                     <ul class="footer-logo">
-                        <li><a target="_blank" href="http://www.facebook.com/pages/ShareMyCoachcom/123603684364145#!/pages/ShareMyCoachcom/123603684364145?sk=wall"><i class="fa fa-facebook footer-icon"></i></a></li>
+                        <li>
+                        <a target="_blank" href="http://www.facebook.com/pages/ShareMyCoachcom/123603684364145#!/pages/ShareMyCoachcom/123603684364145?sk=wall">
+                            <i class="fa fa-facebook footer-icon"></i></a>
+                        </li>
                         <li><a target="_blank" href="https://twitter.com/sharemycoachusa"><i class="fa fa-twitter footer-icon"></i></a></li>
                         <li><a target="_blank" href="http://www.youtube.com/ShareMyCoach"><i class="fa fa-youtube footer-icon"></i></a></li>
                         <li><img src="~/Content/images/Artboard 1Yelp Icon.png" class="yelp-img"/></li>
@@ -313,7 +311,7 @@
                 </div>
             </div>
         </div>
-        <!-----------------------------------------------------------------------END FOOTER SECTION ------------------------------------------------------------------------>
+        <!--------------------------------------------END FOOTER SECTION -------------------------------------------->
     </div>
     <script>
         $(document).ready(function () {
@@ -337,15 +335,23 @@
                     if(current_location_sequence_id == location_infos[i].SequenceId)
                     {
                         document.getElementById("hamburger-ul").innerHTML = 
-                            '<li><a href="' + url + '"><span>Home</span></a></li>' +
-                            '<li><a href="' + url + 'FAQ.aspx?location=' + location_infos[i].State + '-' + location_infos[i].City + '"><span>FAQ</span></a></li>' +
-                            '<li><a href="' + url + 'Insurance-Company.aspx?location=' + location_infos[i].State + '-' + location_infos[i].City + '"><span>Insurance Company</span></a></li>' +
-                            '<li><a href="' + url + 'Optional-Equipment.aspx?location=' + location_infos[i].State + '-' + location_infos[i].City + '"><span>Optional Equipment</span></a></li>' +
-                            '<li><a href="' + url + 'AddYourFleet.aspx?location=' + location_infos[i].State + '-' + location_infos[i].City + '"><span>Add Your RV to the fleet</span></a></li>' +
-                            '<li><a href="' + url + 'Vehicles-For-Sale.aspx?location=' + location_infos[i].State + '-' + location_infos[i].City + '"><span>Buy an RV</span></a></li>' +
-                            '<li><a href="' + url + 'General-Info.aspx?location=' + location_infos[i].State + '-' + location_infos[i].City + '"><span>General Info</span></a></li>' +
-                            '<li><a href="' + url + 'Campgrounds.aspx?location=' + location_infos[i].State + '-' + location_infos[i].City + '"><span>Campgrounds Map</span></a></li>' +
-                            '<li><a href="' + url + 'Private-RV-Video-Training.aspx"><span>Orientation Videos</span></a></li>';
+                            '<li><a href="' + url + '"><span>Home</span></a></li>' 
+                            + '<li><a href="' + url + 'FAQ.aspx?location=' + location_infos[i].State 
+                            + '-' + location_infos[i].City + '"><span>FAQ</span></a></li>' 
+                            + '<li><a href="' + url + 'Insurance-Company.aspx?location=' + location_infos[i].State 
+                            + '-' + location_infos[i].City + '"><span>Insurance Company</span></a></li>' 
+                            + '<li><a href="' + url + 'Optional-Equipment.aspx?location=' + location_infos[i].State 
+                            + '-' + location_infos[i].City + '"><span>Optional Equipment</span></a></li>' 
+                            + '<li><a href="' + url + 'AddYourFleet.aspx?location=' + location_infos[i].State 
+                            + '-' + location_infos[i].City + '"><span>Add Your RV to the fleet</span></a></li>' 
+                            + '<li><a href="' + url + 'Vehicles-For-Sale.aspx?location=' + location_infos[i].State 
+                            + '-' + location_infos[i].City + '"><span>Buy an RV</span></a></li>' 
+                            + '<li><a href="' + url + 'General-Info.aspx?location=' + location_infos[i].State 
+                            + '-' + location_infos[i].City + '"><span>General Info</span></a></li>' 
+                            + '<li><a href="' + url + 'Campgrounds.aspx?location=' + location_infos[i].State 
+                            + '-' + location_infos[i].City + '"><span>Campgrounds Map</span></a></li>' +
+                            '<li><a href="' + url + 'Private-RV-Video-Training.aspx"><span>Orientation Videos</span></a></li>' +
+                            '<li><a href="' + url + 'VehiclesForSale"><span>For Sale or T/O Pmts</span></a></li>';
                             //'<li><a href="' + url + '" onclick="reloadSlideVideo()"><span>KOH Video</span></a></li>';
                         break;
                     }
@@ -362,7 +368,8 @@
                     '<li><a href="' + url + 'Vehicles-For-Sale.aspx"><span>Buy an RV</span></a></li>' +
                     '<li><a href="' + url + 'General-Info.aspx"><span>General Info</span></a></li>' +
                     '<li><a href="' + url + 'Campgrounds.aspx"><span>Campgrounds Map</span></a></li>' +
-                    '<li><a href="' + url + 'Private-RV-Video-Training.aspx"><span>Orientation Videos</span></a></li>';
+                    '<li><a href="' + url + 'Private-RV-Video-Training.aspx"><span>Orientation Videos</span></a></li>' +
+                    '<li><a href="' + url + 'VehiclesForSale"><span>For Sale or T/O Pmts</span></a></li>';
                     //'<li><a href="' + url + '" onclick="reloadSlideVideo()"><span>KOH Video</span></a></li>';
             }
 
@@ -402,24 +409,30 @@
                 {
                     for(var i = 0; i < destination_jArray_per_location.length; i++)
                     {
-                        destination_content += '<li><a title="' + destination_jArray_per_location[i].MetaTitle + '" href="' + url + destination_jArray_per_location[i].ControllerName + '/'
-                            + destination_jArray_per_location[i].ActionName + '" class="footer-menu">*&nbsp;' + destination_jArray_per_location[i].MetaTitle + '</a></li>';
+                        destination_content += '<li><a title="' + destination_jArray_per_location[i].MetaTitle 
+                            + '" href="' + url + destination_jArray_per_location[i].ControllerName + '/'
+                            + destination_jArray_per_location[i].ActionName + '" class="footer-menu">*&nbsp;' 
+                            + destination_jArray_per_location[i].MetaTitle + '</a></li>';
                     }
                 }
                 else
                 {
                     for(var i = 0; i < 7; i++)
                     {
-                        destination_content += '<li><a title="' + destination_jArray_per_location[i].MetaTitle + '" href="' + url + destination_jArray_per_location[i].ControllerName + '/'
-                            + destination_jArray_per_location[i].ActionName + '" class="footer-menu">*&nbsp;' + destination_jArray_per_location[i].MetaTitle + '</a></li>';
+                        destination_content += '<li><a title="' + destination_jArray_per_location[i].MetaTitle 
+                            + '" href="' + url + destination_jArray_per_location[i].ControllerName + '/'
+                            + destination_jArray_per_location[i].ActionName + '" class="footer-menu">*&nbsp;' 
+                            + destination_jArray_per_location[i].MetaTitle + '</a></li>';
                     }
 
                     destination_content +=  '<li class="more_destinations_li"><a title="More..." href="javascript:;" class="footer-menu">more...</a></li>';
 
                     for(var i = 7; i < destination_jArray_per_location.length; i++)
                     {
-                        destination_content += '<li class="hidden_destinations_li" style="display:none;"><a title="' + destination_jArray_per_location[i].MetaTitle + '" href="' + url
-                            + destination_jArray_per_location[i].ControllerName + '/' + destination_jArray_per_location[i].ActionName + '" class="footer-menu">*&nbsp;'
+                        destination_content += '<li class="hidden_destinations_li" style="display:none;"><a title="' 
+                            + destination_jArray_per_location[i].MetaTitle + '" href="' + url
+                            + destination_jArray_per_location[i].ControllerName + '/' 
+                            + destination_jArray_per_location[i].ActionName + '" class="footer-menu">*&nbsp;'
                             + destination_jArray_per_location[i].MetaTitle + '</a></li>';
                     }
                 }
@@ -439,25 +452,30 @@
                 {
                     for(var i = 0; i < event_jArray_per_location.length; i++)
                     {
-                        event_content += '<li><a title="' + event_jArray_per_location[i].MetaTitle + '" href="' + url + event_jArray_per_location[i].ControllerName + '/'
-                            + event_jArray_per_location[i].ActionName + '" class="footer-menu">*&nbsp;' + event_jArray_per_location[i].MetaTitle + '</a></li>';
+                        event_content += '<li><a title="' + event_jArray_per_location[i].MetaTitle 
+                            + '" href="' + url + event_jArray_per_location[i].ControllerName + '/'
+                            + event_jArray_per_location[i].ActionName + '" class="footer-menu">*&nbsp;' 
+                            + event_jArray_per_location[i].MetaTitle + '</a></li>';
                     }
                 }
                 else
                 {
                     for(var i = 0; i < 7; i++)
                     {
-                        event_content += '<li><a title="' + event_jArray_per_location[i].MetaTitle + '" href="' + url + event_jArray_per_location[i].ControllerName + '/'
-                            + event_jArray_per_location[i].ActionName + '" class="footer-menu">*&nbsp;' + event_jArray_per_location[i].MetaTitle + '</a></li>';
+                        event_content += '<li><a title="' + event_jArray_per_location[i].MetaTitle 
+                            + '" href="' + url + event_jArray_per_location[i].ControllerName + '/'
+                            + event_jArray_per_location[i].ActionName + '" class="footer-menu">*&nbsp;' 
+                            + event_jArray_per_location[i].MetaTitle + '</a></li>';
                     }
 
                     event_content +=  '<li class="more_events_li"><a title="More..." href="javascript:;" class="footer-menu">more...</a></li>';
 
                     for(var i = 7; i < event_jArray_per_location.length; i++)
                     {
-                        event_content += '<li class="hidden_events_li" style="display:none;"><a title="' + event_jArray_per_location[i].MetaTitle + '" href="' + url
-                            + event_jArray_per_location[i].ControllerName + '/' + event_jArray_per_location[i].ActionName + '" class="footer-menu">*&nbsp;'
-                            + event_jArray_per_location[i].MetaTitle + '</a></li>';
+                        event_content += '<li class="hidden_events_li" style="display:none;"><a title="' 
+                            + event_jArray_per_location[i].MetaTitle + '" href="' + url
+                            + event_jArray_per_location[i].ControllerName + '/' + event_jArray_per_location[i].ActionName 
+                            + '" class="footer-menu">*&nbsp;' + event_jArray_per_location[i].MetaTitle + '</a></li>';
                     }
                 }
             }
@@ -487,14 +505,16 @@
             if(destination_content)
             {
                 document.getElementById('destination_div').innerHTML =
-                '<div class="row"><div class="col-md-12"><div class="row" style="margin-left:auto;"><h5 class="footer-menu-list">POPULAR RV RENTAL DESTINATIONS</h5><ul class="footer-ul">'
-                + destination_content + '</ul><br /></div></div></div>';
+                                '<div class="row"><div class="col-md-12"><div class="row" style="margin-left:auto;">'
+                                + '<h5 class="footer-menu-list">POPULAR RV RENTAL DESTINATIONS</h5><ul class="footer-ul">'
+                                + destination_content + '</ul><br /></div></div></div>';
             }
             if(event_content)
             {
                 document.getElementById('event_div').innerHTML =
-                '<div class="row"><div class="col-md-12"><div class="row" style="margin-left:auto;"><h5 class="footer-menu-list">POPULAR RV RENTAL EVENTS</h5><ul class="footer-ul">'
-                + event_content + '</ul><br /></div></div></div>';
+                                '<div class="row"><div class="col-md-12"><div class="row" style="margin-left:auto;">' 
+                                + '<h5 class="footer-menu-list">POPULAR RV RENTAL EVENTS</h5><ul class="footer-ul">'
+                                + event_content + '</ul><br /></div></div></div>';
             }
 
             $('.more_destinations_li').click(function () {

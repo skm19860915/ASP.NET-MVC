@@ -1,6 +1,6 @@
 ﻿<!--Contact Us View-->
 @using CaptchaMvc.HtmlHelpers;
-@using System.Text.RegularExpressions
+@using System.Text.RegularExpressions;
 @section AdditionalMeta
 {
     <meta name="keywords" content="contact, info, share my coach, rv rentals, motorhome, trailer, camper, toy hauler, rental">
@@ -30,8 +30,11 @@
                     <br />
                     <h4 style="color:black;">@info.WebRegionalName</h4>
                     ShareMyCoach, @info.Address @info.City @info.State @info.Zip
-                    <br />
-                    TEL : <a href='tel:@Regex.Replace(1 + info.PrimaryPhone, "[^0-9]+", string.Empty)'>@info.PrimaryPhone</a>
+                    <br /><span style="color:black;">Voice:</span><a href='tel:@Regex.Replace(1 + info.PrimaryPhone, "[^0-9]+", string.Empty)'>@info.PrimaryPhone</a>
+                    @if (!string.IsNullOrEmpty(info.Fax))
+                    {
+                        <br /><span style="color:black;">Fax:</span>@info.Fax
+                    }
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     @if (info.WebMapPhoto != null)
@@ -223,6 +226,7 @@
         for(var i = 0; i < arr.length; i++){
             jArray[i] = arr[i];
         }
+        //console.log(jArray);
         // when google search of this page
         if(search_location_id)
         {
@@ -233,7 +237,7 @@
             // generate html with location data
             for (var i = 0; i < jArray.length; i++) {
                 if(jArray[i].LocationOid == search_location_id){
-                    generateNewLocationInformations(jArray[i].PrimaryPhone, jArray[i].OrganizationName, jArray[i].Address, jArray[i].City, jArray[i].State, jArray[i].Zip);
+                    generateNewLocationInformations(jArray[i].PrimaryPhone, jArray[i].OrganizationName, jArray[i].Address, jArray[i].City, jArray[i].State, jArray[i].Zip, jArray[i].Fax);
                 }
             }
         }
@@ -254,7 +258,7 @@
 
                 for (var i = 0; i < jArray.length; i++) {
                     if(jArray[i].LocationOid == session_oid){
-                        generateNewLocationInformations(jArray[i].PrimaryPhone, jArray[i].OrganizationName, jArray[i].Address, jArray[i].City, jArray[i].State, jArray[i].Zip);
+                        generateNewLocationInformations(jArray[i].PrimaryPhone, jArray[i].OrganizationName, jArray[i].Address, jArray[i].City, jArray[i].State, jArray[i].Zip, jArray[i].Fax);
                     }
                 }
             }
@@ -340,11 +344,19 @@
 
     google.maps.event.addDomListener(window, 'load', initialize);
 
-    function generateNewLocationInformations(newPrimaryPhone, newOrganizationName, newAddress, newCity, newState, newZip)
+    function generateNewLocationInformations(newPrimaryPhone, newOrganizationName, newAddress, newCity, newState, newZip, newFax)
     {
-        document.getElementById('location_info_div').innerHTML = '<a href="tel:' + 1 + newPrimaryPhone.match(/[\d\.]+/g) + '">' + newPrimaryPhone + '</a><br /><br /><label>' + newOrganizationName + '</label><br /><label>' +
+        var fax = '';
+        if(newFax){
+            fax = '<br /><label>Fax:' + '</label>' + newFax;
+        }
+
+        document.getElementById('location_info_div').innerHTML = '<label>Voice:</label><a href="tel:' + 1 + newPrimaryPhone.match(/[\d\.]+/g) + '">' + 
+            newPrimaryPhone + '</a>' + fax + '<br /><br /><label>' + newOrganizationName + '</label><br /><label>' +
             newAddress + '</label><br /><label>' + newCity + ' ' + newState + ' ' + newZip + '</label>';
-        document.getElementById('small_location_info_div').innerHTML = '<a href="tel:' + 1 + newPrimaryPhone.match(/[\d\.]+/g) + '">' + newPrimaryPhone + '</a><br /><br /><label>' + newOrganizationName + '</label><br /><label>' +
+
+        document.getElementById('small_location_info_div').innerHTML = '<label>Voice:</label><a href="tel:' + 1 + newPrimaryPhone.match(/[\d\.]+/g) + '">' + 
+            newPrimaryPhone + '</a>' + fax + '<br /><br /><label>' + newOrganizationName + '</label><br /><label>' +
             newAddress + '</label><br /><label>' + newCity + ' ' + newState + ' ' + newZip + '</label>';
     }
 </script>

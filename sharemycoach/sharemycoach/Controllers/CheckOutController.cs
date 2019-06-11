@@ -15,37 +15,37 @@ namespace sharemycoach.Controllers
 {
     public class CheckOutController : BaseController
     {
+        private VehicleDetailViewModel detailInfo;
+        private List<OptionalItemViewModel> optionalItems;
+
         public ActionResult Index(string id)
         {
-            VehicleDetailViewModel detailInformation = null;
             var temp = TempData["Detail"];
-            if (temp == null)
-                detailInformation = _wc.GetDetail(id, _token);
-            else
-                detailInformation = temp as VehicleDetailViewModel;
+            detailInfo = temp == null ? _wc.GetDetail(id, false, _token) : temp as VehicleDetailViewModel;
 
-            if (detailInformation == null)
+            if (detailInfo == null)
                 return RedirectToAction("Index", "Error");
 
-            ViewBag.Title = "Quote Form";
-
-            GetCheckOutInfo(detailInformation);
+            GetCheckOutInfo(detailInfo);
             return View();
         }
 
         private void GetCheckOutInfo(VehicleDetailViewModel info)
         {
+            ViewBag.Title = "Quote Form | " + info.NameOnWeb + " - " + info.DBAName + " - RV Rentals | " + Properties.Resources.SHARE_MY_COACH;
             ViewBag.Info = info;
             var serviceList = _wc.GetAllServiceList(info.Location ?? Guid.Empty, "sharemycoach.com", _token);
-            var optionalItemList = GetSortOptionalItemList(serviceList);
-            var optionalItemListInSelectedLocation = optionalItemList.Where(x => x.Location == info.Location).ToList();
-            if (optionalItemListInSelectedLocation == null || optionalItemListInSelectedLocation.Count() < 1)
-                ViewBag.OptionalItemList = null;
-            else
-                ViewBag.OptionalItemList = optionalItemListInSelectedLocation;
-
             ViewBag.InsuranceCompanies = serviceList.LocationInsuranceCompanyList;
             ViewBag.LeadSources = serviceList.LeadSourceList;
+            var optionalItemList = GetSortOptionalItemList(serviceList);
+
+            if (optionalItemList != null)
+            {
+                var optionalItemListInSelectedLocation = optionalItemList.Where(x => x.Location == info.Location).ToList();
+                if(optionalItemListInSelectedLocation != null)
+                    optionalItems = optionalItemListInSelectedLocation;
+            }
+            ViewBag.OptionalItemList = optionalItems;
         }
 
         [HttpPost]
@@ -56,25 +56,6 @@ namespace sharemycoach.Controllers
 
             if (!string.IsNullOrEmpty(vehicleKeyFromWeb))
             {
-                var vehicleOid = string.Format("{0}", Request.Form["vehicle_oid"]);
-                var vehicleName = string.Format("{0}", Request.Form["vehicle_name"]);
-                var locationOid = string.Format("{0}", Request.Form["location"]);
-                var locationName = string.Format("{0}", Request.Form["location_name"]);
-                var organizationOid = string.Format("{0}", Request.Form["organization"]);
-                var organizationName = string.Format("{0}", Request.Form["organization_name"]);
-                var classOid = string.Format("{0}", Request.Form["class_oid"]);
-                var className = string.Format("{0}", Request.Form["vehicle_class"]);
-                var outgoingUserName = string.Format("{0}", Request.Form["outgoing_username"]);
-                var outgoingServerName = string.Format("{0}", Request.Form["outgoing_servername"]);
-                var outgoingServerPort = string.Format("{0}", Request.Form["outgoing_serverport"]);
-                var outgoingPassword = string.Format("{0}", Request.Form["outgoing_password"]);
-                var emailAddress = string.Format("{0}", Request.Form["email_address"]);
-                var webQuoteEmailAddress = string.Format("{0}", Request.Form["web_quote_email_address"]);
-                var phoneNumber = string.Format("{0}", Request.Form["phone_number"]);
-                var dbaName = string.Format("{0}", Request.Form["dba_name"]);
-                var webRegionalName = string.Format("{0}", Request.Form["web_regional_name"]);
-                var locationState = string.Format("{0}", Request.Form["location_state"]);
-                var locationCity = string.Format("{0}", Request.Form["location_city"]);
                 var destination = string.Format("{0}", Request.Form["destination"]);
                 var distance = string.Format("{0}", Request.Form["trip"]);
                 var departureDate = string.Format("{0}", Request.Form["departure_date"]);
@@ -96,6 +77,29 @@ namespace sharemycoach.Controllers
                 var equipments = string.Format("{0}", Request.Form["equipments"]);
                 var fees = string.Format("{0}", Request.Form["fees"]);
                 var instructions = string.Format("{0}", Request.Form["instructions"]);
+                // hidden data-driven 
+                var vehicleOid = string.Format("{0}", Request.Form["vehicle_oid"]);
+                var vehicleName = string.Format("{0}", Request.Form["vehicle_name"]);
+                var locationOid = string.Format("{0}", Request.Form["location"]);
+                var locationName = string.Format("{0}", Request.Form["location_name"]);
+                var organizationOid = string.Format("{0}", Request.Form["organization"]);
+                var organizationName = string.Format("{0}", Request.Form["organization_name"]);
+                var classOid = string.Format("{0}", Request.Form["class_oid"]);
+                var className = string.Format("{0}", Request.Form["vehicle_class"]);
+                var outgoingUserName = string.Format("{0}", Request.Form["outgoing_username"]);
+                var outgoingServerName = string.Format("{0}", Request.Form["outgoing_servername"]);
+                var outgoingServerPort = string.Format("{0}", Request.Form["outgoing_serverport"]);
+                var outgoingPassword = string.Format("{0}", Request.Form["outgoing_password"]);
+                var emailAddress = string.Format("{0}", Request.Form["email_address"]);
+                var webQuoteEmailAddress = string.Format("{0}", Request.Form["web_quote_email_address"]);
+                var phoneNumber = string.Format("{0}", Request.Form["phone_number"]);
+                var dbaName = string.Format("{0}", Request.Form["dba_name"]);
+                var webRegionalName = string.Format("{0}", Request.Form["web_regional_name"]);
+                var locationState = string.Format("{0}", Request.Form["location_state"]);
+                var locationCity = string.Format("{0}", Request.Form["location_city"]);
+                var oldVehicleId = string.Format("{0}", Request.Form["old_vehicle_oid"]);
+                var emailSupportRequestAddress = string.Format("{0}", Request.Form["email_support_request_address"]);
+                var friendlyCompanyName = string.Format("{0}", Request.Form["friendly_company_name"]);
 
                 var model = new QuoteModel()
                 {
@@ -116,15 +120,15 @@ namespace sharemycoach.Controllers
                     HomePhoneSecondary = secondaryPhone,
                     EmailAddress = email,
                     LeadSourceOid = GetGuidValueFromData(leadSource),
-                    LeadSourceValue = GetSpecialNameFromData(leadSource),
+                    LeadSourceValue = GetSpecialNameFromData(leadSource), // only for rackspace webservice
                     Adults = adults,
                     Children = children,
                     LocationInsuranceCompanyOidsAndNames = insuranceCompanies,
                     EquipmentTypeOids = GetGuidsFromData(equipments),
                     FeeOids = GetGuidsFromData(fees),
-                    EquipmentTypeNames = GetNamesFromData(equipments),
-                    FeeNames = GetNamesFromData(fees),
-                    WebUserComments = instructions,
+                    EquipmentTypeNames = GetNamesFromData(equipments), // only for rackspace webservice
+                    FeeNames = GetNamesFromData(fees), // only for rackspace webservice
+                    WebUserComments = instructions, 
                     // hidden datas
                     VehicleId = vehicleOid,
                     VehicleName = vehicleName,
@@ -134,6 +138,7 @@ namespace sharemycoach.Controllers
                     LocationName = locationName,
                     Organization = organizationOid,
                     OrganizationName = organizationName,
+                    OldVehicleID = oldVehicleId // only for rackspace webservice
                 };
 
                 var client = new HttpClient();
@@ -141,65 +146,52 @@ namespace sharemycoach.Controllers
                 var rmxResponse = await client.PostAsJsonAsync(rmxEndPoint, model);
                 if (rmxResponse.IsSuccessStatusCode)
                 {
-                    var statusOfRackspaceQuote = 1;
+                    var statusOfRackspaceQuote = 0;
                     if (!locationOid.Equals("8947F2BE-17FE-4E61-8655-31DD8AEE0377", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        var rackpaceEndPoint = System.Configuration.ConfigurationManager.AppSettings["RackSpaceWebService"] + "webrental";
+                        var rackpaceEndPoint = System.Configuration.ConfigurationManager.AppSettings["RackSpaceWebService"] + "/api/webrental";
                         var rackspaceResponse = await client.PostAsJsonAsync(rackpaceEndPoint, model);
                         var resultOfRackspace = await rackspaceResponse.Content.ReadAsStringAsync();
                         try
                         {
-                            statusOfRackspaceQuote = int.Parse(resultOfRackspace);
+                            statusOfRackspaceQuote = int.Parse(resultOfRackspace); // If the submit of EWR by rackspacewebserivce is success, return 1, if fail, return 0
                         }
                         catch
                         {
-                            statusOfRackspaceQuote = 1;
+                            statusOfRackspaceQuote = 0; // the submit of EWR is failed
                         }
                     }
 
-                    if (statusOfRackspaceQuote == 1)
+                    if (statusOfRackspaceQuote == 0)
                     {
-                        // send email to renter
-                        var success = SendEmailToWebUser(firstName, outgoingUserName, outgoingServerName, outgoingServerPort, outgoingPassword, emailAddress, email, phoneNumber, locationName, organizationName);
-                        if (success)
-                        {
-                            if (!string.IsNullOrEmpty(webQuoteEmailAddress))
-                              SendEmailToWebQuoteEmailAddress(model, outgoingUserName, outgoingServerName, outgoingServerPort, outgoingPassword, emailAddress, webQuoteEmailAddress, equipments, fees, leadSource);
-
-                            var infos = new List<string>();
-                            infos.Add(webRegionalName);
-                            infos.Add(locationCity);
-                            infos.Add(locationState);
-                            infos.Add(phoneNumber);
-                            infos.Add(dbaName);
-
-                            TempData["Infos"] = infos;
-
-                            return RedirectToAction("Success", "QuoteResult");
-                        }
-
-                        return RedirectToAction("Fail", "QuoteResult");
+                        SendEmailToSupportRequestAddress(model, outgoingUserName, outgoingServerName, outgoingServerPort, outgoingPassword, emailAddress, emailSupportRequestAddress);
+                        return RedirectToAction("WebQuoteFail", "QuoteResult");
                     }
+
+                    // send email to renter
+                    var success = SendEmailToWebUser(firstName, outgoingUserName, outgoingServerName, outgoingServerPort, outgoingPassword, emailAddress, email, phoneNumber, organizationName, friendlyCompanyName);
+                    if (success)
+                    {
+                        if (!string.IsNullOrEmpty(webQuoteEmailAddress))
+                            SendEmailToWebQuoteEmailAddress(model, outgoingUserName, outgoingServerName, outgoingServerPort, outgoingPassword, emailAddress, webQuoteEmailAddress, equipments, fees, leadSource);
+
+                        var infos = new List<string>();
+                        infos.Add(webRegionalName);
+                        infos.Add(locationCity);
+                        infos.Add(locationState);
+                        infos.Add(phoneNumber);
+                        infos.Add(dbaName);
+
+                        TempData["Infos"] = infos;
+
+                        return RedirectToAction("WebQuoteSuccess", "QuoteResult");
+                    }
+
+                    return RedirectToAction("WebQuoteFail", "QuoteResult");
                 }
             }
             else if (!string.IsNullOrEmpty(vehicleKeyFromMobile))
             {
-                var vehicleOid = string.Format("{0}", Request.Form["small_vehicle_oid"]);
-                var vehicleName = string.Format("{0}", Request.Form["small_vehicle_name"]);
-                var locationOid = string.Format("{0}", Request.Form["small_location"]);
-                var locationName = string.Format("{0}", Request.Form["small_location_name"]);
-                var organizationOid = string.Format("{0}", Request.Form["small_organization"]);
-                var organizationName = string.Format("{0}", Request.Form["small_organization_name"]);
-                var classOid = string.Format("{0}", Request.Form["small_class_oid"]);
-                var className = string.Format("{0}", Request.Form["small_vehicle_class"]);
-                var outgoingUserName = string.Format("{0}", Request.Form["small_outgoing_username"]);
-                var outgoingServerName = string.Format("{0}", Request.Form["small_outgoing_servername"]);
-                var outgoingServerPort = string.Format("{0}", Request.Form["small_outgoing_serverport"]);
-                var outgoingPassword = string.Format("{0}", Request.Form["small_outgoing_password"]);
-                var emailAddress = string.Format("{0}", Request.Form["small_email_address"]);
-                var webQuoteEmailAddress = string.Format("{0}", Request.Form["small_web_quote_email_address"]);
-                var phoneNumber = string.Format("{0}", Request.Form["small_phone_number"]);
-
                 var destination = string.Format("{0}", Request.Form["small_destination"]);
                 var distance = string.Format("{0}", Request.Form["small_trip"]);
                 var departureDate = string.Format("{0}", Request.Form["small_departure_date"]);
@@ -220,6 +212,24 @@ namespace sharemycoach.Controllers
                 var insuranceCompanies = string.Format("{0}", Request.Form["small_insurancecompanies"]);
                 var equipments = string.Format("{0}", Request.Form["small_equipments"]);
                 var fees = string.Format("{0}", Request.Form["small_fees"]);
+                // hidden data-driven
+                var vehicleOid = string.Format("{0}", Request.Form["small_vehicle_oid"]);
+                var vehicleName = string.Format("{0}", Request.Form["small_vehicle_name"]);
+                var locationOid = string.Format("{0}", Request.Form["small_location"]);
+                var locationName = string.Format("{0}", Request.Form["small_location_name"]);
+                var organizationOid = string.Format("{0}", Request.Form["small_organization"]);
+                var organizationName = string.Format("{0}", Request.Form["small_organization_name"]);
+                var classOid = string.Format("{0}", Request.Form["small_class_oid"]);
+                var className = string.Format("{0}", Request.Form["small_vehicle_class"]);
+                var outgoingUserName = string.Format("{0}", Request.Form["small_outgoing_username"]);
+                var outgoingServerName = string.Format("{0}", Request.Form["small_outgoing_servername"]);
+                var outgoingServerPort = string.Format("{0}", Request.Form["small_outgoing_serverport"]);
+                var outgoingPassword = string.Format("{0}", Request.Form["small_outgoing_password"]);
+                var emailAddress = string.Format("{0}", Request.Form["small_email_address"]);
+                var webQuoteEmailAddress = string.Format("{0}", Request.Form["small_web_quote_email_address"]);
+                var phoneNumber = string.Format("{0}", Request.Form["small_phone_number"]);
+                var oldVehicleId = string.Format("{0}", Request.Form["small_old_vehicle_oid"]);
+                var emailSupportRequestAddress = string.Format("{0}", Request.Form["small_email_support_request_address"]);
 
                 var model = new QuoteModel()
                 {
@@ -240,14 +250,14 @@ namespace sharemycoach.Controllers
                     HomePhoneSecondary = secondaryPhone,
                     EmailAddress = email,
                     LeadSourceOid = GetGuidValueFromData(leadSource),
-                    LeadSourceValue = GetSpecialNameFromData(leadSource),
+                    LeadSourceValue = GetSpecialNameFromData(leadSource), // only for rackspace webservice
                     Adults = adults,
                     Children = children,
                     LocationInsuranceCompanyOidsAndNames = insuranceCompanies,
                     EquipmentTypeOids = GetGuidsFromData(equipments),
                     FeeOids = GetGuidsFromData(fees),
-                    EquipmentTypeNames = GetNamesFromData(equipments),
-                    FeeNames = GetNamesFromData(fees),
+                    EquipmentTypeNames = GetNamesFromData(equipments), // only for rackspace webservice
+                    FeeNames = GetNamesFromData(fees), // only for rackspace webservice
                     WebUserComments = string.Empty,
                     // hidden data
                     VehicleId = vehicleOid,
@@ -258,6 +268,7 @@ namespace sharemycoach.Controllers
                     LocationName = locationName,
                     Organization = organizationOid,
                     OrganizationName = organizationName,
+                    OldVehicleID = oldVehicleId // only for rackspace webservice
                 };
 
                 var client = new HttpClient();
@@ -265,42 +276,58 @@ namespace sharemycoach.Controllers
                 var rmxResponse = await client.PostAsJsonAsync(rmxEndPoint, model);
                 if (rmxResponse.IsSuccessStatusCode)
                 {
-                    var statusOfRackspaceQuote = 1;
+                    var statusOfRackspaceQuote = 0;
                     if (!locationOid.Equals("8947F2BE-17FE-4E61-8655-31DD8AEE0377", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        var rackpaceEndPoint = System.Configuration.ConfigurationManager.AppSettings["RackSpaceWebService"] + "webrental";
+                        var rackpaceEndPoint = System.Configuration.ConfigurationManager.AppSettings["RackSpaceWebService"] + "/api/webrental";
                         var rackspaceResponse = await client.PostAsJsonAsync(rackpaceEndPoint, model);
                         var resultOfRackspace = await rackspaceResponse.Content.ReadAsStringAsync();
-                        statusOfRackspaceQuote = int.Parse(resultOfRackspace);
-                    }
-
-                    if (statusOfRackspaceQuote == 1)
-                    {
-                        // send email to renter
-                        var succcess = SendEmailToMobileUser(outgoingUserName, outgoingServerName, outgoingServerPort, outgoingPassword, emailAddress, email, phoneNumber, locationName);
-                        if (succcess)
+                        try
                         {
-                            if (!string.IsNullOrEmpty(webQuoteEmailAddress))
-                                SendEmailToWebQuoteEmailAddress(model, outgoingUserName, outgoingServerName, outgoingServerPort, outgoingPassword, emailAddress, webQuoteEmailAddress, equipments, fees, leadSource);
-
-                            ViewBag.Success = 2;
+                            statusOfRackspaceQuote = int.Parse(resultOfRackspace); // If the submit of EWR by rackspacewebserivce is success, return 1, if fail, return 0
                         }
-                        else
-                            ViewBag.Success = 0;
-
-                        ViewBag.Title = "RV CheckOut Success";
-                        return View("success");
+                        catch
+                        {
+                            statusOfRackspaceQuote = 0; // the submit of EWR is failed
+                        }
                     }
+
+                    if (statusOfRackspaceQuote == 0)
+                    {
+                        SendEmailToSupportRequestAddress(model, outgoingUserName, outgoingServerName, outgoingServerPort, outgoingPassword, emailAddress, emailSupportRequestAddress);
+                        return RedirectToAction("WebQuoteFail", "QuoteResult");
+                    }
+
+                    // send email to renter
+                    var succcess = SendEmailToMobileUser(outgoingUserName, outgoingServerName, outgoingServerPort, outgoingPassword, emailAddress, email, phoneNumber, locationName);
+                    if (succcess)
+                    {
+                        if (!string.IsNullOrEmpty(webQuoteEmailAddress))
+                            SendEmailToWebQuoteEmailAddress(model, outgoingUserName, outgoingServerName, outgoingServerPort, outgoingPassword, emailAddress, webQuoteEmailAddress, equipments, fees, leadSource);
+
+                        return RedirectToAction("MobileQuoteSuccess", "QuoteResult");
+                    }
+
+                    return RedirectToAction("MobileQuoteFail", "QuoteResult");
                 }
             }
 
-            VehicleDetailViewModel info = null;
             if (!string.IsNullOrEmpty(vehicleKeyFromWeb))
-                info = _wc.GetDetail(vehicleKeyFromWeb, _token);
+                detailInfo = _wc.GetDetail(vehicleKeyFromWeb, false, _token);
             if (!string.IsNullOrEmpty(vehicleKeyFromMobile))
-                info = _wc.GetDetail(vehicleKeyFromMobile, _token);
-            GetCheckOutInfo(info);
+                detailInfo = _wc.GetDetail(vehicleKeyFromMobile, false, _token);
+            GetCheckOutInfo(detailInfo);
             return View();
+        }
+
+        private void SendEmailToSupportRequestAddress(QuoteModel model, string userName, string serverName, string port, string password, string fromEmail, string toEmail)
+        {
+            var subject = "Unable to push data into EWR";
+            var body = "It appears that the RMXAPI is unable to push quote request data into EWR for Customer " + model.FirstName + " " + model.LastName +
+                        " at phone " + model.MobilePhonePrimary + ".<br />Please check status of rackspacewebservice by clicking <a target='_blank' href='" +
+                         System.Configuration.ConfigurationManager.AppSettings["RackSpaceWebService"]  + "'>here</a>";
+
+            DoEmail(serverName, userName, password, port, fromEmail, toEmail, subject, body);
         }
 
         private void SendEmailToWebQuoteEmailAddress(QuoteModel data, string userName, string serverName, string port, string password, string fromEmail, string toEmail, string equipments, string fees, string leadSource)
@@ -324,7 +351,7 @@ namespace sharemycoach.Controllers
             var feeListNote = string.IsNullOrEmpty(feeList) == false ? "<br/>OptionalItemsFees : " + feeList : "";
 
             var subject = data.FirstName + " " + data.LastName + " requested " + data.VehicleName + " from " + data.LocationName;
-            var body = "The informations are the followings : <br/><br/><span style='color:red;'>QFKW</span> : " + data.VehicleName + "<br/>Destination : " + data.Destination + 
+            var body = "The Quote Request information : <br/><br/><span style='color:red;'>QFKW</span> : " + data.VehicleName + "<br/>Destination : " + data.Destination + 
                         "<br/>Distance : " + data.Distance + "<br/><span style='color:red;'>LeaveOn</span> : " + data.LeaveOn + 
                         "<br/><span style='color:red;'>ReturnOn</span> : " + data.ReturnOn + "<br/> Renter : " + data.FirstName + " " + data.LastName +
                         countryNote + addressNote + cityNote + stateNote + zipNote + "<br/>PrimaryPhone : " + data.MobilePhonePrimary + secondaryPhoneNote +
@@ -333,14 +360,14 @@ namespace sharemycoach.Controllers
             DoEmail(serverName, userName, password, port, fromEmail, toEmail, subject, body);
         }
 
-        private bool SendEmailToWebUser(string firstName, string userName, string serverName, string port, string password, string fromEmail, string toEmail, string phoneNumber, string locationName, string organizationName)
+        private bool SendEmailToWebUser(string firstName, string userName, string serverName, string port, string password, string fromEmail, string toEmail, string phoneNumber, string organizationName, string friendlyCompanyName)
         {
-            var subject = "Thank you for submitting a quote to " + locationName;
+            var subject = "Thank you for submitting a quote. " + friendlyCompanyName + " has received your quotation request";
             var body = "Dear " + firstName + "<br /><br />This email has been automatically generated and we thank you for the request.<br /><br />" +
                 "If you need immediate attention please call your local office: " + phoneNumber + 
                 "<br /><br />- All of our coaches are set up with the housewares and needed necessities to operate the RV. " +
                 "This is done at no charge to the renter as our way of keeping your total cost as low as possible.<br /><br />" +
-                "- We offer the most, free miles and generator use and we never charge for early pick ups or late returns.<br /><br />" +
+                "- We offer the most, free miles and generator use.<br /><br />" +
                 "- Insurance covering you and the coach will normally be free or almost free with your auto policy. We can assist you in setting this up.<br /><br />- At " +
                 organizationName + " we're as excited as you are about your upcoming trip and look forward to being your RV connection.<br /><br />Staff,<br /><br />" + organizationName;
 

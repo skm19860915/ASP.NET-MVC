@@ -5,12 +5,18 @@ namespace sharemycoach.Controllers
 {
     public class VehicleDetailController : BaseController
     {
+        private VehicleDetailViewModel detailInfo;
+
         public ActionResult Index(string id)
         {
-            var detailInfo = _wc.GetDetail(id, _token);
+            detailInfo = _wc.GetDetail(id, false, _token);
 
             if (detailInfo == null)
-                return RedirectToAction("Index", "Error");
+            {
+                detailInfo = _wc.GetDetail(id, true, _token);
+                if(detailInfo == null)
+                    return RedirectToAction("Index", "Error");
+            }
 
             GetDetailInfo(detailInfo);
             return View();

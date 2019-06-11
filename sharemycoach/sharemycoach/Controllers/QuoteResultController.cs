@@ -4,15 +4,29 @@ namespace sharemycoach.Controllers
 {
     public class QuoteResultController : BaseController
     {
-        // GET: QuoteResult
-        public ActionResult Success()
+        public QuoteResultController()
+        {
+            ViewBag.Title = "Quote Result | " + Properties.Resources.SHARE_MY_COACH;
+        }
+
+        public ActionResult WebQuoteSuccess()
         {
             var infos = TempData["Infos"];
             ViewBag.Infos = infos;
             return View();
         }
 
-        public ActionResult Fail()
+        public ActionResult WebQuoteFail()
+        {
+            return View();
+        }
+
+        public ActionResult MobileQuoteSuccess()
+        {
+            return View();
+        }
+
+        public ActionResult MobileQuoteFail()
         {
             return View();
         }
