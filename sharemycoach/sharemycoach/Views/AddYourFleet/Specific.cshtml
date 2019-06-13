@@ -1,0 +1,94 @@
+﻿<!--Add Your RV to the fleet Specific View-->
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<div class="row">
+    <div class="row pre-header" style="padding-top:0px; height:600px;">
+        <hr class="top-separate-line" />
+        <div id="add-your-fleet-header"></div>
+        <div id="add-your-fleet-body"></div>
+        <div id="add-your-fleet-footer"></div>
+    </div>
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var search_location_id = @ViewBag.SearchLocationSequenceId;
+        if(search_location_id > 0){
+            loadAddYourFleetPage(search_location_id);
+        }
+        else{
+            var sequence_id = sessionStorage.getItem("CurrentLocationSequenceId");
+            loadAddYourFleetPage(sequence_id);
+        }
+    });
+
+    function loadAddYourFleetPage(id)
+    {
+        var webapi_path = '@System.Configuration.ConfigurationManager.AppSettings["RMXWebService"]';
+        var dirs = '@ViewBag.DirNames';
+        var dir_arr = dirs.split(',');
+        var is_found = false;
+        for (var i = 0; i < dir_arr.length; i++) {
+            if (id == dir_arr[i]) {
+                is_found = true;
+                break;
+            }
+        }
+        if (is_found) 
+        {
+            $("#add-your-fleet-header").load('../UserContent/' + id + '/Add_Your_RV_to_the_fleet/Header.html', function (response, status, xhr) {
+                if (status == "error") {
+                    console.log("Not found Header.html....");
+                }
+            });
+            $("#add-your-fleet-body").load('../UserContent/' + id + '/Add_Your_RV_to_the_fleet/Add_Your_RV_to_the_fleet.html', function (response, status, xhr) {
+                if (status == "error") {
+                    console.log("Not found Add_Your_RV_to_the_fleet.html....");
+                }
+            });
+            $("#add-your-fleet-footer").load('../UserContent/' + id + '/Add_Your_RV_to_the_fleet/Footer.html', function (response, status, xhr) {
+                if (status == "error") {
+                    console.log("Not found Footer.html....");
+                }
+            });
+        }
+        else
+        {
+            $("#add-your-fleet-header").load("../UserContent/Common/Add_Your_RV_to_the_fleet/Header.html", function(response, status, xhr){
+                if(status == "success")
+                {
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: webapi_path + "location" + "?token=AIzaSyAJSErr4vFLsOoylqQYkfQLKM26lnsHLXY",
+                        success: function(data){
+                            jsonValue = jQuery.parseJSON(JSON.stringify(data));
+                            getLocationList(jsonValue);
+                        },
+                        error: function(error){ console.log(error.responseText); }
+                    });
+                }
+                if(status == "error"){ console.log("header file loading error...."); }
+            })
+        }
+    }
+
+    function getLocationList(obj)
+    {
+        //console.log(obj);
+        var website = '@System.Configuration.ConfigurationManager.AppSettings["WebSite"]';
+        var list = '';
+        if(obj.length > 0){
+            for(var i = 0; i < obj.length; i++){
+                list += '<li><a class="nolineA" href="' + website + 'AddYourFleet?location=' + obj[i].State + '-' + obj[i].City + '">' + obj[i].City + ', ' + obj[i].State + '</a></li>';
+            }
+        }
+        else{
+            list = '<h3 style="color:red;">Not Found Location Informations !</h3>';
+        }
+
+        document.getElementById('location-list').innerHTML = list;
+    }
+</script>

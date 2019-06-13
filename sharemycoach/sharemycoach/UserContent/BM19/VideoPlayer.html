@@ -1,0 +1,76 @@
+﻿<style>
+    @media only screen and (min-width : 1200px){
+        iframe.video-dialog-height{
+           height:490px;
+        }
+    }
+    @media only screen and (max-width : 1199px){
+        iframe.video-dialog-height{
+           height:490px;
+        }
+    }
+    @media only screen and (max-width : 992px){
+        iframe.video-dialog-height{
+           height:320px;
+        }
+    }
+    @media only screen and (max-width : 768px){
+        iframe.video-dialog-height{
+           height:380px;
+        }
+    }
+    @media only screen and (max-width : 480px){
+        iframe.video-dialog-height{
+           height:195px;
+        }
+    }
+</style>
+<div style="text-align:center;">
+    <a href="javascript:;" id="video1-link">Important Information</a>&nbsp;&nbsp;|&nbsp;
+    <a href="javascript:;" id="video2-link">Deposit Refunds</a>&nbsp;&nbsp;|&nbsp;
+    <a href="javascript:;" id="video3-link">E-Bikes</a>&nbsp;&nbsp;|&nbsp;
+    <a href="javascript:;" id="video4-link">Help On The Road</a>&nbsp;&nbsp;|&nbsp;
+    <a href="javascript:;" id="video5-link">Pickup Appointment</a>
+    <br />
+    <a href="javascript:;" id="video6-link">Pickup in Reno</a>&nbsp;&nbsp;|&nbsp;
+    <a href="javascript:;" id="video7-link">Airport Arrival</a>&nbsp;&nbsp;|&nbsp;
+    <a href="javascript:;" id="video8-link">RV Damage</a>&nbsp;&nbsp;|&nbsp;
+    <a href="javascript:;" id="video9-link">Sleeping and Beds</a>&nbsp;&nbsp;|&nbsp;
+    <a href="javascript:;" id="video10-link">Water and Holding Tanks</a>
+</div>
+<br />
+<div id="video-dialog-content"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+    // NOTE! please input like the followings : https://www.youtube.com/embed/ {your youtube keyword}
+    $('#video1-link').click(function () {
+        document.getElementById('video-dialog-content').innerHTML = '<iframe width="100%" class="video-dialog-height" src="https://www.youtube.com/embed/Hr7oE89OCn4" frameborder="0" allowfullscreen></iframe>';
+    });
+    $('#video2-link').click(function () {
+        document.getElementById('video-dialog-content').innerHTML = '<iframe width="100%" class="video-dialog-height" src="https://www.youtube.com/embed/5UA0FTSwFm0" frameborder="0" allowfullscreen></iframe>';
+    });
+    $('#video3-link').click(function () {
+        document.getElementById('video-dialog-content').innerHTML = '<iframe width="100%" class="video-dialog-height" src="https://www.youtube.com/embed/TeRqdRs26eM" frameborder="0" allowfullscreen></iframe>';
+    });
+    $('#video4-link').click(function () {
+        document.getElementById('video-dialog-content').innerHTML = '<iframe width="100%" class="video-dialog-height" src="https://www.youtube.com/embed/KmZf-LUz2jM" frameborder="0" allowfullscreen></iframe>';
+    });
+    $('#video5-link').click(function () {
+        document.getElementById('video-dialog-content').innerHTML = '<iframe width="100%" class="video-dialog-height" src="https://www.youtube.com/embed/c-0xVVnCfpA" frameborder="0" allowfullscreen></iframe>';
+    });
+    $('#video6-link').click(function () {
+        document.getElementById('video-dialog-content').innerHTML = '<iframe width="100%" class="video-dialog-height" src="https://www.youtube.com/embed/4PnIN3ClW8M" frameborder="0" allowfullscreen></iframe>';
+    });
+    $('#video7-link').click(function () {
+        document.getElementById('video-dialog-content').innerHTML = '<iframe width="100%" class="video-dialog-height" src="https://www.youtube.com/embed/IviNwc1SxPc" frameborder="0" allowfullscreen></iframe>';
+    });
+    $('#video8-link').click(function () {
+        document.getElementById('video-dialog-content').innerHTML = '<iframe width="100%" class="video-dialog-height" src="https://www.youtube.com/embed/iVG1a-xkf6M" frameborder="0" allowfullscreen></iframe>';
+    });
+    $('#video9-link').click(function () {
+        document.getElementById('video-dialog-content').innerHTML = '<iframe width="100%" class="video-dialog-height" src="https://www.youtube.com/embed/reqx_9XwtmQ" frameborder="0" allowfullscreen></iframe>';
+    });
+    $('#video10-link').click(function () {
+        document.getElementById('video-dialog-content').innerHTML = '<iframe width="100%" class="video-dialog-height" src="https://www.youtube.com/embed/J0ot67GsepY" frameborder="0" allowfullscreen></iframe>';
+    });
+</script>
