@@ -1,6 +1,6 @@
 # components
 - c# backend, asp.net mvc, file management
-- fron end development & design
+- front end development & design
 - ajax communication
 - smartystreet plugins, googlemap api, js framework
 - interface to consume webapi
