@@ -1,0 +1,43 @@
+﻿<!--DetailWithCalendar View-->
+@{
+    var infos = ViewBag.Infos;
+}
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<div class="row">
+    <div class="row pre-header" style="text-align:center;">
+        <hr class="hidden-xs" style="border:1px solid #eeeeee; margin-bottom:20px; margin-top:-10px;" />
+        <br /><br />
+        @foreach (var info in infos)
+        {
+            <div class="col-lg-6 col-md-6 col-sm-6 vehicle-info">
+                <div class="primary-vehicle-div">
+                    <a href='@Url.Action("Index", "VehicleDetail", new { id = info.WebUniqueId, isDetailWithCalendar = true })'>
+                        @if (info.IsSquarePhoto == true)
+                        {
+                            <img src="data:image/jpg;base64, @Convert.ToBase64String(info.PrimaryPhoto)" class="clip-vehicle-img" />
+                        }
+                        else
+                        {
+                            <img src="data:image/jpg;base64, @Convert.ToBase64String(info.PrimaryPhoto)" class="vehicle-img" />
+                        }
+                    </a>
+                    @if (info.IsSquarePhoto == true)
+                    {
+                        <h5 class="vehicle-license" style="margin-top:137px;">@info.NameOnWeb</h5>
+                    }
+                    else
+                    {
+                        <h5 class="vehicle-license">@info.NameOnWeb</h5>
+                    }
+                    <h6 class="vehicle-location">@info.Address</h6>
+                    <p class="vehicle-price">@info.City &nbsp; @info.State &nbsp; @info.Zip</p>
+                </div>
+                <br />
+            </div>
+        }
+    </div>
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>
+

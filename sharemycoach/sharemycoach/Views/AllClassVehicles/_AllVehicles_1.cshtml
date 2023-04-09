@@ -1,0 +1,2086 @@
+﻿<!--AllVehicles View-->
+@using System.Text.RegularExpressions
+@section AdditionalMeta
+{
+    <meta name="keywords" content="rv, rental, fleet, rent, motorhome, trailer, toy hauler, ">
+    <meta name="description" content="View our RV rental fleet and select the perfect RV for your next trip. 
+          Share My Coach has a huge selection of luxury Class A motorhomes available in southern California.">
+}
+@{ 
+    var info = ViewBag.LocationInfo;
+}
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<link href="~/Content/css/location.css" rel="stylesheet" />
+<link href="~/Content/css/listview.css" rel="stylesheet" />
+<link href="~/Content/css/daterangepicker.css" rel="stylesheet" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<style>
+    h3#location-html-header p {
+        color: black;
+        font-size: 13px !important;
+    }
+    h3#location-html-bottom p{
+        color: black;
+        font-size: 13px !important;
+    }
+    div#novato-content p{
+        color: black;
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+    div#novato-content h3{
+        color: black;
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+</style>
+<div class="row" style="margin-top:-5px;">
+    <div class="row pre-header visible-xs">
+        <div class="col-xs-12"><img src="~/Content/images/pane.png" class="img-responsive" style="width:200%; margin-top:-10px; margin-bottom:-10px; margin-left:15px;" /></div>
+    </div>
+    <div class="row pre-header hidden-xs" id="count_div" style="padding-top:0px;">
+        @Html.Partial("~/Views/Home/_SearchSection.cshtml")
+        <hr style="border:1px solid grey; margin-top:5px;" />
+    </div>
+    <div class="row pre-header" id="state_div">
+        <h1>@info.City @info.State R.V's</h1>
+        <h2>@info.WebRegionalName Area</h2>
+        <h4><a href='tel:@Regex.Replace(1 + info.PrimaryPhone, "[^0-9]+", string.Empty)'>@info.PrimaryPhone</a></h4>
+    </div>
+    <div class="row pre-header" id="price_div">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+            <label style="margin-left:30px; margin-top:14px;" for="Filter by price">Filter by price</label>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+            <select class="form-control form-custom price_id" style="margin-top:8px;">
+                <option value="0" selected>All</option>
+                <option value="100">$100 - $200</option>
+                <option value="200">$200 - $300</option>
+                <option value="300">$300 - $400</option>
+                <option value="400">$400 - $500</option>
+                <option value="500">$500 or More</option>
+            </select>
+        </div>
+        <div class="col-lg-2 col-md-2"></div>
+        <div class="col-lg-2 col-md-2"></div>
+        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+            <input type="image" class="btn_original" src="~/Content/images/glyph1-small.png" />
+            <input type="image" class="btn_detail" src="~/Content/images/glyph2-small.png" />
+        </div>
+    </div>
+    <div class="row pre-header" id="class_div" style="margin-top:-10px;">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-10 col-xs-8">
+                    <label style="margin-left:30px; margin-top:40px;" for="Filter by vehicle type">Filter by vehicle type</label>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-2 col-xs-4">
+                    <div class="class-div grey_border_div">
+                        <a href='javascript:;' id="class_total"><h3 style="text-align:center; color:black; font-size:21px; margin-top:15px; margin-bottom:16px; letter-spacing:3px;">View<br />All</h3></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div class="row" style="font-weight:bold; font-size:12px; align-content:center; text-align:center; padding-left:10px; padding-right:10px;">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 my-hover">
+                    <a href='javascript:;' id="class_a">
+                        <div class="class-div grey_border_div"><img src="~/Content/images/A.jpg" class="class-img" />Class A</div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 my-hover">
+                    <a href='javascript:;' id="class_b">
+                        <div class="class-div grey_border_div"><img src="~/Content/images/B.jpg" class="class-img" />Class B</div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 my-hover">
+                    <a href='javascript:;' id="class_c">
+                        <div class="class-div grey_border_div"><img src="~/Content/images/C.jpg" class="class-img" />Class C</div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 my-hover">
+                    <a href='javascript:;' id="class_th">
+                        <div class="class-div grey_border_div"><img src="~/Content/images/Toy-Hauler.jpg" class="class-img" />Toy-Hauler</div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 my-hover">
+                    <a href='javascript:;' id="class_tt">
+                        <div class="class-div grey_border_div"><img src="~/Content/images/TT.jpg" class="class-img" />Travel Trailers</div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 my-hover">
+                    <a href='javascript:;' id="class_ut">
+                        <div class="class-div grey_border_div"><img src="~/Content/images/UT.jpg" class="class-img" />Utility Trailer</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (ViewBag.WebLocationPageHTML != null)
+    {
+        <div class="row pre-header">
+            <h3 style="color:black; text-align:center; margin-top:-10px; margin-bottom:-30px;" id="location-html-header">@Html.Raw(ViewBag.WebLocationPageHTML)</h3>
+        </div>
+    }
+    <h2 class="visible-xs" id="region-h2" style="color:#000000;">All vehicles in @info.WebRegionalName</h2>
+    <div class="row pre-header" style="text-align:center;" id="photo_div"></div>
+    <div class="row pre-header" style="display:none;" id="detail_photo_div"></div>
+
+    <div class="row pre-header">
+        <h3 style="color:black; text-align:center; margin-top:-10px;" id="location-html-bottom">@Html.Raw(ViewBag.WebLocationPageHTMLBottom)</h3>
+    </div>
+
+    @if(ViewBag.LocationSequenceId == 29)
+    {
+        <div class="row pre-header" id="novato-content">
+            <p>Based&nbsp;out of Northern California, 10 minutes from the magnificent wine country and 40 minutes from San Francisco, you will be able to begin your journey with many sightseeing opportunities, fresh food and true California natives. Our family has lived in the area for over 30 years and can provide all the information you need to plan and begin your journey. We provide late model motor homes, travel trailers, toy haulers, and RV's for rent. The planning process is made easy with our friendly, helpful and energetic staff at ShareMyCoachSonoma.com. Take a look at our helpful LOCAL CAMPING link to preview a plethora of campsites across the country. By renting one of our privately owned recreational vehicles you will save on the high costs of hotels and truly experience the great outdoors in the comfort of your second home. Have a curiosity for the bay area? Check our EVENT CALENDAR for local events and festivals. We also provide package deals that include tickets, and a&nbsp;camping space&nbsp;for some of the most popular events in the area. Inquire within about our affordable rental packages and begin your journey today! We welcome you to the beautiful Bay Area and wish you a pleasant experience. </p>
+            <h3>Luxury RV Rentals:</h3>
+            <p>We have many different luxury RV rentals to choose from, and since all are our luxury RV Rentals are privately owned, they are fully loaded with all the best features to make your trip or vacation even more enjoyable. Luxury Motorhome Rentals serving Northern California and the Bay Area(San Fransisco, CA). </p>
+            <h3>RV Owners:</h3>
+            <p>Would you like to make some money on your RV? ShareMyCoachSonoma.com can help! Now serving Northern California, ShareMyCoachSonoma.com can allow you to make money on your RV! Our rental program can help you offset your monthly payment and maintenance/storage costs, while providing a tax write off as well!&nbsp; With our program you would be able to use your privately owned RV at any time. It will be well maintained and ready to go for any adventure that comes your way. We will also provide any additional services/upkeep needed. Please view the NEW OWNER REQUEST link for more information and call/email our offices to inquire about our excellent program. Rent your RV today!</p>
+        </div>
+    }
+
+    <div class="row pre-header hidden-xs">
+        <div class="col-lg-4">
+            <div class="location-panel">
+                <h3 style="padding-bottom:10px;">Pick Up Location :</h3>
+                <span style="font-weight:normal; font-size:18px;">
+                    @info.OrganizationName<br />
+                    @info.Address<br />
+                    @info.City @info.State @info.Zip
+                </span><br />
+                <span style="font-size:18px;">TEL : </span>
+                <a style="color:white; font-size:18px;" href='tel:@Regex.Replace(1 + info.PrimaryPhone, "[^0-9]+", string.Empty)'>
+                    @info.PrimaryPhone
+                </a>
+                <br /><br /><br />
+                <button type="button" class="btn btn-success btn-change" data-toggle="modal" data-target="#change-location-modal">Change Location</button>
+            </div><br />
+        </div>
+        <div class="col-lg-8">
+            <div id="pickupmap" style="height:300px; background:yellow; border-radius:10px;"></div><br />
+        </div>
+    </div>
+    <div class="row pre-header visible-xs">
+        <div class="col-xs-12">
+            <div id="pickupmap-mobile" style="height:200px; background:yellow; margin-top:-10px;"></div><br />
+        </div>
+        <div class="col-xs-12">
+            <div class="location-panel-mobile">
+                <h3 style="color:black">Pick Up Location :</h3>
+                <span style="font-weight:normal; font-size:18px;">
+                    @info.OrganizationName<br />
+                    @info.Address<br />
+                    @info.City @info.State @info.Zip
+                </span><br />
+                <span style="font-size:18px;">TEL : </span>
+                <a style="font-size:18px;" href='tel:@Regex.Replace(1 + info.PrimaryPhone, "[^0-9]+", string.Empty)'>
+                    @info.PrimaryPhone
+                </a>
+                <br /><br /><br />
+                <button type="button" class="btn btn-success btn-change" data-toggle="modal" data-target="#change-location-modal">Change Location</button>
+            </div><br />
+        </div>
+    </div>
+    <div class="row pre-header" style="padding-bottom:0px; padding-top:0px;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <img src="~/Content/images/ShowMeHow.png" class="img-responsive" />
+                <div class="carousel-caption">
+                    <a class="btn btn-default show-me-how" href='@Url.Action("Index", "ShowMeHow")'>Show Me How</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pre-header">
+        <div class="row">
+            <div class="col-lg-12">
+                <img src="~/Content/images/LearnMore.png" class="img-responsive" />
+                <div class="carousel-caption hidden-sm hidden-xs">
+                    <button type="button" class="btn btn-default coming_soon" style="width:230px; height:50px; font-size:23px; border-radius:10px; border:2px solid #000000; margin-bottom:-20px; margin-left:500px;">Learn More</button>
+                </div>
+                <div class="carousel-caption visible-sm">
+                    <button type="button" class="btn btn-default coming_soon" style="width:140px; border-radius:10px; border:1px solid #000000; margin-bottom:-40px; font-size:14px; margin-left:410px;">Learn More</button>
+                </div>
+                <div class="carousel-caption visible-xs">
+                    <button type="button" class="btn btn-default coming_soon" style="width:100px; border-radius:10px; border:1px solid #000000; margin-bottom:-50px; font-size:11px; margin-left:250px;">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>
+
+<div class="modal fade" id="change-location-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog hidden-xs">
+        <div class="modal-content">
+            <div class="modal-body">
+                @{int index = 0; }
+                @foreach (var value in ViewBag.LocationDatas)
+                {
+                    if (value.State == info.State && value.Oid != info.Oid && value.IsLocationBehindOnPaying != true)
+                    {
+                        index++;
+                        <div class="row modal-item">
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                @if (value.WebPrimaryBuildingPhoto != null)
+                                {
+                                    <img src="data:image/jpg;base64, @Convert.ToBase64String(value.WebPrimaryBuildingPhoto)" class="img-responsive modal-img" style="margin-top:10px;" />
+                                }
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3" style="padding-bottom:15px;">
+                                <h5 class="modal-h5">Pick Up Location :</h5>
+                                <span class="modal-span">@value.WebRegionalName</span>
+                                <span class="modal-span">ShareMyCoach, @value.Address @value.City @value.State @value.Zip</span><br />
+                                <span class="modal-span">TEL : </span><a href='tel:@Regex.Replace(1 + value.PrimaryPhone, "[^0-9]+", string.Empty)'>@value.PrimaryPhone</a>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                @if (value.WebMapPhoto != null)
+                                {
+                                    <a href="https://www.google.com/maps/dir//@value.Address+@value.City+@value.State+@value.Zip/&#64;@value.Longitude,@value.Latitude,@value.WebMapZoomLevel" target="_blank">
+                                        <img src="data:image/jpg;base64, @Convert.ToBase64String(value.WebMapPhoto)" class="img-responsive modal-map" style="margin-top:10px;" />
+                                    </a>
+                                }
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2" style="padding:0px;">
+                                <button type="button" class="change_location btn btn-danger btn-modal" value="@value.State-@value.City" style="margin-top:60px;">View Location</button>
+                            </div>
+                        </div>
+                    }
+                }
+                @if (index == 0)
+                {
+                    <div class="row modal-item">
+                        <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: center; padding-bottom: 10px;">
+                            <h2 style="color:red;">No Location</h2>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="row" style="text-align:center; padding-bottom:10px; padding-top:-8px;">
+                <a href='@Url.Action("Index", "Home")' style="font-size:18px; color:white;">Reset to all locations</a>
+            </div>
+        </div>
+    </div>
+    <div class="modal-dialog visible-xs">
+        <div class="modal-content-mobile">
+            <div class="modal-body">
+                @foreach (var value in ViewBag.LocationDatas)
+                {
+                    if (value.State == info.State && value.Oid != info.Oid && value.IsLocationBehindOnPaying != true)
+                    {
+                        index++;
+                        <div class="row modal-item-mobile">
+                            <div class="col-xs-6">
+                                <h5 class="modal-h5">@value.WebRegionalName</h5>
+                                <span class="modal-span">ShareMyCoach, @value.Address @value.City @value.State @value.Zip</span>
+                            </div>
+                            <div class="col-xs-6">
+                                <span class="modal-span">TEL : </span>
+                                <a href='tel:@Regex.Replace(1 + value.PrimaryPhone, "[^0-9]+", string.Empty)'>@value.PrimaryPhone</a>
+                                <button type="button" class="ca_location btn btn-danger btn-modal-mobile" value="@value.SequenceId">View Location</button>
+                            </div>
+                        </div>
+                    }
+                }
+                @if (index == 0)
+                {
+                    <div class="row modal-item">
+                        <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: center; padding-bottom: 10px;">
+                            <h2 style="color:red;">No Location</h2>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="row" style="text-align:center; padding-bottom:10px; padding-top:-8px;">
+                <a href='@Url.Action("Index", "Home")' style="font-size:18px; color:white;">Reset to all locations</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sticky-tab" style="display:none; z-index:100;">
+    <img src="../../Content/images/tab.png" style="width:38px;" />
+</div>
+<div id="element" style="display:none; z-index:100;">
+</div>
+
+<script src="~/Content/js/utility.js"></script>
+<script type="text/javascript">
+    var minimum_number_of_time_interval = getDecimalValue(@info.MinimumNumberOfTimeInterval);
+    var calc_by_nights = @Json.Encode(info.CalcByNights);
+    var is_location_behind_on_paying = @Json.Encode(info.IsLocationBehindOnPaying);
+
+    var vehicle_list = [];
+    @foreach(var vehicle in ViewBag.allFeaturedVehiclesInLocation)
+    {
+        var data = Html.Raw(Json.Encode(vehicle));
+         @:vehicle_list.push(@data);
+    }
+    console.log(vehicle_list);
+    //console.log(minimum_number_of_time_interval);
+
+    var latitude = @info.Latitude;
+    var longitude = @info.Longitude;
+    var address = '@info.Address';
+    var city = '@info.City';
+    var state = '@info.State';
+    var all_class_vehicles_link = '@Url.Action("Location", "AllClassVehicles", new { id = "-1" })';
+    var learn_more_link = '@Url.Action("Index", "LearnMore")';
+
+    sessionStorage.setItem("CurrentLocationSequenceId", '@info.SequenceId');
+    sessionStorage.setItem("CurrentLocationOid", '@info.Oid');
+    sessionStorage.setItem("CurrentClassType", '@ViewBag.Class');
+</script>
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/daterangepicker.js"></script>
+<script type="text/javascript">
+    $(document.body).on("mouseenter", "img.sale-img", function () {
+        $(this).attr('src', '../../Content/images/star2.png');
+    });
+    $(document.body).on("mouseleave", "img.sale-img", function () {
+        $(this).attr('src', '../../Content/images/star1.png');
+    });
+
+    $(document).ready(function ()
+    {
+        var flag_a = false; var flag_b = false; var flag_c = false; var flag_th = false; var flag_tt = false; var flag_ut = false, target_vehicle_sequence_id = 0;
+        if (vehicle_list == null)
+        {
+            document.getElementById('photo_div').innerHTML = 
+                '<h4 style="color:red; font-style:italic; text-align:center;">Please check back soon.<br /> There are currently no vehicles configured at this location</h4>';
+            return;
+        }
+        if (sessionStorage.getItem("TargetVehicleSequenceId") === undefined || sessionStorage.getItem("TargetVehicleSequenceId") == null
+            || sessionStorage.getItem("TargetVehicleSequenceId") == "undefined")
+        {
+            target_vehicle_sequence_id = 0;
+        }
+        else
+        {
+            target_vehicle_sequence_id = sessionStorage.getItem("TargetVehicleSequenceId");
+        }
+        if (sessionStorage.getItem("CurrentClassType") === undefined || sessionStorage.getItem("CurrentClassType") == null
+            || sessionStorage.getItem("CurrentClassType") == "undefined")
+        {
+            generateVehicleList(0, 0);
+        }
+        else
+        {
+            var current_class_type = sessionStorage.getItem("CurrentClassType");
+            var session_current_class_id = sessionStorage.getItem("current_class_id");
+            var session_current_price_index = sessionStorage.getItem("current_price_index");
+            var current_class_id = 0;
+            if (session_current_class_id == null)
+            {
+                if (current_class_type == "A")
+                {
+                    $("#class_a").children().removeClass('grey_border_div');
+                    $("#class_a").children().addClass('red_border_div');
+                    flag_a = true;
+                    flag_b = false;
+                    flag_c = false;
+                    flag_th = false;
+                    flag_tt = false;
+                    flag_ut = false;
+                    current_class_id = 1;
+                }
+                else if (current_class_type == "B")
+                {
+                    $("#class_b").children().removeClass('grey_border_div');
+                    $("#class_b").children().addClass('red_border_div');
+                    flag_b = true;
+                    flag_a = false;
+                    flag_c = false;
+                    flag_th = false;
+                    flag_tt = false;
+                    flag_ut = false;
+                    current_class_id = 2;
+                }
+                else if (current_class_type == "C")
+                {
+                    $("#class_c").children().removeClass('grey_border_div');
+                    $("#class_c").children().addClass('red_border_div');
+                    flag_c = true;
+                    flag_a = false;
+                    flag_b = false;
+                    flag_th = false;
+                    flag_tt = false;
+                    flag_ut = false;
+                    current_class_id = 3;
+                }
+                else if (current_class_type == "TH")
+                {
+                    $("#class_th").children().removeClass('grey_border_div');
+                    $("#class_th").children().addClass('red_border_div');
+                    flag_th = true;
+                    flag_a = false;
+                    flag_b = false;
+                    flag_c = false;
+                    flag_tt = false;
+                    flag_ut = false;
+                    current_class_id = 7;
+                }
+                else if (current_class_type == "TT")
+                {
+                    $("#class_tt").children().removeClass('grey_border_div');
+                    $("#class_tt").children().addClass('red_border_div');
+                    flag_tt = true;
+                    flag_a = false;
+                    flag_b = false;
+                    flag_c = false;
+                    flag_th = false;
+                    flag_ut = false;
+                    current_class_id = 8;
+                }
+                else if (current_class_type == "UT")
+                {
+                    $("#class_ut").children().removeClass('grey_border_div');
+                    $("#class_ut").children().addClass('red_border_div');
+                    flag_ut = true;
+                    flag_a = false;
+                    flag_b = false;
+                    flag_c = false;
+                    flag_th = false;
+                    flag_tt = false;
+                    current_class_id = 9;
+                }
+            }
+            else
+            {
+                if (session_current_class_id == 1)
+                {
+                    $("#class_a").children().removeClass('grey_border_div');
+                    $("#class_a").children().addClass('red_border_div');
+                    flag_a = true;
+                    flag_b = false;
+                    flag_c = false;
+                    flag_th = false;
+                    flag_tt = false;
+                    flag_ut = false;
+                    current_class_id = 1;
+                }
+                else if (session_current_class_id == 2)
+                {
+                    $("#class_b").children().removeClass('grey_border_div');
+                    $("#class_b").children().addClass('red_border_div');
+                    flag_b = true;
+                    flag_a = false;
+                    flag_c = false;
+                    flag_th = false;
+                    flag_tt = false;
+                    flag_ut = false;
+                    current_class_id = 2;
+                }
+                else if (session_current_class_id == 3)
+                {
+                    $("#class_c").children().removeClass('grey_border_div');
+                    $("#class_c").children().addClass('red_border_div');
+                    flag_c = true;
+                    flag_a = false;
+                    flag_b = false;
+                    flag_th = false;
+                    flag_tt = false;
+                    flag_ut = false;
+                    current_class_id = 3;
+                }
+                else if (session_current_class_id == 7)
+                {
+                    $("#class_th").children().removeClass('grey_border_div');
+                    $("#class_th").children().addClass('red_border_div');
+                    flag_th = true;
+                    flag_a = false;
+                    flag_b = false;
+                    flag_c = false;
+                    flag_tt = false;
+                    flag_ut = false;
+                    current_class_id = 7;
+                }
+                else if (session_current_class_id == 8)
+                {
+                    $("#class_tt").children().removeClass('grey_border_div');
+                    $("#class_tt").children().addClass('red_border_div');
+                    flag_tt = true;
+                    flag_a = false;
+                    flag_b = false;
+                    flag_c = false;
+                    flag_th = false;
+                    flag_ut = false;
+                    current_class_id = 8;
+                }
+                else if (session_current_class_id == 9)
+                {
+                    $("#class_ut").children().removeClass('grey_border_div');
+                    $("#class_ut").children().addClass('red_border_div');
+                    flag_ut = true;
+                    flag_a = false;
+                    flag_b = false;
+                    flag_c = false;
+                    flag_th = false;
+                    flag_tt = false;
+                    current_class_id = 9;
+                }
+            }
+
+            if (session_current_price_index)
+            {
+                generateVehicleList(current_class_id, session_current_price_index);
+            }
+            else
+            {
+                generateVehicleList(current_class_id, 0);
+            }
+        }
+        if (target_vehicle_sequence_id > 0)
+        {
+            location.hash = target_vehicle_sequence_id;
+        }
+
+        $('#class_a').click(function(){
+            var sticky = document.getElementById('element');
+            var tab = document.getElementById('sticky-tab');
+            tab.style.display = 'none';
+            sticky.style.display = 'none';
+            is_display_none = true;
+            $(this).children().removeClass('grey_border_div');
+            $(this).children().addClass('red_border_div');
+            $('#class_b').children().removeClass('red_border_div');
+            $('#class_b').children().addClass('grey_border_div');
+            $('#class_c').children().removeClass('red_border_div');
+            $('#class_c').children().addClass('grey_border_div');
+            $('#class_th').children().removeClass('red_border_div');
+            $('#class_th').children().addClass('grey_border_div');
+            $('#class_tt').children().removeClass('red_border_div');
+            $('#class_tt').children().addClass('grey_border_div');
+            $('#class_ut').children().removeClass('red_border_div');
+            $('#class_ut').children().addClass('grey_border_div');
+            flag_a = true;
+            flag_b = false;
+            flag_c = false;
+            flag_th = false;
+            flag_tt = false;
+            flag_ut = false;
+
+            $('.price_id').val(0);
+            generateVehicleList(1, 0);
+            sessionStorage.setItem("current_class_id", 1);
+            sessionStorage.setItem("current_price_index", 0);
+        });
+
+        $('#class_b').click(function(){
+            var sticky = document.getElementById('element');
+            var tab = document.getElementById('sticky-tab');
+            tab.style.display = 'none';
+            sticky.style.display = 'none';
+            is_display_none = true;
+            $(this).children().removeClass('grey_border_div');
+            $(this).children().addClass('red_border_div');
+            $('#class_a').children().removeClass('red_border_div');
+            $('#class_a').children().addClass('grey_border_div');
+            $('#class_c').children().removeClass('red_border_div');
+            $('#class_c').children().addClass('grey_border_div');
+            $('#class_th').children().removeClass('red_border_div');
+            $('#class_th').children().addClass('grey_border_div');
+            $('#class_tt').children().removeClass('red_border_div');
+            $('#class_tt').children().addClass('grey_border_div');
+            $('#class_ut').children().removeClass('red_border_div');
+            $('#class_ut').children().addClass('grey_border_div');
+            flag_b = true;
+            flag_a = false;
+            flag_c = false;
+            flag_th = false;
+            flag_tt = false;
+            flag_ut = false;
+
+            $('.price_id').val(0);
+            generateVehicleList(2, 0);
+            sessionStorage.setItem("current_class_id", 2);
+            sessionStorage.setItem("current_price_index", 0);
+        });
+
+        $('#class_c').click(function(){
+            var sticky = document.getElementById('element');
+            var tab = document.getElementById('sticky-tab');
+            tab.style.display = 'none';
+            sticky.style.display = 'none';
+            is_display_none = true;
+            $(this).children().removeClass('grey_border_div');
+            $(this).children().addClass('red_border_div');
+            $('#class_a').children().removeClass('red_border_div');
+            $('#class_a').children().addClass('grey_border_div');
+            $('#class_b').children().removeClass('red_border_div');
+            $('#class_b').children().addClass('grey_border_div');
+            $('#class_th').children().removeClass('red_border_div');
+            $('#class_th').children().addClass('grey_border_div');
+            $('#class_tt').children().removeClass('red_border_div');
+            $('#class_tt').children().addClass('grey_border_div');
+            $('#class_ut').children().removeClass('red_border_div');
+            $('#class_ut').children().addClass('grey_border_div');
+            flag_c = true;
+            flag_a = false;
+            flag_b = false;
+            flag_th = false;
+            flag_tt = false;
+            flag_ut = false;
+
+            $('.price_id').val(0);
+            generateVehicleList(3, 0);
+            sessionStorage.setItem("current_class_id", 3);
+            sessionStorage.setItem("current_price_index", 0);
+        });
+
+        $('#class_th').click(function(){
+            var sticky = document.getElementById('element');
+            var tab = document.getElementById('sticky-tab');
+            tab.style.display = 'none';
+            sticky.style.display = 'none';
+            is_display_none = true;
+            $(this).children().removeClass('grey_border_div');
+            $(this).children().addClass('red_border_div');
+            $('#class_a').children().removeClass('red_border_div');
+            $('#class_a').children().addClass('grey_border_div');
+            $('#class_b').children().removeClass('red_border_div');
+            $('#class_b').children().addClass('grey_border_div');
+            $('#class_c').children().removeClass('red_border_div');
+            $('#class_c').children().addClass('grey_border_div');
+            $('#class_tt').children().removeClass('red_border_div');
+            $('#class_tt').children().addClass('grey_border_div');
+            $('#class_ut').children().removeClass('red_border_div');
+            $('#class_ut').children().addClass('grey_border_div');
+            flag_th = true;
+            flag_a = false;
+            flag_b = false;
+            flag_c = false;
+            flag_tt = false;
+            flag_ut = false;
+
+            $('.price_id').val(0);
+            generateVehicleList(7, 0);
+            sessionStorage.setItem("current_class_id", 7);
+            sessionStorage.setItem("current_price_index", 0);
+        });
+
+        $('#class_tt').click(function(){
+            var sticky = document.getElementById('element');
+            var tab = document.getElementById('sticky-tab');
+            tab.style.display = 'none';
+            sticky.style.display = 'none';
+            is_display_none = true;
+            $(this).children().removeClass('grey_border_div');
+            $(this).children().addClass('red_border_div');
+            $('#class_a').children().removeClass('red_border_div');
+            $('#class_a').children().addClass('grey_border_div');
+            $('#class_b').children().removeClass('red_border_div');
+            $('#class_b').children().addClass('grey_border_div');
+            $('#class_c').children().removeClass('red_border_div');
+            $('#class_c').children().addClass('grey_border_div');
+            $('#class_th').children().removeClass('red_border_div');
+            $('#class_th').children().addClass('grey_border_div');
+            $('#class_ut').children().removeClass('red_border_div');
+            $('#class_ut').children().addClass('grey_border_div');
+            flag_tt = true;
+            flag_a = false;
+            flag_b = false;
+            flag_c = false;
+            flag_th = false;
+            flag_ut = false;
+
+            $('.price_id').val(0);
+            generateVehicleList(8, 0);
+            sessionStorage.setItem("current_class_id", 8);
+            sessionStorage.setItem("current_price_index", 0);
+        });
+
+        $('#class_ut').click(function(){
+            var sticky = document.getElementById('element');
+            var tab = document.getElementById('sticky-tab');
+            tab.style.display = 'none';
+            sticky.style.display = 'none';
+            is_display_none = true;
+            $(this).children().removeClass('grey_border_div');
+            $(this).children().addClass('red_border_div');
+            $('#class_a').children().removeClass('red_border_div');
+            $('#class_a').children().addClass('grey_border_div');
+            $('#class_b').children().removeClass('red_border_div');
+            $('#class_b').children().addClass('grey_border_div');
+            $('#class_c').children().removeClass('red_border_div');
+            $('#class_c').children().addClass('grey_border_div');
+            $('#class_th').children().removeClass('red_border_div');
+            $('#class_th').children().addClass('grey_border_div');
+            $('#class_tt').children().removeClass('red_border_div');
+            $('#class_tt').children().addClass('grey_border_div');
+            flag_ut = true;
+            flag_a = false;
+            flag_b = false;
+            flag_c = false;
+            flag_th = false;
+            flag_tt = false;
+
+            $('.price_id').val(0);
+            generateVehicleList(9, 0);
+            sessionStorage.setItem("current_class_id", 9);
+            sessionStorage.setItem("current_price_index", 0);
+        });
+
+        $('#class_total').click(function(){
+            var sticky = document.getElementById('element');
+            var tab = document.getElementById('sticky-tab');
+            tab.style.display = 'none';
+            sticky.style.display = 'none';
+            is_display_none = true;
+            $('#class_a').children().removeClass('red_border_div');
+            $('#class_a').children().addClass('grey_border_div');
+            $('#class_b').children().removeClass('red_border_div');
+            $('#class_b').children().addClass('grey_border_div');
+            $('#class_c').children().removeClass('red_border_div');
+            $('#class_c').children().addClass('grey_border_div');
+            $('#class_th').children().removeClass('red_border_div');
+            $('#class_th').children().addClass('grey_border_div');
+            $('#class_tt').children().removeClass('red_border_div');
+            $('#class_tt').children().addClass('grey_border_div');
+            $('#class_ut').children().removeClass('red_border_div');
+            $('#class_ut').children().addClass('grey_border_div');
+            flag_a = false;
+            flag_b = false;
+            flag_c = false;
+            flag_th = false;
+            flag_tt = false;
+            flag_ut = false;
+
+            $('.price_id').val(0);
+            generateVehicleList(0, 0);
+            sessionStorage.setItem("current_class_id", 0);
+            sessionStorage.setItem("current_price_index", 0);
+        });
+
+        $('.btn_detail').click(function (e) {
+            $('#photo_div').css('display', 'none');
+            $('#detail_photo_div').css('display', 'block');
+            var sticky = document.getElementById('element');
+            sticky.style.display = 'none';
+            var tab = document.getElementById('sticky-tab');
+            tab.style.display = 'none';
+            is_display_none = true;
+            $('.price_id').val(0);
+
+            if (flag_a)
+            {
+                generateVehicleList(1, 0);
+            }
+            else if (flag_b)
+            {
+                generateVehicleList(2, 0);
+            }
+            else if (flag_c)
+            {
+                generateVehicleList(3, 0);
+            }
+            else if (flag_th)
+            {
+                generateVehicleList(7, 0);
+            }
+            else if (flag_tt)
+            {
+                generateVehicleList(8, 0);
+            }
+            else if (flag_ut)
+            {
+                generateVehicleList(9, 0);
+            }
+            else
+            {
+                generateVehicleList(0, 0);
+            }
+            flag_detail = true;
+        });
+
+        $('.btn_original').click(function(e){
+            $('#photo_div').css('display', 'block');
+            $('#detail_photo_div').css('display', 'none');
+            var sticky = document.getElementById('element');
+            sticky.style.display = 'none';
+            var tab = document.getElementById('sticky-tab');
+            tab.style.display = 'none';
+            is_display_none = true;
+
+            $('.price_id').val(0);
+            if (flag_a)
+            {
+                generateVehicleList(1, 0);
+            }
+            else if (flag_b)
+            {
+                generateVehicleList(2, 0);
+            }
+            else if (flag_c)
+            {
+                generateVehicleList(3, 0);
+            }
+            else if (flag_th)
+            {
+                generateVehicleList(7, 0);
+            }
+            else if (flag_tt)
+            {
+                generateVehicleList(8, 0);
+            }
+            else if (flag_ut)
+            {
+                generateVehicleList(9, 0);
+            }
+            else
+            {
+                generateVehicleList(0, 0);
+            }
+            flag_detail = false;
+        });
+
+        $('.price_id').change(function(e){
+            var sticky = document.getElementById('element');
+            sticky.style.display = 'none';
+            var tab = document.getElementById('sticky-tab');
+            tab.style.display = 'none';
+            is_display_none = true;
+
+            var price_index = $(this).val();
+            sessionStorage.setItem("current_price_index", price_index);
+        
+            if (flag_a)
+            {
+                generateVehicleList(1, price_index);
+            }
+            else if (flag_b)
+            {
+                generateVehicleList(2, price_index);
+            }
+            else if (flag_c)
+            {
+                generateVehicleList(3, price_index);
+            }
+            else if (flag_th)
+            {
+                generateVehicleList(7, price_index);
+            }
+            else if (flag_tt)
+            {
+                generateVehicleList(8, price_index);
+            }
+            else if (flag_ut)
+            {
+                generateVehicleList(9, price_index);
+            }
+            else
+            {
+                generateVehicleList(0, price_index);
+            }
+        });
+
+        function generateVehicleList(index, price_index)
+        {
+            var d_html = '';
+            var html = '';
+
+            var is_location_behind_on_paying = is_location_behind_on_paying;
+            if(is_location_behind_on_paying == true)
+            {
+                var invisible_html = '<br /><br /><h2 style="color:#000000; text-align:center;">This location is currently under maintenance.<br />' +
+                    'Please check back later.</h2><br /><br /><br /><br /><br /><br />';
+                document.getElementById('photo_div').innerHTML = invisible_html;
+                document.getElementById('detail_photo_div').innerHTML = invisible_html;
+                return;
+            }
+
+            if(index == 0)
+            {
+                if(price_index > 0)
+                {
+                    for (var i = 0; i < vehicle_list.length; i++)
+                    {
+                        if (vehicle_list[i].WebPriceGroup == price_index || (vehicle_list[i].WebPriceGroup > price_index && price_index == 500))
+                        {
+                            var vehicle_key = vehicle_list[i].VehicleKey;
+                            var photo = vehicle_list[i].Photo;
+                            var name = vehicle_list[i].Name;
+                            var location = vehicle_list[i].Location;
+                            var location_name = vehicle_list[i].LocationName;
+                            var price = vehicle_list[i].Price;
+                            var price_group = vehicle_list[i].WebPriceGroup;
+                            var vehicle_class = vehicle_list[i].VehicleClass;
+                            var class_type = vehicle_list[i].ClassType;
+                            var class_name = vehicle_list[i].ClassName;
+                            var web_region_name = vehicle_list[i].WebRegionalName;
+                            var children = vehicle_list[i].Children;
+                            var adolescents = vehicle_list[i].Adolescents;
+                            var adults = vehicle_list[i].Adults;
+                            var make = vehicle_list[i].Make;
+                            var model = vehicle_list[i].Model;
+                            var web_description = vehicle_list[i].WebDescription;
+                            var featured_vehicle = vehicle_list[i].FeaturedVehicle;
+                            var date_list = vehicle_list[i].DateList;
+                            var vehicle_seq = vehicle_list[i].VehicleSequenceId;
+                            var web_unique_id = vehicle_list[i].WebUniqueId;
+                            var insurance_policy = vehicle_list[i].InsurancePolicy;
+                            var is_square_photo = vehicle_list[i].IsSquarePhoto;
+                            var showForSale = vehicle_list[i].ShowForSale;
+                            var forSaleOn = vehicle_list[i].ForSaleOn;
+                            var salePrice = vehicle_list[i].SalePrice;
+
+                            if (target_vehicle_sequence_id == vehicle_seq) {
+                                html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                                    children, adolescents, adults, date_list, target_vehicle_sequence_id, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
+                            }
+                            else {
+                                html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                                    children, adolescents, adults, date_list, null, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
+                            }
+                            d_html += generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description,
+                                children, adolescents, adults, featured_vehicle, insurance_policy, date_list);
+                        }
+                    }
+                }
+                else
+                {
+                    for (var i = 0; i < vehicle_list.length; i++)
+                    {
+                        var vehicle_key = vehicle_list[i].VehicleKey;
+                        var photo = vehicle_list[i].Photo;
+                        var name = vehicle_list[i].Name;
+                        var location = vehicle_list[i].Location;
+                        var location_name = vehicle_list[i].LocationName;
+                        var price = vehicle_list[i].Price;
+                        var price_group = vehicle_list[i].WebPriceGroup;
+                        var vehicle_class = vehicle_list[i].VehicleClass;
+                        var class_type = vehicle_list[i].ClassType;
+                        var class_name = vehicle_list[i].ClassName;
+                        var web_region_name = vehicle_list[i].WebRegionalName;
+                        var children = vehicle_list[i].Children;
+                        var adolescents = vehicle_list[i].Adolescents;
+                        var adults = vehicle_list[i].Adults;
+                        var make = vehicle_list[i].Make;
+                        var model = vehicle_list[i].Model;
+                        var web_description = vehicle_list[i].WebDescription;
+                        var featured_vehicle = vehicle_list[i].FeaturedVehicle;
+                        var date_list = vehicle_list[i].DateList;
+                        var vehicle_seq = vehicle_list[i].VehicleSequenceId;
+                        var web_unique_id = vehicle_list[i].WebUniqueId;
+                        var insurance_policy = vehicle_list[i].InsurancePolicy;
+                        var is_square_photo = vehicle_list[i].IsSquarePhoto;
+                        var showForSale = vehicle_list[i].ShowForSale;
+                        var forSaleOn = vehicle_list[i].ForSaleOn;
+                        var salePrice = vehicle_list[i].SalePrice;
+
+                        if (target_vehicle_sequence_id == vehicle_seq) {
+                            html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                                children, adolescents, adults, date_list, target_vehicle_sequence_id, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
+                        }
+                        else {
+                            html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                                children, adolescents, adults, date_list, null, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
+                        }
+                        d_html += generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description,
+                            children, adolescents, adults, featured_vehicle, insurance_policy, date_list);
+                    }
+                }
+            }
+            else
+            {
+                if(price_index > 0)
+                {
+                    for (var i = 0; i < vehicle_list.length; i++)
+                    {
+                        if ((vehicle_list[i].ClassType == index && vehicle_list[i].WebPriceGroup == price_index) ||
+                            (vehicle_list[i].ClassType == index && vehicle_list[i].WebPriceGroup > price_index && price_index == 500))
+                        {
+                            var vehicle_key = vehicle_list[i].VehicleKey;
+                            var photo = vehicle_list[i].Photo;
+                            var name = vehicle_list[i].Name;
+                            var location = vehicle_list[i].Location;
+                            var location_name = vehicle_list[i].LocationName;
+                            var price = vehicle_list[i].Price;
+                            var price_group = vehicle_list[i].WebPriceGroup;
+                            var vehicle_class = vehicle_list[i].VehicleClass;
+                            var class_type = vehicle_list[i].ClassType;
+                            var class_name = vehicle_list[i].ClassName;
+                            var web_region_name = vehicle_list[i].WebRegionalName;
+                            var children = vehicle_list[i].Children;
+                            var adolescents = vehicle_list[i].Adolescents;
+                            var adults = vehicle_list[i].Adults;
+                            var make = vehicle_list[i].Make;
+                            var model = vehicle_list[i].Model;
+                            var web_description = vehicle_list[i].WebDescription;
+                            var featured_vehicle = vehicle_list[i].FeaturedVehicle;
+                            var date_list = vehicle_list[i].DateList;
+                            var vehicle_seq = vehicle_list[i].VehicleSequenceId;
+                            var web_unique_id = vehicle_list[i].WebUniqueId;
+                            var insurance_policy = vehicle_list[i].InsurancePolicy;
+                            var is_square_photo = vehicle_list[i].IsSquarePhoto;
+                            var showForSale = vehicle_list[i].ShowForSale;
+                            var forSaleOn = vehicle_list[i].ForSaleOn;
+                            var salePrice = vehicle_list[i].SalePrice;
+
+                            if (target_vehicle_sequence_id == vehicle_seq) {
+                                html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                                    children, adolescents, adults, date_list, target_vehicle_sequence_id, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
+                            }
+                            else {
+                                html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                                    children, adolescents, adults, date_list, null, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
+                            }
+                            d_html += generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description,
+                                children, adolescents, adults, featured_vehicle, insurance_policy, date_list);
+                        }
+                    }
+                }
+                else
+                {
+                    for (var i = 0; i < vehicle_list.length; i++)
+                    {
+                        if(vehicle_list[i].ClassType == index)
+                        {
+                            var vehicle_key = vehicle_list[i].VehicleKey;
+                            var photo = vehicle_list[i].Photo;
+                            var name = vehicle_list[i].Name;
+                            var location = vehicle_list[i].Location;
+                            var location_name = vehicle_list[i].LocationName;
+                            var price = vehicle_list[i].Price;
+                            var price_group = vehicle_list[i].WebPriceGroup;
+                            var vehicle_class = vehicle_list[i].VehicleClass;
+                            var class_type = vehicle_list[i].ClassType;
+                            var class_name = vehicle_list[i].ClassName;
+                            var web_region_name = vehicle_list[i].WebRegionalName;
+                            var children = vehicle_list[i].Children;
+                            var adolescents = vehicle_list[i].Adolescents;
+                            var adults = vehicle_list[i].Adults;
+                            var make = vehicle_list[i].Make;
+                            var model = vehicle_list[i].Model;
+                            var web_description = vehicle_list[i].WebDescription;
+                            var featured_vehicle = vehicle_list[i].FeaturedVehicle;
+                            var date_list = vehicle_list[i].DateList;
+                            var vehicle_seq = vehicle_list[i].VehicleSequenceId;
+                            var web_unique_id = vehicle_list[i].WebUniqueId;
+                            var insurance_policy = vehicle_list[i].InsurancePolicy;
+                            var is_square_photo = vehicle_list[i].IsSquarePhoto;
+                            var showForSale = vehicle_list[i].ShowForSale;
+                            var forSaleOn = vehicle_list[i].ForSaleOn;
+                            var salePrice = vehicle_list[i].SalePrice;
+
+                            if (target_vehicle_sequence_id == vehicle_seq) {
+                                html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                                    children, adolescents, adults, date_list, target_vehicle_sequence_id, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
+                            }
+                            else {
+                                html += generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, _g_website_url, featured_vehicle,
+                                    children, adolescents, adults, date_list, null, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice);
+                            }
+                            d_html += generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description,
+                                children, adolescents, adults, featured_vehicle, insurance_policy, date_list);
+                        }
+                    }
+                }
+            }
+
+            if (html)
+            {
+                document.getElementById('photo_div').innerHTML = '<h2 class="hidden-xs" style="color:#000000;">All vehicles in ' + vehicle_list[0].WebRegionalName + '</h2>' + html;
+            }
+            else
+            {
+                document.getElementById('photo_div').innerHTML =
+                    '<h4 style="color:red; font-style:italic; text-align:center;">Please check back soon.<br /> There are currently no vehicles configured at this location</h4>';
+            }
+            if (d_html)
+            {
+                document.getElementById('detail_photo_div').innerHTML = d_html;
+            }
+            else
+            {
+                document.getElementById('detail_photo_div').innerHTML =
+                    '<h4 style="color:red; font-style:italic; text-align:center;">Please check back soon.<br /> There are currently no vehicles configured at this location</h4>';
+            }
+        }
+
+        function generatePrimaryPhotoList(web_unique_id, vehicle_key, photo, name, price, web_region_name, website_url, featured_vehicle,
+            children, adolescents, adults, date_list, is_target, insurance_policy, is_square_photo, showForSale, forSaleOn, salePrice)
+        {
+            var g_html = '', g_popup_dialog = '', g_tile = '';
+            var g_name, g_price, g_web_region_name, g_photo;
+            if (name)
+            {
+                if (insurance_policy)
+                {
+                    if (is_square_photo == true) {
+                        g_name = '<h5 class="vehicle-license" style="margin-top:137px;">' + name + '<span>&nbsp;&#10033;</span></h5>';
+                    }
+                    else {
+                        g_name = '<h5 class="vehicle-license">' + name + '<span>&nbsp;&#10033;</span></h5>';
+                    }
+                }
+                else
+                {
+                    if (is_square_photo == true) {
+                        g_name = '<h5 class="vehicle-license" style="margin-top:137px;">' + name + '</h5>';
+                    }
+                    else {
+                        g_name = '<h5 class="vehicle-license">' + name + '</h5>';
+                    }
+                }
+            }
+            else
+            {
+                if (is_square_photo == true) {
+                    g_name = '<h5 class="vehicle-license" style="margin-top:137px;">---</h5>';
+                }
+                else {
+                    g_name = '<h5 class="vehicle-license">---</h5>';
+                }
+            }
+            if (price)
+            {
+                g_price = '<p class="vehicle-price">' + price + '</p>';
+            }
+            else
+            {
+                g_price = '<p class="vehicle-price">--</p>';
+            }
+            if (web_region_name)
+            {
+                g_web_region_name = '<h6 class="vehicle-location">' + web_region_name + '</h6>';
+            }
+            else
+            {
+                g_web_region_name = '<h6 class="vehicle-location">----</h6>';
+            }
+
+            if (featured_vehicle)
+            {
+                if (is_target)
+                {
+                    if (photo == "big")
+                    {
+                        if (showForSale == true && forSaleOn != null)
+                        {
+                            g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                    + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                    + '<div class="ribbon" style="bottom:90px;"><div class="featured-txt">Featured</div></div>'
+                                    + '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img" style="width:194px;">';
+                        }
+                        else
+                        {
+                            g_photo = '<div class="ribbon" style="bottom:90px;"><div class="featured-txt">Featured</div></div>'
+                                    + '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img" style="width:194px;">';
+                        }
+                    }
+                    else
+                    {
+                        if (is_square_photo == true)
+                        {
+                            if (showForSale == true && forSaleOn != null)
+                            {
+                                g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                        + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                        + '<div class="ribbon" style="bottom:93px; right:-21px;"><div class="featured-txt">Featured</div></div>'
+                                        + '<img src="data:image/jpg;base64,' + photo + '" class="highlight-clip-vehicle-img">';
+                            }
+                            else
+                            {
+                                g_photo = '<div class="ribbon" style="bottom:93px; right:-21px;"><div class="featured-txt">Featured</div></div>'
+                                        + '<img src="data:image/jpg;base64,' + photo + '" class="highlight-clip-vehicle-img">';
+                            }
+                        }
+                        else
+                        {
+                            if (showForSale == true && forSaleOn != null)
+                            {
+                                g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                        + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                        + '<div class="ribbon" style="bottom:92px; right:-21px;"><div class="featured-txt">Featured</div></div>'
+                                        + '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img" style="width:194px;">';
+                            }
+                            else
+                            {
+                                g_photo = '<div class="ribbon" style="bottom:92px; right:-21px;"><div class="featured-txt">Featured</div></div>'
+                                        + '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img" style="width:194px;">';
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (photo == "big")
+                    {
+                        if (showForSale == true && forSaleOn != null)
+                        {
+                            g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                    + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                    + '<div class="ribbon"><div class="featured-txt">Featured</div></div>'
+                                    + '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img">';
+                        }
+                        else
+                        {
+                            g_photo = '<div class="ribbon"><div class="featured-txt">Featured</div></div>'
+                                    + '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img">';
+                        }
+                    }
+                    else
+                    {
+                        if (is_square_photo == true)
+                        {
+                            if (showForSale == true && forSaleOn != null)
+                            {
+                                g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                        + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                        + '<div class="ribbon"><div class="featured-txt">Featured</div></div>'
+                                        + '<img src="data:image/jpg;base64,' + photo + '" class="clip-vehicle-img">';
+                            }
+                            else
+                            {
+                                g_photo = '<div class="ribbon"><div class="featured-txt">Featured</div></div>'
+                                        + '<img src="data:image/jpg;base64,' + photo + '" class="clip-vehicle-img">';
+                            }
+                        }
+                        else
+                        {
+                            if (showForSale == true && forSaleOn != null)
+                            {
+                                g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                        + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                        + '<div class="ribbon"><div class="featured-txt">Featured</div></div>'
+                                        + '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img">';
+                            }
+                            else
+                            {
+                                g_photo = '<div class="ribbon"><div class="featured-txt">Featured</div></div>'
+                                        + '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img">';
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (is_target)
+                {
+                    if (photo == "big")
+                    {
+                        if (showForSale == true && forSaleOn != null)
+                        {
+                            g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                    + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                    + '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img" style="width:194px;">';
+                        }
+                        else
+                        {
+                            g_photo = '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img" style="width:194px;">';
+                        }
+                    }
+                    else
+                    {
+                        if (is_square_photo == true)
+                        {
+                            if (showForSale == true && forSaleOn != null)
+                            {
+                                g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                        + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                        + '<img src="data:image/jpg;base64,' + photo + '" class="highlight-clip-vehicle-img">';
+                            }
+                            else
+                            {
+                                g_photo = '<img src="data:image/jpg;base64,' + photo + '" class="highlight-clip-vehicle-img">';
+                            }
+                        }
+                        else
+                        {
+                            if (showForSale == true && forSaleOn != null)
+                            {
+                                g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                        + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                        + '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img" style="width:194px;">';
+                            }
+                            else
+                            {
+                                g_photo = '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img" style="width:194px;">';
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (photo == "big")
+                    {
+                        if (showForSale == true && forSaleOn != null)
+                        {
+                            g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                    + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                    + '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img">';
+                        }
+                        else
+                        {
+                            g_photo = '<img src="../../Content/images/TooLarge.jpg" class="vehicle-img">';
+                        }
+                    }
+                    else
+                    {
+                        if (is_square_photo == true)
+                        {
+                            if (showForSale == true && forSaleOn != null)
+                            {
+                                g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                        + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                        + '<img src="data:image/jpg;base64,' + photo + '" class="clip-vehicle-img">';
+                            }
+                            else
+                            {
+                                g_photo = '<img src="data:image/jpg;base64,' + photo + '" class="clip-vehicle-img">';
+                            }
+                        }
+                        else
+                        {
+                            if (showForSale == true && forSaleOn != null)
+                            {
+                                g_photo = '<img src="../../Content/images/star1.png" class="img-responsive sale-img" title="Rental Rate: '
+                                        + price + '/day (' + minimum_number_of_time_interval + ' day min)' + String.fromCharCode(13) + 'For Sale: $' + salePrice + '">'
+                                        + '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img">';
+                            }
+                            else
+                            {
+                                g_photo = '<img src="data:image/jpg;base64,' + photo + '" class="vehicle-img">';
+                            }
+                        }
+                    }
+                }
+            }
+
+            g_tile = '<a href="' + website_url + 'VehicleDetail/' + web_unique_id + '" class="tile-img">' + g_photo + g_name + g_web_region_name + g_price + '</a>';
+
+            g_popup_dialog = generatePopUpDialog(children, adolescents, adults, date_list, vehicle_key, web_unique_id);
+
+            if (is_target)
+            {
+                g_html = '<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 vehicle-info" id="' + is_target + '"><div class="primary-vehicle-div" id="target-vehicle-div-tooltip">'
+                    + g_popup_dialog + g_tile + '</div><br /></div>';
+            }
+            else
+            {
+                g_html = '<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 vehicle-info"><div class="primary-vehicle-div">' + g_popup_dialog + g_tile + '</div><br /></div>';
+            }
+
+            return g_html;
+        }
+
+        function generateSecondaryPhotoList(web_unique_id, vehicle_key, photo, name, price, make, model, web_description,
+            children, adolescents, adults, featured_vehicle, insurance_policy, date_list)
+        {
+        
+
+            var g_d_html = '', g_d_popup_dialog = '';
+            var g_d_name, g_d_price, g_d_make, g_d_model, g_d_sleeps, g_d_sleep_icons, g_d_featured_vehicle, g_d_photo, g_d_web_description;
+
+            if (name)
+            {
+                if (insurance_policy)
+                {
+                    g_d_name = '<div class="row daily-div"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><h4>' + name +
+                        '<span style="color:black;">&nbsp;&#10033;</span></h4></div></div>';
+                }
+                else
+                {
+                    g_d_name = '<div class="row daily-div"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><h4>' + name + '</h4></div></div>';
+                }
+            }
+            else
+            {
+                g_d_name = '<div class="row daily-div"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><h4>---</h4></div></div>';
+            }
+
+            if (make)
+            {
+                g_d_make = '<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4"><h5>Make: ' + make + '</h5></div>';
+            }
+            else
+            {
+                g_d_make = '<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4"><h5>Make: - </h5></div>';
+            }
+            if (model)
+            {
+                g_d_model = '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-5"><h5>Model: ' + model + '</h5></div>';
+            }
+            else
+            {
+                g_d_model = '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-5"><h5>Model: - </h5></div>';
+            }
+            var sleeps = children + adolescents + adults;
+            g_d_sleeps = '<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3"><h5>Sleep:&nbsp;' + sleeps + '</h5></div>';
+
+            if (adolescents + adults > 7)
+            {
+                var icons = '';
+                for (var i = 0; i < 7; i++)
+                {
+                    icons += '<i class="fa fa-male fa-lg" aria-hidden="true"></i>';
+                }
+                g_d_sleep_icons = '<div class="col-lg-3 col-md-3 col-sm-3 hidden-xs" style="padding-top:12px;">' + icons + '...</div>';
+            }
+            else
+            {
+                var l_icons = '';
+                var s_icons = '';
+                var others = '';
+                for (var l = 0; l < adolescents + adults; l++)
+                {
+                    l_icons += '<i class="fa fa-male fa-lg" aria-hidden="true"></i>';
+                }
+                if (sleeps > 7)
+                {
+                    for (var s = 0; s < 7 - adolescents - adults; s++)
+                    {
+                        s_icons += '<i class="fa fa-male fa-male" aria-hidden="true"></i>';
+                    }
+                    s_icons += '<span style="color:black;">...</span>';
+                }
+                else
+                {
+                    for (var s = 0; s < children; s++)
+                    {
+                        s_icons += '<i class="fa fa-male fa-male" aria-hidden="true"></i>';
+                    }
+                }
+                g_d_sleep_icons = '<div class="col-lg-3 col-md-3 col-sm-3 hidden-xs" style="padding-top:12px;">' + l_icons + s_icons + '</div>';
+            }
+            var group2 = '<div class="row daily-div">' + g_d_make + g_d_model + g_d_sleeps + g_d_sleep_icons + '</div>';
+
+            if (price)
+            {
+                g_d_price = '<div class="row daily-div"><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><h5>Daily:&nbsp;'
+                         + price + '</h5></div><div class="col-lg-8 col-md-8 col-sm-8 col-xs-6">'
+                         + '<button type="button" class="estimate_data btn btn-success btn-quote hidden-xs" style="margin-right:10px;" onclick="getEstimateOfDetail(this);" value="'
+                         + vehicle_key + '">Get Estimate</button><button type="button" class="detail_data btn btn-danger btn-details" onclick="getMorePhotos(this);" value="'
+                         + web_unique_id + '">More Photos</button></div></div>';
+            }
+            else
+            {
+                g_d_price = '<div class="row daily-div"><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><h5>Daily:&nbsp;---</h5></div><div class="col-lg-8 col-md-8 col-sm-8 col-xs-6">' +
+                         '<button type="button" class="estimate_data btn btn-success btn-quote hidden-xs" style="margin-right:10px;" onclick="getEstimateOfDetail(this);" value="'
+                         + vehicle_key + '">Get Estimate</button><button type="button" class="detail_data btn btn-danger btn-details" onclick="getMorePhotos(this);" value="'
+                         + web_unique_id + '">More Photos</button></div></div>';
+            }
+
+            g_d_popup_dialog = generatePopUpDialog(children, adolescents, adults, date_list, vehicle_key, web_unique_id);
+
+            if (featured_vehicle)
+            {
+                if (photo == -1) {
+                    g_d_photo = '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><div class="secondary-vehicle-div">' + g_d_popup_dialog
+                            + '<div class="list-ribbon-detail"><div class="featured-txt">Featured</div></div>'
+                            + '<img src="../../Content/images/TooLarge.jpg" class="img-responsive vehicle-list-img"></div><br /></div>';
+                }
+                else {
+                    g_d_photo = '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><div class="secondary-vehicle-div">' + g_d_popup_dialog
+                            + '<div class="list-ribbon-detail"><div class="featured-txt">Featured</div></div>'
+                            + '<img src="data:image/jpg;base64,' + photo + '" class="img-responsive vehicle-list-img"></div><br /></div>';
+                }
+            }
+            else
+            {
+                if (photo == -1) {
+                    g_d_photo = '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><div class="secondary-vehicle-div">' + g_d_popup_dialog
+                            + '<img src="../../Content/images/TooLarge.jpg" class="img-responsive vehicle-list-img"></div><br /></div>';
+                }
+                else {
+                    g_d_photo = '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><div class="secondary-vehicle-div">' + g_d_popup_dialog
+                            + '<img src="data:image/jpg;base64,' + photo + '" class="img-responsive vehicle-list-img"></div><br /></div>';
+                }
+            }
+
+            var web_description_text = web_description.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, '');
+            if (web_description_text)
+            {
+                g_d_web_description = web_description_text;
+            }
+            else
+            {
+                g_d_web_description = "No description";
+            }
+
+            var g_d_panel = '<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><div class="listview-div" title="' + g_d_web_description + '">' +
+                g_d_name + group2 + '<br />' + g_d_price + '<br /></div></div>';
+
+            g_d_html = '<div class="row" style="padding-bottom:20px;">' + g_d_photo + g_d_panel + '</div>';
+
+            return g_d_html;
+        }
+
+        function generatePopUpDialog(children, adolescents, adults, date_list, vehicle_key, web_unique_id)
+        {
+            var l_icons = '', s_icons = '', g_sleeps = '', g_date_list = '';
+            var sleeps = children + adolescents + adults;
+            for (var l = 0; l < adolescents + adults; l++)
+            {
+                l_icons += '<i class="fa fa-male fa-lg" aria-hidden="true"></i>';
+            }
+            for (var s = 0; s < children; s++)
+            {
+                s_icons += '<i class="fa fa-male fa-male" aria-hidden="true"></i>';
+            }
+            g_sleeps = '<h6 style="color:black; margin-bottom:-5px; margin-top:-5px;">Sleep:&nbsp;' + sleeps + '&nbsp;&nbsp;&nbsp;' + l_icons + s_icons + '</h6>';
+
+            if (date_list.length > 0)
+            {
+                g_date_list = '<input type="text" name="datefilter" class="booked_daterangepicker" value="' + vehicle_key + '" /><input type="hidden" class="booked_dates" value="'
+                                + date_list + '" />';
+            }
+            else
+            {
+                g_date_list = '<input type="text" name="datefilter" class="no_booked_daterangepicker" value="' + vehicle_key + '" />'
+            }
+
+            var dialog = '<div class="row popup-dialog popup-invisible"><div class="col-md-12" style="text-align:left;"><h6 style="color:black; margin-bottom:-5px; margin-top:-5px;">'
+                        + g_sleeps + '<h4 style="color:black; margin-bottom:0px; text-align:center;">Enter your dates</h4>'
+                        + g_date_list + '<br /><br /><div style="text-align:center;">'
+                        + '<button type="button" class="estimate_data btn btn-success" style="width:80px; margin-right:5px; font-size:12px; padding-left:5px;" onclick="getEstimate(this);" value="'
+                        + vehicle_key + '">Get Estimate</button>'
+                        + '<button type="button" class="detail_data btn btn-danger" style="width:80px; font-size:12px; padding-left:5px;" onclick="getMorePhotos(this);" value="'
+                        + web_unique_id + '">More Photos</button></div></div></div>';
+            return dialog;
+        }
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        sessionStorage.setItem("default_search", 0);
+
+        $('.change_location').click(function (e) {
+            var val = $(this).attr('value');
+            all_class_vehicles_link = all_class_vehicles_link.replace("-1", val);
+            location.href = all_class_vehicles_link;
+        });
+        $('.coming_soon').click(function () {
+            window.open(learn_more_link);
+        });
+    });
+</script>
+<script type="text/javascript">
+    var map, mobilemap;
+    function initialize(condition){
+        var myoptions = {
+            zoom: 12,
+            center: new google.maps.LatLng(latitude, longitude),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+
+        map = new google.maps.Map(document.getElementById("pickupmap"), myoptions);
+        mobilemap = new google.maps.Map(document.getElementById("pickupmap-mobile"), myoptions);
+
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(latitude, longitude),
+            map: map,
+            title: address + ' ' + city + ' ' + state
+        });
+    }
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJSErr4vFLsOoylqQYkfQLKM26lnsHLXY&sensor=false&callback=initialize"></script>
+<script>
+    var setTimeOutInstance = 0;
+    $(document.body).on("mouseenter", ".primary-vehicle-div", function(){
+        loadDateRangePickerRoutine();
+        var child = $(this).children('.popup-dialog');
+        var me = $(this);
+        me.css('opacity', 0.8);
+        setTimeOutInstance = window.setTimeout(function(){
+            child.removeClass('popup-invisible');
+            me.css('opacity', 1.0);
+        }, 1500);
+    }).on("mouseleave", ".primary-vehicle-div", function(){
+        if(setTimeOutInstance != 0){
+            clearTimeout(setTimeOutInstance);
+        }
+        var child = $(this).children('.popup-dialog');
+        var me = $(this);
+        child.addClass('popup-invisible');
+        me.css('opacity', 'unset');
+    });
+
+    $(document.body).on("mouseenter", ".secondary-vehicle-div", function(){
+        loadDateRangePickerRoutine();
+        var child = $(this).children('.popup-dialog');
+        var me = $(this);
+        me.css('opacity', 0.8);
+        setTimeOutInstance = window.setTimeout(function(){
+            child.removeClass('popup-invisible');
+            me.css('opacity', 1.0);
+        }, 1500);
+    }).on("mouseleave", ".secondary-vehicle-div", function(){
+        if(setTimeOutInstance != 0){
+            clearTimeout(setTimeOutInstance);
+        }
+        var child = $(this).children('.popup-dialog');
+        var me = $(this);
+        child.addClass('popup-invisible');
+        me.css('opacity', 'unset');
+    });
+
+    $(document.body).on("click", ".tile-img", function(){
+        var element = document.getElementById('element');
+        if(element.style.display != 'none'){
+            $('#sticky-tab').css({ 'margin-left': '875px' }).animate({
+                'margin-left' : '1145px'
+            }, 1480); 
+            $("#element").hide("slide", { direction: "left", distance:1 }, 1500);
+            is_display_none = true;
+        }
+    });
+
+    $(document.body).on("click", ".btn_detail", function(){
+        d_galleryHeight = $("#detail_photo_div").outerHeight();
+        galleryHeight = $("#photo_div").outerHeight();
+    });
+
+    $(document.body).on("click", "#class_a", function(){
+        d_galleryHeight = $("#detail_photo_div").outerHeight();
+        galleryHeight = $("#photo_div").outerHeight();
+    });
+
+    $(document.body).on("click", "#class_b", function(){
+        d_galleryHeight = $("#detail_photo_div").outerHeight();
+        galleryHeight = $("#photo_div").outerHeight();
+    });
+
+    $(document.body).on("click", "#class_c", function(){
+        d_galleryHeight = $("#detail_photo_div").outerHeight();
+        galleryHeight = $("#photo_div").outerHeight();
+    });
+
+    $(document.body).on("click", "#class_th", function(){
+        d_galleryHeight = $("#detail_photo_div").outerHeight();
+        galleryHeight = $("#photo_div").outerHeight();
+    });
+
+    $(document.body).on("click", "#class_tt", function(){
+        d_galleryHeight = $("#detail_photo_div").outerHeight();
+        galleryHeight = $("#photo_div").outerHeight();
+    });
+
+    $(document.body).on("click", "#class_ut", function(){
+        d_galleryHeight = $("#detail_photo_div").outerHeight();
+        galleryHeight = $("#photo_div").outerHeight();
+    });
+
+    $(document.body).on("click", "#class_total", function(){
+        d_galleryHeight = $("#detail_photo_div").outerHeight();
+        galleryHeight = $("#photo_div").outerHeight();
+    });
+
+    $("#sticky-tab").click(function(e){
+        e.preventDefault();
+        var element = document.getElementById('element');
+        if(element.style.display == 'none')
+        {
+            is_display_none = false;
+            $("#element").effect("slide", { direction: "left", distance:1 }, 1500);
+            $('#sticky-tab').css({'margin-left': '1145px' }).animate({
+                'margin-left' : '875px'
+            }, 1500);
+        }
+        else
+        {
+            is_display_none = true;
+            $('#sticky-tab').css({ 'margin-left': '875px' }).animate({
+                'margin-left' : '1145px'
+            }, 1480); 
+            $("#element").hide("slide", { direction: "left", distance:1 }, 1500);
+        }
+    });
+</script>
+<script type="text/javascript">
+    function loadDateRangePickerRoutine()
+    {
+        if(sessionStorage.getItem("dateDeparture") === undefined || sessionStorage.getItem("dateDeparture") == null || sessionStorage.getItem("dateDeparture") == "undefined" )
+        {
+            var today = new Date();
+            var init_date_departure = new Date(today.setDate(today.getDate() + 2));
+            var init_date_return = new Date(today.setDate(today.getDate() + minimum_number_of_time_interval - calc_by_nights));
+            generateBookedDateRangePicker(init_date_departure, init_date_return);
+            generateNoBookedDateRangePicker(init_date_departure, init_date_return);
+        }
+        else
+        {
+            var session_date_departure = new Date(sessionStorage.getItem("dateDeparture"));
+            var session_date_return = new Date(sessionStorage.getItem("dateReturn"));
+            generateBookedDateRangePicker(session_date_departure, session_date_return);
+            generateNoBookedDateRangePicker(session_date_departure, session_date_return);
+        }
+    }
+
+    function generateBookedDateRangePicker(dateDeparture, dateReturn)
+    {
+        $('.booked_daterangepicker').daterangepicker({ startDate: dateDeparture, endDate: dateReturn });
+        var values = $(".booked_dates").val();
+        var result = '';
+        if(values === undefined || values == null || values == "undefined"){
+            result = '';
+        }
+        else{
+            result = values.split(",");
+        }
+
+        $(".booked_dates").each(function() {
+            $(this).parent().find('.booked_daterangepicker').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear'
+                },
+                minDate: dateDeparture,
+                isCustomDate: function(date) {
+                    var is_booked = result;
+                    //console.log(is_booked);
+                    if ($.inArray(date.format('YYYY-MM-DD'), is_booked) > -1) {
+                        return 'mydisabled';
+                    } else {
+                        return false;
+                    }
+                }
+            });
+        });
+
+        $('.booked_daterangepicker').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            var date_departure = new Date(picker.startDate.format('MM/DD/YYYY'));
+            var date_return = new Date(picker.endDate.format('MM/DD/YYYY'));
+            generateBookedDateRangePicker(date_departure, date_return);
+            generateNoBookedDateRangePicker(date_departure, date_return);
+            sessionStorage.setItem("dateDeparture", date_departure);
+            sessionStorage.setItem("dateReturn", date_return);
+
+            var e= document.getElementById('element');
+            if(e.style.display == 'none'){
+                e.style.display = 'block';
+            }
+            var key = $(this).attr('value');
+            var departure_date = getFormatDate(picker.startDate.format('MM/DD/YYYY'));
+            var return_date = getFormatDate(picker.endDate.format('MM/DD/YYYY'));
+            var life_date = departure_date + ' - ' + return_date;
+            var interval = getDateInterval(picker.startDate.format('MM/DD/YYYY'), picker.endDate.format('MM/DD/YYYY'));
+            getEstimateValue(key, life_date, interval);
+        });
+
+        $('.booked_daterangepicker').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+        });
+    }
+
+    function generateNoBookedDateRangePicker(dateDeparture, dateReturn)
+    {
+        $('.no_booked_daterangepicker').daterangepicker({ startDate: dateDeparture, endDate: dateReturn });
+
+        $('.no_booked_daterangepicker').daterangepicker({
+            autoUpdateInput: false,
+            locale: {
+                cancelLabel: 'Clear'
+            },
+            minDate: dateDeparture,
+        });
+
+        $('.no_booked_daterangepicker').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            var date_departure = new Date(picker.startDate.format('MM/DD/YYYY'));
+            var date_return = new Date(picker.endDate.format('MM/DD/YYYY'));
+            generateBookedDateRangePicker(date_departure, date_return);
+            generateNoBookedDateRangePicker(date_departure, date_return);
+            sessionStorage.setItem("dateDeparture", date_departure);
+            sessionStorage.setItem("dateReturn", date_return);
+
+            var e= document.getElementById('element');
+            if(e.style.display == 'none'){
+                e.style.display = 'block';
+            }
+            var key = $(this).attr('value');
+            var departure_date = getFormatDate(picker.startDate.format('MM/DD/YYYY'));
+            var return_date = getFormatDate(picker.endDate.format('MM/DD/YYYY'));
+            var life_date = departure_date + ' - ' + return_date;
+            var interval = getDateInterval(picker.startDate.format('MM/DD/YYYY'), picker.endDate.format('MM/DD/YYYY'));
+            getEstimateValue(key, life_date, interval);
+        });
+
+        $('.no_booked_daterangepicker').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+        });
+    }
+</script>
+<script>
+    function getMorePhotos(e)
+    {
+        var key = $(e).attr('value');
+        var link = '/VehicleDetail/' + key;
+        location.href = link;
+    }
+
+    // generate sticky form at primary view
+    function getEstimate(e)
+    {
+        var element = document.getElementById('element');
+        var sticky_tab = document.getElementById('sticky-tab');
+
+        var key = $(e).attr('value');
+        var startDate = $(e).parent().parent().find('input[name="datefilter"]').data('daterangepicker').startDate._d;
+        var endDate = $(e).parent().parent().find('input[name="datefilter"]').data('daterangepicker').endDate._d;
+        var departure_date = getFormatDate(startDate);
+        var return_date = getFormatDate(endDate);
+
+        var life_date = departure_date + ' - ' + return_date;
+        var interval = getDateInterval(startDate, endDate);
+
+        getEstimateValue(key, life_date, interval);
+
+        if(element.style.display == 'none' && sticky_tab.style.display == 'none' || element.style.display == 'none' && sticky_tab.style.display == 'block')
+        {
+            element.style.display = 'block';
+            sticky_tab.style.display = 'block';
+            $("#element").effect("slide", { direction: "left", distance:1 }, 1500);
+            $('#sticky-tab').css({'margin-left': '1145px' }).animate({
+                'margin-left' : '875px'
+            }, 1500);
+            is_display_none = false;
+        }
+    }
+
+    // generate stikcy form at secondary view
+    function getEstimateOfDetail(e)
+    {
+        var element = document.getElementById('element');
+        var sticky_tab = document.getElementById('sticky-tab');
+
+        var key = $(e).attr('value');
+        if(sessionStorage.getItem("dateDeparture") === undefined || sessionStorage.getItem("dateDeparture") == null || sessionStorage.getItem("dateDeparture") == "undefined"){
+            var today = new Date();
+            var d_initStartDate = today.setDate(today.getDate() + 2);
+            var d_initEndDate = today.setDate(today.getDate() + minimum_number_of_time_interval - calc_by_nights);
+
+            var d_init_departure_date = getFormatDate(d_initStartDate);
+            var d_init_return_date = getFormatDate(d_initEndDate);
+
+            var d_init_life_date = d_init_departure_date + ' - ' + d_init_return_date;
+            var d_init_interval = getDateInterval(d_initStartDate, d_initEndDate);
+
+            getEstimateValue(key, d_init_life_date, d_init_interval);
+        }
+        else
+        {
+            var d_startDate = sessionStorage.getItem("dateDeparture");
+            var d_endDate = sessionStorage.getItem("dateReturn");
+
+            var d_departure_date = getFormatDate(d_startDate);
+            var d_return_date = getFormatDate(d_endDate);
+
+            var d_life_date = d_departure_date + ' - ' + d_return_date;
+            var d_interval = getDateInterval(d_startDate, d_endDate);
+
+            getEstimateValue(key, d_life_date, d_interval);
+        }
+
+        if(element.style.display == 'none' && sticky_tab.style.display == 'none' || element.style.display == 'none' && sticky_tab.style.display == 'block')
+        {
+            element.style.display = 'block';
+            sticky_tab.style.display = 'block';
+            $("#element").effect("slide", { direction: "left", distance:1 }, 1500);
+            $('#sticky-tab').css({'margin-left': '1145px' }).animate({
+                'margin-left' : '875px'
+            }, 1500);
+            is_display_none = false;
+        }
+    }
+
+    function getFormatDate(date)
+    {
+        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        var format = new Date(date);
+        var day = format.getDate();
+        var monthIndex = format.getMonth();
+        var year = format.getFullYear();
+
+        return monthNames[monthIndex] + ' ' + day + ', ' + year;
+    }
+
+    function getDateInterval(date1, date2)
+    {
+        var departure_date = new Date(date1);
+        var return_date = new Date(date2);
+        var interval = Math.floor((return_date - departure_date)/(24*60*60*1000));
+        return interval;
+    }
+
+    function getEstimateValue(key, life_date, interval)
+    {
+        if(vehicle_list == null)
+            return;
+
+        for(var i = 0; i < vehicle_list.length; i++){
+            if(vehicle_list[i].VehicleKey == key){
+                var vehiclekey = vehicle_list[i].VehicleKey;
+                var higherrate = getDecimalValue(vehicle_list[i].HigherRate);
+                var cleaning = getDecimalValue(vehicle_list[i].WebCleaningFee);
+                var prep_fee = getDecimalValue(vehicle_list[i].WebPrepFee);
+                var deposit = getDecimalValue(vehicle_list[i].WebRefundableSecurityDeposit);
+                var hours = getDecimalValue(vehicle_list[i].WebGeneratorFreeHours);
+                var miles = getDecimalValue(vehicle_list[i].WebIncludesTheseMilesFreePerDay);
+                var web_unique_id = vehicle_list[i].WebUniqueId;
+                window.onload = generateStickyForm(vehiclekey, life_date, higherrate, interval, cleaning, prep_fee, deposit, hours, miles, web_unique_id);
+            }
+        }
+    }
+
+    function generateStickyForm(vehiclekey, life_date, higherrate, interval, cleaning, prep_fee, deposit, hours, miles, web_unique_id)
+    {
+        var free_hours_element, interval_value, interval_day;
+        if(calc_by_nights > 0)
+        {
+            if(interval < minimum_number_of_time_interval - calc_by_nights)
+            {
+                interval_value = minimum_number_of_time_interval - calc_by_nights;
+                interval_day = interval + ' nights';
+            }
+            else
+            {
+                interval_value = interval;
+                interval_day = interval_value + ' nights';
+            }
+        }
+        else
+        {
+            if(interval < minimum_number_of_time_interval - calc_by_nights)
+            {
+                interval_value = minimum_number_of_time_interval - calc_by_nights + 1;
+                interval_day = interval + 1 + ' days';
+            }
+            else
+            {
+                interval_value = interval + 1;
+                interval_day = interval_value + ' days';
+            }
+        }
+        if(parseInt(hours) >= 24)
+        {
+            free_hours_element = 
+                '<div style="margin-top:10px;"><span style="padding-left:15px;color:black; font-size:14px; font-family:Lato; font-weight:bold;">Inc. UNLIMITED Generator hours</span>' +
+                '<span style="float:right; padding-right:15px; font-weight:bold; font-family:Lato; font-size:14px;">Generator</span></div>';
+        }
+        else
+        {
+            free_hours_element = '<div style="margin-top:10px;"><span style="padding-left:15px;color:black; font-size:14px; font-family:Lato; font-weight:bold;">Includes ' + 
+                                Math.floor(interval_value * hours) + ' Free Hours</span>' +
+                                '<span style="float:right; padding-right:15px; font-weight:bold; font-family:Lato; font-size:14px;">Generator</span></div>';
+        }
+        document.getElementById('element').innerHTML =
+            '<div style="border: 2px solid darkgrey"><div style="background-color:black; padding-bottom:45px; padding-left:15px; padding-right:15px; padding-top:20px;">' +
+            '<span style="padding-right:40px; float:left; color:white; font-size:18px;">Veh #' + vehiclekey + 
+            '</span><span style="float:right; color:white; font-size:18px;">$' + higherrate  + ' per day</span></div>' +
+            '<div class="estimateDiv"><span style="color:#555;">' + life_date + '</span></div>' +
+            '<span style="padding-left:15px; float:left; color:#555;">$' + higherrate + '&nbsp;&#215;&nbsp;' + interval_day + 
+            '</span><span style="padding-right:15px; float:right; color:#555;">$' + Math.floor(higherrate * interval_value) + '</span><br />' +
+            '<span style="padding-left:15px; float:left; color:#555;">Cleaning</span><span style="padding-right:15px; float:right; color:#555;">$' + cleaning + '</span><br />' +
+            '<span style="padding-left:15px; float:left;">Prep.Fee</span><span style="padding-right:15px; float:right;">$' + prep_fee + '</span><br />' +
+            '<span style="padding-left:15px; float:left;">Add.Equipment</span><span style="padding-right:15px; float:right;">$' + 0 + '</span>' +
+            '<br /><hr style="margin:10px; border:0; border-top:1px solid black;" />' +
+            '<span style="padding-left:15px; float:left; color:#555;">Total</span><span style="padding-right:15px; float:right; color:#555;">$' + 
+            Math.floor(higherrate * interval_value + cleaning + prep_fee + 0) + '</span>' +
+            '<br /><hr style="margin-top:10px; margin-bottom:10px; border:0; border-top:1px solid #e1e1e1;" />' +
+            '<span style="padding-left:15px; float:left; color:#555;">Security Deposit</span><span style="padding-right:15px; float:right; color:#555;">$' + deposit + '</span><br />' +
+            free_hours_element + '<h5 style="padding-left:15px;color:black;">Includes ' + Math.floor(interval_value * miles) + ' Free Miles</h5>' +
+            '<h4 style="color:red; text-align:center; font-size:14px;">No Credit Card Required</h4>' +
+            '<button type="button" class="check_data btn btn-success" style="margin-left:60px; margin-bottom:14px;" onclick="viewVehicleQuote()" value="' + web_unique_id + '">Complete Estimate</button></div>';
+    }
+
+    function viewVehicleQuote()
+    {
+        var link = '@Url.Action("Index", "CheckOut", new { id = "-1" })';
+        var key_val = $(".check_data").attr('value');
+        link = link.replace("-1", key_val);
+        location.href = link;
+    }
+</script>
+<script>
+    $('a#class_total h3').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#region-h2').offset().top }, 2000);
+    });
+    $('a#class_a div.class-div').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#region-h2').offset().top }, 2000);
+    });
+    $('a#class_b div.class-div').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#region-h2').offset().top }, 2000);
+    });
+    $('a#class_c div.class-div').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#region-h2').offset().top }, 2000);
+    });
+    $('a#class_th div.class-div').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#region-h2').offset().top }, 2000);
+    });
+    $('a#class_tt div.class-div').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#region-h2').offset().top }, 2000);
+    });
+    $('a#class_ut div.class-div').click(function(){
+        $('html, body').animate({
+            scrollTop: $('#region-h2').offset().top }, 2000);
+    });
+</script>
+<script type="text/javascript">
+    var flag_detail = false, galleryHeight = 0;
+    var d_galleryHeight = 0;
+    var is_display_none = false;
+
+    $(function(){
+        var e = document.getElementById('element');
+        galleryHeight = getGalleryHeight();
+        var responsiveHeight = getStatusDiv();
+        var currentWindowHeight = $(window).height();
+
+        initialMethod();
+        $(window).resize(function(){
+            galleryHeight = getGalleryHeight();
+            d_galleryHeight = $("#detail_photo_div").outerHeight();
+            responsiveHeight = getStatusDiv();
+            var documentWidth = $(document).width();
+            if(documentWidth >= 1200){
+                e.style.marginLeft = '325px';
+            }
+            else if(documentWidth >= 992 && documentWidth < 1200){
+                e.style.marginLeft = '240px';
+            }
+            else if(documentWidth >= 768 && documentWidth < 992){
+                e.style.marginLeft = '130px';
+            }
+            else if(documentWidth < 768){
+                e.style.marginLeft = '-800px';
+            }
+        })
+
+        function getStatusDiv()
+        {
+            var totalHeight = $("#count_div").outerHeight()+ $("#state_div").outerHeight()+ $("#price_div").outerHeight()+ $("#class_div").outerHeight() + 123;
+            return totalHeight;
+        }
+
+        function initialMethod() 
+        {
+            $("#element").css('top', currentWindowHeight - 433 +'px');
+            $("#element").css('position', 'fixed');
+            $("#sticky-tab").css('top', currentWindowHeight - 432 +'px');
+            $("#sticky-tab").css('position', 'fixed');
+        }
+    });
+    function getGalleryHeight() 
+    {
+        var height = $("#photo_div").outerHeight();
+        return height;
+    }
+</script>

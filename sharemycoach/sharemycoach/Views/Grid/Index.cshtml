@@ -1,0 +1,90 @@
+﻿@using sharemycoach.ViewModels.Grid
+@model IEnumerable<GridInfoViewModel>
+@using GridMvc.Html
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>No Booked Vehicles</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link href="~/Content/Gridmvc.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="~/Scripts/gridmvc.min.js"></script>
+    <link href="~/Content/images/smclogo.png" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body>
+    <div class="container" style="background-color:#ddd;">
+        <br /><br /><br /><br />
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-5">
+                <div class="form-inline">
+                    <label>QFKW:&nbsp;&nbsp;</label>
+                    <input type="text" class="form-control" id="input-vehicle-search-on-grid">&nbsp;&nbsp;
+                    <button type="button" class="btn btn-success" id="btn-vehicle-search-on-grid">Search</button>
+                </div>
+                
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        
+        <br />
+        @Html.Grid(Model).Columns(Columns =>
+        {
+            Columns.Add(c => c.QuickFindKeyWord).Titled("QFKW").Filterable(true);
+            Columns.Add(c => c.NameOnWeb).Titled("Name").Filterable(true);
+            Columns.Add(c => c.ClassName).Titled("Class").Filterable(true);
+            Columns.Add(c => c.Model).Titled("Model").Filterable(true);
+            Columns.Add(c => c.Adults).Titled("Adults").Filterable(true);
+            Columns.Add(c => c.Adolescents).Titled("Adolescents").Filterable(true);
+            Columns.Add(c => c.Children).Titled("Children").Filterable(true);
+            Columns.Add(c => c.DailyRate).Titled("Daily Rate").Filterable(true);
+            Columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .RenderValueAs(o => Html.ActionLink("View", "Index", new { id = o.WebUniqueId, controller = "VehicleDetail" } ));
+        }).WithPaging(10).Sortable(true)
+        <br /><br /><br /><br /><br />
+    </div>
+    <script type="text/javascript">
+        $('.grid-mvc').css('border', '2px solid darkgrey');
+        $('.grid-table tbody').css('border-up', '2px solid darkgrey');
+        $('.grid-table tbody').css('border-bottom', '2px solid darkgrey');
+    </script>
+    <script type="text/javascript">
+        $("#btn-vehicle-search-on-grid").click(function (e) {
+            var key = $('#input-vehicle-search-on-grid').val();
+            var default_search_status = sessionStorage.getItem("default_search");
+            getVehicleInformation(key);
+        });
+
+        function getVehicleInformation(key)
+        {
+            var webapi_url = '@System.Configuration.ConfigurationManager.AppSettings["RMXWebService"]';
+            var website_url = '@System.Configuration.ConfigurationManager.AppSettings["WebSite"]';
+            if (key) {
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: webapi_url + "search/" + key + "?token=AIzaSyAJSErr4vFLsOoylqQYkfQLKM26lnsHLXY",
+                    success: function (data) {
+                        var jsonResult = jQuery.parseJSON(JSON.stringify(data));
+                        if (jsonResult) {
+                            location.href = website_url + "VehicleDetail/" + jsonResult;
+                        }
+                        else {
+
+                        }
+                    },
+                    error: function (error) {
+                        var jsonResult = jQuery.parseJSON(error.responseText);
+                        console.log("error" + error.responseText);
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

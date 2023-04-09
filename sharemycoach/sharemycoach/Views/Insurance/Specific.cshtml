@@ -1,0 +1,131 @@
+﻿<!--Insurance Specific View-->
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<div class="row">
+    <div class="row pre-header" style="padding-top:0px; ">
+        <hr class="top-separate-line" />
+        <div id="insurance-header"></div>
+        <div id="insurance-body"></div>
+        <div id="insurance-footer"></div>
+    </div>
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var search_location_id = @ViewBag.SearchLocationSequenceId;
+        if(search_location_id > 0){
+            LoadInsuranceCompanyPage(search_location_id);
+        }
+        else{
+            var sequence_id = sessionStorage.getItem("CurrentLocationSequenceId");
+            LoadInsuranceCompanyPage(sequence_id);
+        }
+    });
+
+    function LoadInsuranceCompanyPage(id)
+    {
+        var webapi_path = '@System.Configuration.ConfigurationManager.AppSettings["RMXWebService"]';
+        var dir_names = '@ViewBag.DirNames';
+        var dir_list = dir_names.split(',');
+        var is_found = false;
+        for (var i = 0; i < dir_list.length; i++) {
+            if (id == dir_list[i]) {
+                is_found = true;
+                break;
+            }
+        }
+        if(is_found)
+        {
+            $("#insurance-header").load("../UserContent/" + id + "/Insurance_Company/Header.html", function(response, status, xhr)
+            {
+                if(status == "error"){ console.log("header file loading error........."); }
+            });
+            $("#insurance-body").load("../UserContent/" + id + "/Insurance_Company/Insurance_Company.html", function(response, status, xhr)
+            {
+                if(status == "success")
+                {
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: webapi_path + "insurance/" + id + "?token=AIzaSyAJSErr4vFLsOoylqQYkfQLKM26lnsHLXY",
+                        success: function (data)
+                        {
+                            jsonValue = jQuery.parseJSON(JSON.stringify(data));
+                            getInsuranceCompanies(jsonValue);
+                        },
+                        error: function (error)
+                        {
+                            jsonValue = jQuery.parseJSON(error.responseText);
+                            console.log(error.responseText);
+                        }
+                    });
+                }
+                if(status == "error"){ console.log("insurance_company file loading error......."); }
+            });
+            $("#insurance-footer").load("../UserContent/" + id + "/Insurance_Company/Footer.html", function(response, status, xhr)
+            {
+                if(status == "error"){ console.log("footer file loading error........."); }
+            });
+        }
+        else
+        {
+            $("#insurance-header").load("../UserContent/Common/Insurance_Company/Header.html", function(response, status, xhr)
+            {
+                if(status == "success")
+                {
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: webapi_path + "location" + "?token=AIzaSyAJSErr4vFLsOoylqQYkfQLKM26lnsHLXY",
+                        success: function(data)
+                        {
+                            jsonValue = jQuery.parseJSON(JSON.stringify(data));
+                            getLocationList(jsonValue);
+                        },
+                        error: function(error)
+                        {
+                            jsonValue = jQuery.parseJSON(error.responseText);
+                            console.log(error.responseText);
+                        }
+                    });
+                }
+                if(status == "error"){ console.log("header file loading error........."); }
+            });
+        }
+    }
+
+    function getInsuranceCompanies(obj)
+    {
+        //console.log(obj);
+        var content = '';
+        if (obj.length > 0) {
+            for (var i = 0; i < obj.length; i++) {
+                content += '<li>' + obj[i].InsuranceCompanyName + '</li>';
+            }
+        }
+        else {
+            content = '<h4 style="color:red;">This location has no specific data yet.</h4>';
+        }
+
+        document.getElementById('insurance-list').innerHTML = content;
+    }
+
+    function getLocationList(obj)
+    {
+        //console.log(obj);
+        var website = '@System.Configuration.ConfigurationManager.AppSettings["WebSite"]';
+        var list = '';
+        if(obj.length > 0){
+            for(var i = 0; i < obj.length; i++){
+                list += '<li><a class="nolineA" href="' + website + 'Insurance?location=' + obj[i].State + '-' + obj[i].City + '">' + obj[i].City + ', ' + obj[i].State + '</a></li>';
+            }
+        }
+        else{
+            list = '<h3 style="color:red;">Not Found Location Informations !</h3>';
+        }
+
+        document.getElementById('location-list').innerHTML = list;
+    }
+</script>

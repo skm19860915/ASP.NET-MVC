@@ -1,0 +1,21 @@
+﻿<!--Private RV Video Training Specific View-->
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<div class="row">
+    <div class="row pre-header" style="padding-top:0px; height:600px;">
+        <hr class="top-separate-line" />
+        <div id="rv-training-videos-header"></div>
+        <div id="rv-training-videos-body"></div>
+        <div id="rv-training-videos-footer"></div>
+    </div>
+    <!--START video range-->
+    @Html.Partial("~/Views/Shared/_VideoSection.cshtml")
+    <!--END video range-->
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#rv-training-videos-header").load('../UserContent/Common/Orientation_Videos/Header.html');
+        $("#rv-training-videos-body").load('../UserContent/Common/Orientation_Videos/Orientation_Videos.html');
+        $("#rv-training-videos-footer").load('../UserContent/Common/Orientation_Videos/Footer.html');
+    });
+</script>

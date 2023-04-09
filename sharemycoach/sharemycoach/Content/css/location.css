@@ -1,0 +1,124 @@
+﻿div.location-panel{
+    padding-top:20px;
+    padding-left:50px;
+    padding-right:40px;
+    padding-bottom:20px;
+    background-color:#808080;
+    border-radius:10px;
+    height:300px;
+}
+div.location-panel-mobile{
+    padding-top:10px;
+    padding-left:50px;
+    padding-right:40px;
+    padding-bottom:20px;
+    height:300px;
+}
+div.location-panel-mobile h2{
+    padding-bottom:10px;
+    color:#000000;
+}
+div.location-panel-mobile h4{
+    padding-bottom:10px;
+    color:#000000;
+}
+div.location-panel-mobile span{
+    font-weight:normal; 
+    font-size:18px;
+    color:#000000;
+}
+button.btn-change{
+    height: 45px;
+    width: 200px;
+    font-size: 18px;
+    background-color:#15a737;
+    border-radius:5px;
+}
+button.btn-change:focus{
+    outline:0;
+}
+div.class-div{
+vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    width: 100px;
+    border-radius: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.class-img-name {
+    display: block;
+    color:black;
+}
+img.class-img{
+    height:60px;
+    width:80px;
+    background-color: grey;
+}
+div.class-div:hover{
+    border-color:#ff0000;
+}
+.my-hover{
+    padding:0 !important;
+}
+.red_border_div{
+    border: 2px solid #ff0000;
+}
+.white_border_div{
+    border: 2px solid #ffffff;
+}
+.grey_border_div{
+    border: 2px solid #d3d3d3;
+}
+div#state_div h1, h2, h4{
+    text-align:center;
+    color:black;
+}
+div#state_div h1{
+    font-size:24px;
+    margin-bottom:-15px;
+}
+div#state_div h2{
+    font-size:20px;
+}
+img.sale-img{
+    position: absolute;
+    z-index: 1;
+    width: 60px;
+    margin-top: -26px;
+    margin-left: -26px;
+}
+@media only screen and (min-width : 1200px){
+    div#state_div h1{
+       margin-top:-30px;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199.98px){
+    div#state_div h1{
+       margin-top:-30px;
+    }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    div#state_div h1{
+       margin-top:-30px;
+    }
+}
+@media (min-width: 576px) and (max-width: 767.98px){
+    div#state_div h1{
+       margin-top:0px;
+    }
+}
+@media (max-width: 575.98px){
+    div#state_div h1{
+       margin-top:0px;
+    }
+}
+/*body.modal-open .background-container{
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
+    filter: url("https://gist.githubusercontent.com/amitabhaghosh197/b7865b409e835b5a43b5/raw/1a255b551091924971e7dee8935fd38a7fdf7311/blur".svg#blur);
+filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4');
+}*/
