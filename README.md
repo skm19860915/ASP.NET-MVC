@@ -3,5 +3,5 @@
 - front end development & design
 - ajax communication
 - smartystreet plugins, googlemap api, js framework
-- interface to consume webapi & mssql
+- interface to consume webapi & mssql 
 - url redirect, dynamic sitemap file, ga script
